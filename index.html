@@ -24,6 +24,12 @@ header.top{background:linear-gradient(120deg,var(--brand-d),var(--brand));color:
 .top .sub{font-size:13px;opacity:.85}
 .top .who{margin-left:auto;text-align:right;font-size:13px}
 .top .who button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:8px;padding:5px 10px;cursor:pointer;margin-left:6px}
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.lang button{border:0;background:#fff;color:var(--muted);padding:5px 9px;cursor:pointer;font-size:12.5px;font-weight:700;margin:0}
+.lang button.on{background:var(--brand);color:#fff}
+.top .lang{border-color:rgba(255,255,255,.4);margin-bottom:6px}
+.top .who .lang button{background:transparent;color:#fff;border:0;border-radius:0;margin:0}
+.top .who .lang button.on{background:#fff;color:var(--brand)}
 nav.tabs{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
 .tabs-in{max-width:1180px;margin:0 auto;padding:0 8px;display:flex;gap:2px;overflow-x:auto}
 .tabs button{border:0;background:none;padding:13px 14px;cursor:pointer;white-space:nowrap;color:var(--muted);border-bottom:3px solid transparent;font-weight:600}
@@ -51,6 +57,7 @@ input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid v
 /* login */
 .login{max-width:480px;margin:6vh auto;padding:0 16px}
 .login .card{padding:24px}
+.login .langrow{text-align:right;margin-bottom:6px}
 .login img{height:84px;display:block;margin:0 auto 10px}
 .login h1{font-size:20px;text-align:center;margin-bottom:4px}
 .login p.c{text-align:center;color:var(--muted);margin:0 0 16px}
@@ -103,24 +110,25 @@ tr.click{cursor:pointer} tr.click:hover td{background:#f6f9ff}
 <!-- ================= КІРУ ================= -->
 <div id="login" class="login">
   <div class="card">
+    <div class="langrow"><span class="lang"><button data-lang="kk">ҚАЗ</button><button data-lang="ru">РУС</button><button data-lang="en">ENG</button></span></div>
     <img src="logo.png" alt="" onerror="this.remove()">
-    <h1>Сабақты бақылау</h1>
-    <p class="c">«Сәтбаев қаласының білім бөлімі» ММ әдіскерлеріне арналған</p>
-    <label class="f">Әдіскердің аты-жөні
-      <input id="lgName" autocomplete="name" placeholder="Мысалы: Молдашов Б.С.">
+    <h1 data-i18n="appName"></h1>
+    <p class="c" data-i18n="loginSub"></p>
+    <label class="f"><span data-i18n="lgName"></span>
+      <input id="lgName" autocomplete="name" data-ph="lgNamePh">
     </label>
-    <label class="f">Кіру кілті
+    <label class="f"><span data-i18n="lgToken"></span>
       <input id="lgToken" type="password" autocomplete="off" placeholder="github_pat_…">
     </label>
     <div class="err" id="lgErr"></div>
     <div class="btns">
-      <button class="btn" id="lgBtn">Кіру</button>
-      <button class="btn ghost" id="lgDemo">Демо режимде көру</button>
+      <button class="btn" id="lgBtn" data-i18n="enter"></button>
+      <button class="btn ghost" id="lgDemo" data-i18n="demoBtn"></button>
     </div>
     <details>
-      <summary>Кіру кілті деген не?</summary>
-      <p class="note">Бағалаулар жабық қоймада сақталады, оны тек кілті бар әдіскерлер көре алады. Кілтті әкімші (сайтты ашқан әдіскер) береді. Ол осы браузерде есте сақталады, қайта енгізудің қажеті жоқ. Бөтен компьютерде жұмыс біткен соң «Шығу» батырмасын басыңыз.</p>
-      <p class="note">Демо режимде дерек тек осы браузерде тұрады, басқаларға көрінбейді. Сайтпен танысуға арналған.</p>
+      <summary data-i18n="keyQ"></summary>
+      <p class="note" data-i18n="keyA1"></p>
+      <p class="note" data-i18n="keyA2"></p>
     </details>
   </div>
 </div>
@@ -129,69 +137,69 @@ tr.click{cursor:pointer} tr.click:hover td{background:#f6f9ff}
 <div id="app" class="hidden">
 <header class="top"><div class="top-in">
   <img src="logo.png" alt="" onerror="this.remove()">
-  <div><h1>Сабақты бақылау</h1><div class="sub">Пән мұғалімдерінің сабақ беру процесін бақылау · Сәтбаев қаласының білім бөлімі</div></div>
-  <div class="who"><span id="whoName"></span><br><button id="btnRefresh">Жаңарту</button><button id="btnOut">Шығу</button></div>
+  <div><h1 data-i18n="appName"></h1><div class="sub" data-i18n="appSub"></div></div>
+  <div class="who"><span class="lang"><button data-lang="kk">ҚАЗ</button><button data-lang="ru">РУС</button><button data-lang="en">ENG</button></span><br>
+    <span id="whoName"></span><br><button id="btnRefresh" data-i18n="refresh"></button><button id="btnOut" data-i18n="logout"></button></div>
 </div></header>
 <nav class="tabs noprint"><div class="tabs-in">
-  <button data-tab="home" class="on">Шолу</button>
-  <button data-tab="form">Жаңа бағалау</button>
-  <button data-tab="table">Жиынтық кесте</button>
-  <button data-tab="prog">Прогресс</button>
+  <button data-tab="home" class="on" data-i18n="tabHome"></button>
+  <button data-tab="form" data-i18n="tabForm"></button>
+  <button data-tab="table" data-i18n="tabTable"></button>
+  <button data-tab="prog" data-i18n="tabProg"></button>
 </div></nav>
 
 <main>
-<div id="demoBanner" class="banner hidden noprint">Демо режим: дерек тек осы браузерде сақталады, әріптестерге көрінбейді. Үлгі жазбалар «(үлгі)» деп белгіленген.</div>
+<div id="demoBanner" class="banner hidden noprint" data-i18n="demoBanner"></div>
 
 <!-- Шолу -->
 <section id="tab-home">
   <div class="card noprint"><div class="row">
-    <label class="f">Кезең<select id="homePeriod"></select></label>
-    <div class="btns" style="flex:0 1 auto"><button class="btn ghost" id="xlsAll">Excel: барлық мектеп</button><button class="btn ghost" id="jsonAll">Сақтық көшірме (JSON)</button></div>
+    <label class="f"><span data-i18n="period"></span><select id="homePeriod"></select></label>
+    <div class="btns" style="flex:0 1 auto"><button class="btn ghost" id="xlsAll" data-i18n="xlsAll"></button><button class="btn ghost" id="jsonAll" data-i18n="backup"></button></div>
   </div></div>
   <div class="kpis" id="homeKpis"></div>
-  <div class="card"><h2>Мектептер бойынша</h2><div class="scroll" id="homeSchools"></div><p class="note noprint">Мектептің жолын бассаңыз, оның жиынтық кестесі ашылады.</p></div>
-  <div class="card"><h2>Критерийлер бойынша орташа ұпай (қала бойынша)</h2><div id="homeCrit"></div></div>
+  <div class="card"><h2 data-i18n="bySchools"></h2><div class="scroll" id="homeSchools"></div><p class="note noprint" data-i18n="rowHint"></p></div>
+  <div class="card"><h2 data-i18n="critAvg"></h2><div id="homeCrit"></div></div>
 </section>
 
 <!-- Форма -->
 <section id="tab-form" class="hidden">
   <div class="card">
-    <h2 id="formTitle">Жаңа бағалау</h2>
+    <h2 id="formTitle"></h2>
     <div class="row">
-      <label class="f" style="flex:2 1 280px">Білім беру ұйымы<select id="fSchool"></select></label>
-      <label class="f">Бақылау күні<input type="date" id="fDate"></label>
+      <label class="f" style="flex:2 1 280px"><span data-i18n="school"></span><select id="fSchool"></select></label>
+      <label class="f"><span data-i18n="obsDate"></span><input type="date" id="fDate"></label>
     </div>
     <div class="row" style="margin-top:12px">
-      <label class="f" style="flex:2 1 240px">Мұғалімнің аты-жөні<input id="fTeacher" list="dlTeachers" autocomplete="off" placeholder="Асанов Б.Қ."><datalist id="dlTeachers"></datalist></label>
-      <label class="f">Пәні<input id="fSubject" list="dlSubjects" placeholder="Математика"><datalist id="dlSubjects"></datalist></label>
-      <label class="f" style="flex:0 1 110px">Сыныбы<input id="fKlass" placeholder="9 «А»"></label>
+      <label class="f" style="flex:2 1 240px"><span data-i18n="teacherName"></span><input id="fTeacher" list="dlTeachers" autocomplete="off" data-ph="teacherPh"><datalist id="dlTeachers"></datalist></label>
+      <label class="f"><span data-i18n="subject"></span><input id="fSubject" list="dlSubjects" data-ph="subjectPh"><datalist id="dlSubjects"></datalist></label>
+      <label class="f" style="flex:0 1 110px"><span data-i18n="klass"></span><input id="fKlass" data-ph="klassPh"></label>
     </div>
     <div class="row" style="margin-top:12px">
-      <label class="f">Санаты<input id="fCat" list="dlCats" placeholder="Педагог-сарапшы"><datalist id="dlCats">
-        <option>Педагог</option><option>Педагог-модератор</option><option>Педагог-сарапшы</option><option>Педагог-зерттеуші</option><option>Педагог-шебер</option><option>Санатсыз</option></datalist></label>
-      <label class="f" style="flex:0 1 140px">Өтілі (жыл)<input id="fExp" type="number" min="0" max="60" inputmode="numeric"></label>
-      <label class="f">Бақылаған әдіскер<input id="fObserver"></label>
+      <label class="f"><span data-i18n="category"></span><input id="fCat" list="dlCats" data-ph="catPh"><datalist id="dlCats"></datalist></label>
+      <label class="f" style="flex:0 1 140px"><span data-i18n="exp"></span><input id="fExp" type="number" min="0" max="60" inputmode="numeric"></label>
+      <label class="f"><span data-i18n="observer"></span><input id="fObserver"></label>
     </div>
   </div>
   <div class="card">
-    <h2>Бағалау</h2>
-    <p class="note">Шкала: 3 – жоғары деңгей; 2 – жеткілікті деңгей; 1 – төмен деңгей; 0 – байқалмады.</p>
+    <h2 data-i18n="scoring"></h2>
+    <p class="note" data-i18n="scaleShort"></p>
     <div id="fCrit"></div>
-    <div class="sum">Барлық ұпай: <b id="fTotal">–</b> / 18 <span>Сапа: <b id="fPct">–</b></span> <span id="fLevel"></span></div>
+    <div class="sum"><span data-i18n="totalLbl"></span> <b id="fTotal">–</b> / 18 <span><span data-i18n="qualityLbl"></span> <b id="fPct">–</b></span> <span id="fLevel"></span></div>
   </div>
   <div class="card">
-    <label class="f">Әдіскердің қысқаша қорытындысы / ұсынысы<textarea id="fNote"></textarea></label>
+    <label class="f"><span data-i18n="noteLbl"></span><textarea id="fNote"></textarea></label>
     <div class="err" id="fErr"></div>
-    <div class="btns"><button class="btn" id="fSave">Сақтау</button><button class="btn ghost" id="fClear">Тазалау</button></div>
+    <div class="btns"><button class="btn" id="fSave"></button><button class="btn ghost" id="fClear" data-i18n="clear"></button></div>
   </div>
 </section>
 
 <!-- Жиынтық кесте -->
 <section id="tab-table" class="hidden">
   <div class="card noprint"><div class="row">
-    <label class="f" style="flex:2 1 280px">Білім беру ұйымы<select id="tSchool"></select></label>
-    <label class="f">Кезең<select id="tPeriod"></select></label>
-    <div class="btns" style="flex:0 1 auto"><button class="btn" id="xlsOne">Excel жүктеу</button><button class="btn ghost" id="printOne">Басып шығару / PDF</button></div>
+    <label class="f" style="flex:2 1 280px"><span data-i18n="school"></span><select id="tSchool"></select></label>
+    <label class="f"><span data-i18n="period"></span><select id="tPeriod"></select></label>
+    <div class="btns" style="flex:0 1 auto"><button class="btn" id="xlsOne" data-i18n="xlsOne"></button><button class="btn ghost" id="printOne" data-i18n="print"></button></div>
   </div></div>
   <div class="card" id="tOut"></div>
 </section>
@@ -199,11 +207,11 @@ tr.click{cursor:pointer} tr.click:hover td{background:#f6f9ff}
 <!-- Прогресс -->
 <section id="tab-prog" class="hidden">
   <div class="card noprint"><div class="row">
-    <label class="f" style="flex:2 1 280px">Білім беру ұйымы<select id="pSchool"></select></label>
+    <label class="f" style="flex:2 1 280px"><span data-i18n="school"></span><select id="pSchool"></select></label>
   </div></div>
-  <div class="card"><h2>Мектептің кезеңдер бойынша көрсеткіші</h2><div class="scroll" id="pPeriods"></div></div>
-  <div class="card"><h2>Мұғалімдердің прогресі</h2><div class="scroll" id="pTeachers"></div>
-    <p class="note">Өзгеріс мұғалімнің алғашқы және соңғы бақылауының сапа пайызын салыстырады. Ол үшін мұғалім кемінде екі рет бақылануы керек.</p></div>
+  <div class="card"><h2 data-i18n="schoolByPeriod"></h2><div class="scroll" id="pPeriods"></div></div>
+  <div class="card"><h2 data-i18n="teacherProg"></h2><div class="scroll" id="pTeachers"></div>
+    <p class="note" data-i18n="progHint"></p></div>
 </section>
 </main>
 </div>
@@ -216,18 +224,165 @@ const CFG = {
   dataRepo: 'sabaq-baqylau-data',   // ЖАБЫҚ (private) дерек репозиторийі
   path: 'data/observations.json'    // дерек файлы
 };
+/* Мектептер: дерекке қазақша атауы жазылады (SCHOOLS), ru/en тек көрсету үшін. Ретін өзгертпеңіз. */
 const SCHOOLS = [
   'С.Сейфуллин атындағы гимназиясы КММ','Б.Момышұлы атындағы мектеп-гимназиясы КММ','№3 ЖББМ КММ',
   'Абай атындағы №4 мектеп-лицейі','№5 ЖББМ КММ','№7 ЖББМ КММ','Қ.Сәтбаев атындағы ЖББМ КММ','№14 ЖББМ КММ',
   'Ә.Марғұлан ат. ЖББМ КММ','№16 ЖББМ КММ','Ы.Алтынсарин ат. мектеп-лицейі КММ','№25 ЖББМ КММ','№27 ЖББМ КММ'
 ];
-const CRIT = ['1. Мақсат қою (SMART)','2. Белсенді әдіс-тәсілдер','3. Цифрлық ресурстар (АКТ/ЖИ)',
-  '4. Саралап оқыту (ЕБҚ қолдау)','5. ҚБ және кері байланыс','6. Тайм-менеджмент және рефлексия'];
-const MAXP = CRIT.length * 3;
-const TITLE = 'БІР МЕКТЕПТІҢ ПӘН МҰҒАЛІМДЕРІНІҢ САБАҚ БЕРУ ПРОЦЕСІН БАҚЫЛАУДЫҢ ЖИЫНТЫҚ КЕСТЕСІ';
-const GOAL = 'Пән мұғалімдерінің оқыту сапасын, жаңа әдіс-тәсілдер мен цифрлық ресурстарды қолдану деңгейін анықтау';
-const SCALE = 'Бағалау шкаласы: 3 – жоғары деңгей; 2 – жеткілікті деңгей; 1 – төмен деңгей; 0 – байқалмады.';
+const SCHOOLS_L = {
+  kk: SCHOOLS,
+  ru: ['Гимназия имени С.Сейфуллина','Школа-гимназия имени Б.Момышулы','Общеобразовательная школа №3','Школа-лицей №4 имени Абая',
+    'Общеобразовательная школа №5','Общеобразовательная школа №7','Общеобразовательная школа имени К.Сатпаева','Общеобразовательная школа №14',
+    'Общеобразовательная школа имени А.Маргулана','Общеобразовательная школа №16','Школа-лицей имени Ы.Алтынсарина','Общеобразовательная школа №25','Общеобразовательная школа №27'],
+  en: ['S. Seifullin Gymnasium','B. Momyshuly School-Gymnasium','Secondary School No. 3','Abai School-Lyceum No. 4','Secondary School No. 5','Secondary School No. 7',
+    'K. Satpayev Secondary School','Secondary School No. 14','A. Margulan Secondary School','Secondary School No. 16','Y. Altynsarin School-Lyceum','Secondary School No. 25','Secondary School No. 27']
+};
+const CRIT_L = {
+  kk: ['1. Мақсат қою (SMART)','2. Белсенді әдіс-тәсілдер','3. Цифрлық ресурстар (АКТ/ЖИ)','4. Саралап оқыту (ЕБҚ қолдау)','5. ҚБ және кері байланыс','6. Тайм-менеджмент және рефлексия'],
+  ru: ['1. Постановка целей (SMART)','2. Активные методы и приёмы','3. Цифровые ресурсы (ИКТ/ИИ)','4. Дифференцированное обучение (поддержка ООП)','5. ФО и обратная связь','6. Тайм-менеджмент и рефлексия'],
+  en: ['1. Goal setting (SMART)','2. Active teaching methods','3. Digital resources (ICT/AI)','4. Differentiated instruction (SEN support)','5. Formative assessment and feedback','6. Time management and reflection']
+};
+const NCRIT = 6, MAXP = NCRIT * 3;
 const EXCELJS = 'https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js';
+
+/* ============ ТІЛДЕР ============ */
+const I18N = {
+kk: {
+  locale:'kk-KZ', docTitle:'Сабақты бақылау — Сәтбаев қаласының білім бөлімі',
+  appName:'Сабақты бақылау', loginSub:'«Сәтбаев қаласының білім бөлімі» ММ әдіскерлеріне арналған',
+  appSub:'Пән мұғалімдерінің сабақ беру процесін бақылау · Сәтбаев қаласының білім бөлімі',
+  lgName:'Әдіскердің аты-жөні', lgNamePh:'Мысалы: Жунусова А.Д.', lgToken:'Кіру кілті', enter:'Кіру', demoBtn:'Демо режимде көру',
+  keyQ:'Кіру кілті деген не?',
+  keyA1:'Бағалаулар жабық қоймада сақталады, оны тек кілті бар әдіскерлер көре алады. Кілтті әкімші (сайтты ашқан әдіскер) береді. Ол осы браузерде есте сақталады, қайта енгізудің қажеті жоқ. Бөтен компьютерде жұмыс біткен соң «Шығу» батырмасын басыңыз.',
+  keyA2:'Демо режимде дерек тек осы браузерде тұрады, басқаларға көрінбейді. Сайтпен танысуға арналған.',
+  refresh:'Жаңарту', logout:'Шығу', demo:'демо', demoUser:'Демо әдіскер',
+  tabHome:'Шолу', tabForm:'Жаңа бағалау', tabTable:'Жиынтық кесте', tabProg:'Прогресс',
+  demoBanner:'Демо режим: дерек тек осы браузерде сақталады, әріптестерге көрінбейді. Үлгі жазбалар «(үлгі)» деп белгіленген.',
+  period:'Кезең', allPeriods:'Барлық кезең', xlsAll:'Excel: барлық мектеп', backup:'Сақтық көшірме (JSON)',
+  bySchools:'Мектептер бойынша', rowHint:'Мектептің жолын бассаңыз, оның жиынтық кестесі ашылады.', critAvg:'Критерийлер бойынша орташа ұпай (қала бойынша)',
+  school:'Білім беру ұйымы', obsDate:'Бақылау күні', teacherName:'Мұғалімнің аты-жөні', teacherPh:'Асанов Б.Қ.', subject:'Пәні', subjectPh:'Математика',
+  klass:'Сыныбы', klassPh:'9 «А»', category:'Санаты', catPh:'Педагог-сарапшы', exp:'Өтілі (жыл)', observer:'Бақылаған әдіскер',
+  cats:['Педагог','Педагог-модератор','Педагог-сарапшы','Педагог-зерттеуші','Педагог-шебер','Санатсыз'],
+  scoring:'Бағалау', scaleShort:'Шкала: 3 – жоғары деңгей; 2 – жеткілікті деңгей; 1 – төмен деңгей; 0 – байқалмады.',
+  totalLbl:'Барлық ұпай:', qualityLbl:'Сапа:', noteLbl:'Әдіскердің қысқаша қорытындысы / ұсынысы', save:'Сақтау', saveEdit:'Өзгерісті сақтау', clear:'Тазалау',
+  newTitle:'Жаңа бағалау', editTitle:'Бағалауды өңдеу', xlsOne:'Excel жүктеу', print:'Басып шығару / PDF',
+  schoolByPeriod:'Мектептің кезеңдер бойынша көрсеткіші', teacherProg:'Мұғалімдердің прогресі',
+  progHint:'Өзгеріс мұғалімнің алғашқы және соңғы бақылауының сапа пайызын салыстырады. Ол үшін мұғалім кемінде екі рет бақылануы керек.',
+  yearHalf:(s,h)=>`${s}-${s+1} оқу жылы, ${h===1?'I':'II'} жартыжылдық`, yrs:'ж.',
+  lvHi:'Жоғары деңгей', lvMid:'Орташа деңгей', lvLo:'Төмен деңгей', hi:'Жоғары', mid:'Орташа', lo:'Төмен',
+  kLessons:'Бақыланған сабақ', kTeachers:'Бағаланған мұғалім', kQuality:'Орташа сапа', kAvg:'Орташа ұпай (макс. 18)',
+  no:'№', lessons:'Сабақ саны', teachers:'Мұғалім', teachersN:'Мұғалімдер саны', avgScore:'Орташа ұпай', qualityPct:'Сапа %-ы', noObs:'бақылау жоқ', city:'Қала бойынша',
+  noObsPeriod:'Бұл кезеңде әзірге бақылау жоқ.', noObsSchoolPeriod:'Бұл мектеп бойынша таңдалған кезеңде әзірге бақылау жоқ.', noObsSchool:'Бұл мектеп бойынша әзірге бақылау жоқ.',
+  title:'БІР МЕКТЕПТІҢ ПӘН МҰҒАЛІМДЕРІНІҢ САБАҚ БЕРУ ПРОЦЕСІН БАҚЫЛАУДЫҢ ЖИЫНТЫҚ КЕСТЕСІ',
+  orgName:'Білім беру ұйымының атауы:', goalLbl:'Бақылау мақсаты:', termLbl:'Бақылау мерзімі:',
+  goal:'Пән мұғалімдерінің оқыту сапасын, жаңа әдіс-тәсілдер мен цифрлық ресурстарды қолдану деңгейін анықтау',
+  scale:'Бағалау шкаласы: 3 – жоғары деңгей; 2 – жеткілікті деңгей; 1 – төмен деңгей; 0 – байқалмады.',
+  hTeacher:'Мұғалімнің аты-жөні', hSubj:'Пәні / Сыныбы', hCat:'Санаты / Өтілі', hTotal:'Барлық ұпай (макс. 18)', hLevel:'Деңгейі',
+  edit:'Өңдеу', del:'Өшіру', confirm:'Растау?', schoolAvg:'Мектеп бойынша орташа көрсеткіш:',
+  distTitle:'Сабақ беру сапасының деңгейлері бойынша бөлініс', dLevel:'Деңгей', dRange:'Балл аралығы', dShare:'Сапа үлесі (%)', dCount:'Бақылау саны', dPct:'Үлесі (%)',
+  r1:'15 – 18 ұпай', r2:'11 – 14 ұпай', r3:'10 ұпай және төмен', dTotal:'Барлығы бағаланған сабақ / мұғалім саны:', dTotalX:'Барлығы бағаланған сабақ саны:',
+  change:'Өзгеріс', pSubject:'Пәні', pCount:'Бақылау саны', pList:'Бақылаулар (күні – сапа)', first:'Алғашқы', last:'Соңғы', dynamics:'Динамика', lastLevel:'Соңғы деңгейі', same:'өзгеріссіз',
+  cityTitle:'ҚАЛА МЕКТЕПТЕРІ БОЙЫНША САБАҚ БЕРУ ПРОЦЕСІН БАҚЫЛАУДЫҢ ЖИЫНТЫҚ КӨРСЕТКІШІ', citySheet:'Қала бойынша',
+  fileOne:'Жиынтық кесте', fileAll:'Сабақты бақылау_қала бойынша',
+  eName:'Аты-жөніңізді жазыңыз.', eToken:'Кіру кілтін енгізіңіз.', eTeacher:'Мұғалімнің аты-жөнін жазыңыз.', eSubject:'Пәнді жазыңыз.', eDate:'Бақылау күнін таңдаңыз.',
+  eFuture:'Бақылау күні болашақта болмауы керек.', eScores:'Барлық 6 критерийді бағалаңыз (байқалмаса – 0).',
+  tRefreshed:'Дерек жаңартылды', tSaved:'Бағалау сақталды', tEdited:'Өзгеріс сақталды', tDeleted:'Жазба өшірілді', tReport:'Есеп жүктелді', tBackup:'Сақтық көшірме жүктелді', eGeneric:'Қате.',
+  eNet:'Интернет байланысы жоқ немесе GitHub қолжетімсіз.', eCorrupt:'Дерек файлы бүлінген. Әкімшіге хабарлаңыз.', eKey:'Кілт қате немесе мерзімі өтіп кеткен.',
+  eNoAccess:'Кілттің дерек қоймасына рұқсаты жоқ (немесе қойма әлі ашылмаған).', eReadOnly:'Бұл кілт тек көруге арналған, жазуға рұқсаты жоқ.',
+  eConflict:'Қатар сақтау кедергі болды. Қайта «Сақтау» басыңыз.', e403:'Рұқсат жоқ немесе сұраныс шегі асып кетті. Сәлден соң қайталаңыз.', e404:'Дерек қоймасы табылмады.',
+  eHttp:s=>`GitHub қатесі (${s}). Сәлден соң қайталаңыз.`, eExcel:'Excel модулі жүктелмеді. Интернетті тексеріп, қайталаңыз.'
+},
+ru: {
+  locale:'ru-RU', docTitle:'Наблюдение уроков — Отдел образования города Сатпаев',
+  appName:'Наблюдение уроков', loginSub:'Для методистов ГУ «Отдел образования города Сатпаев»',
+  appSub:'Наблюдение за процессом преподавания учителей-предметников · Отдел образования города Сатпаев',
+  lgName:'ФИО методиста', lgNamePh:'Например: Жунусова А.Д.', lgToken:'Ключ доступа', enter:'Войти', demoBtn:'Посмотреть в демо-режиме',
+  keyQ:'Что такое ключ доступа?',
+  keyA1:'Оценки хранятся в закрытом хранилище, их видят только методисты, у которых есть ключ. Ключ выдаёт администратор (методист, открывший сайт). Он запоминается в этом браузере, вводить повторно не нужно. На чужом компьютере после работы нажмите «Выйти».',
+  keyA2:'В демо-режиме данные хранятся только в этом браузере и другим не видны. Режим предназначен для знакомства с сайтом.',
+  refresh:'Обновить', logout:'Выйти', demo:'демо', demoUser:'Демо-методист',
+  tabHome:'Обзор', tabForm:'Новая оценка', tabTable:'Сводная таблица', tabProg:'Прогресс',
+  demoBanner:'Демо-режим: данные хранятся только в этом браузере и коллегам не видны. Образцы записей помечены «(үлгі)».',
+  period:'Период', allPeriods:'Все периоды', xlsAll:'Excel: все школы', backup:'Резервная копия (JSON)',
+  bySchools:'По школам', rowHint:'Нажмите на строку школы, чтобы открыть её сводную таблицу.', critAvg:'Средний балл по критериям (по городу)',
+  school:'Организация образования', obsDate:'Дата наблюдения', teacherName:'ФИО учителя', teacherPh:'Асанов Б.К.', subject:'Предмет', subjectPh:'Математика',
+  klass:'Класс', klassPh:'9 «А»', category:'Категория', catPh:'Педагог-эксперт', exp:'Стаж (лет)', observer:'Методист-наблюдатель',
+  cats:['Педагог','Педагог-модератор','Педагог-эксперт','Педагог-исследователь','Педагог-мастер','Без категории'],
+  scoring:'Оценивание', scaleShort:'Шкала: 3 – высокий уровень; 2 – достаточный уровень; 1 – низкий уровень; 0 – не наблюдалось.',
+  totalLbl:'Всего баллов:', qualityLbl:'Качество:', noteLbl:'Краткое заключение / рекомендация методиста', save:'Сохранить', saveEdit:'Сохранить изменения', clear:'Очистить',
+  newTitle:'Новая оценка', editTitle:'Редактирование оценки', xlsOne:'Скачать Excel', print:'Печать / PDF',
+  schoolByPeriod:'Показатели школы по периодам', teacherProg:'Прогресс учителей',
+  progHint:'Изменение сравнивает процент качества первого и последнего наблюдения учителя. Для этого учитель должен быть оценён минимум два раза.',
+  yearHalf:(s,h)=>`${s}-${s+1} учебный год, ${h===1?'I':'II'} полугодие`, yrs:'л.',
+  lvHi:'Высокий уровень', lvMid:'Средний уровень', lvLo:'Низкий уровень', hi:'Высокий', mid:'Средний', lo:'Низкий',
+  kLessons:'Посещено уроков', kTeachers:'Оценено учителей', kQuality:'Среднее качество', kAvg:'Средний балл (макс. 18)',
+  no:'№', lessons:'Уроков', teachers:'Учителей', teachersN:'Количество учителей', avgScore:'Средний балл', qualityPct:'% качества', noObs:'нет наблюдений', city:'По городу',
+  noObsPeriod:'За этот период наблюдений пока нет.', noObsSchoolPeriod:'По этой школе за выбранный период наблюдений пока нет.', noObsSchool:'По этой школе наблюдений пока нет.',
+  title:'СВОДНАЯ ТАБЛИЦА НАБЛЮДЕНИЯ ЗА ПРОЦЕССОМ ПРЕПОДАВАНИЯ УЧИТЕЛЕЙ-ПРЕДМЕТНИКОВ ОДНОЙ ШКОЛЫ',
+  orgName:'Наименование организации образования:', goalLbl:'Цель наблюдения:', termLbl:'Период наблюдения:',
+  goal:'Определение качества преподавания учителей-предметников, уровня применения новых методов и приёмов и цифровых ресурсов',
+  scale:'Шкала оценивания: 3 – высокий уровень; 2 – достаточный уровень; 1 – низкий уровень; 0 – не наблюдалось.',
+  hTeacher:'ФИО учителя', hSubj:'Предмет / Класс', hCat:'Категория / Стаж', hTotal:'Всего баллов (макс. 18)', hLevel:'Уровень',
+  edit:'Изменить', del:'Удалить', confirm:'Точно?', schoolAvg:'Средний показатель по школе:',
+  distTitle:'Распределение по уровням качества преподавания', dLevel:'Уровень', dRange:'Диапазон баллов', dShare:'Доля качества (%)', dCount:'Количество наблюдений', dPct:'Доля (%)',
+  r1:'15 – 18 баллов', r2:'11 – 14 баллов', r3:'10 баллов и ниже', dTotal:'Всего оценено уроков / учителей:', dTotalX:'Всего оценено уроков:',
+  change:'Изменение', pSubject:'Предмет', pCount:'Наблюдений', pList:'Наблюдения (дата – качество)', first:'Первое', last:'Последнее', dynamics:'Динамика', lastLevel:'Последний уровень', same:'без изменений',
+  cityTitle:'СВОДНЫЕ ПОКАЗАТЕЛИ НАБЛЮДЕНИЯ ЗА ПРОЦЕССОМ ПРЕПОДАВАНИЯ ПО ШКОЛАМ ГОРОДА', citySheet:'По городу',
+  fileOne:'Сводная таблица', fileAll:'Наблюдение уроков_по городу',
+  eName:'Укажите ФИО.', eToken:'Введите ключ доступа.', eTeacher:'Укажите ФИО учителя.', eSubject:'Укажите предмет.', eDate:'Выберите дату наблюдения.',
+  eFuture:'Дата наблюдения не может быть в будущем.', eScores:'Оцените все 6 критериев (если не наблюдалось – 0).',
+  tRefreshed:'Данные обновлены', tSaved:'Оценка сохранена', tEdited:'Изменения сохранены', tDeleted:'Запись удалена', tReport:'Отчёт скачан', tBackup:'Резервная копия скачана', eGeneric:'Ошибка.',
+  eNet:'Нет интернета или GitHub недоступен.', eCorrupt:'Файл данных повреждён. Сообщите администратору.', eKey:'Ключ неверный или срок его действия истёк.',
+  eNoAccess:'У ключа нет доступа к хранилищу данных (или хранилище ещё не создано).', eReadOnly:'Этот ключ только для просмотра, права на запись нет.',
+  eConflict:'Помешало одновременное сохранение. Нажмите «Сохранить» ещё раз.', e403:'Нет доступа или превышен лимит запросов. Повторите чуть позже.', e404:'Хранилище данных не найдено.',
+  eHttp:s=>`Ошибка GitHub (${s}). Повторите чуть позже.`, eExcel:'Модуль Excel не загрузился. Проверьте интернет и повторите.'
+},
+en: {
+  locale:'en-GB', docTitle:'Lesson Observation — Satpayev City Education Department',
+  appName:'Lesson Observation', loginSub:'For methodologists of the Satpayev City Education Department',
+  appSub:'Observation of subject teachers’ lessons · Satpayev City Education Department',
+  lgName:'Methodologist’s name', lgNamePh:'For example: Zhunussova A.D.', lgToken:'Access key', enter:'Sign in', demoBtn:'View in demo mode',
+  keyQ:'What is an access key?',
+  keyA1:'Evaluations are kept in a private store that only methodologists with a key can see. The key is issued by the administrator (the methodologist who set up the site). It is remembered in this browser, so you do not need to enter it again. On someone else’s computer, press “Sign out” when you finish.',
+  keyA2:'In demo mode the data stays only in this browser and nobody else can see it. It is meant for trying the site out.',
+  refresh:'Refresh', logout:'Sign out', demo:'demo', demoUser:'Demo methodologist',
+  tabHome:'Overview', tabForm:'New evaluation', tabTable:'Summary table', tabProg:'Progress',
+  demoBanner:'Demo mode: data is saved only in this browser and colleagues cannot see it. Sample records are marked “(үлгі)”.',
+  period:'Period', allPeriods:'All periods', xlsAll:'Excel: all schools', backup:'Backup (JSON)',
+  bySchools:'By school', rowHint:'Click a school row to open its summary table.', critAvg:'Average score by criterion (city-wide)',
+  school:'School', obsDate:'Observation date', teacherName:'Teacher’s name', teacherPh:'Assanov B.K.', subject:'Subject', subjectPh:'Mathematics',
+  klass:'Class', klassPh:'9 A', category:'Category', catPh:'Teacher-expert', exp:'Experience (years)', observer:'Observing methodologist',
+  cats:['Teacher','Teacher-moderator','Teacher-expert','Teacher-researcher','Teacher-master','No category'],
+  scoring:'Scoring', scaleShort:'Scale: 3 – high level; 2 – sufficient level; 1 – low level; 0 – not observed.',
+  totalLbl:'Total score:', qualityLbl:'Quality:', noteLbl:'Methodologist’s brief conclusion / recommendation', save:'Save', saveEdit:'Save changes', clear:'Clear',
+  newTitle:'New evaluation', editTitle:'Edit evaluation', xlsOne:'Download Excel', print:'Print / PDF',
+  schoolByPeriod:'School results by period', teacherProg:'Teacher progress',
+  progHint:'Change compares the quality percentage of a teacher’s first and latest observation. A teacher must be observed at least twice for it to appear.',
+  yearHalf:(s,h)=>`${s}-${s+1} school year, ${h===1?'1st':'2nd'} half-year`, yrs:'yrs',
+  lvHi:'High level', lvMid:'Medium level', lvLo:'Low level', hi:'High', mid:'Medium', lo:'Low',
+  kLessons:'Lessons observed', kTeachers:'Teachers evaluated', kQuality:'Average quality', kAvg:'Average score (max 18)',
+  no:'No.', lessons:'Lessons', teachers:'Teachers', teachersN:'Number of teachers', avgScore:'Average score', qualityPct:'Quality %', noObs:'no observations', city:'City-wide',
+  noObsPeriod:'No observations in this period yet.', noObsSchoolPeriod:'No observations for this school in the selected period yet.', noObsSchool:'No observations for this school yet.',
+  title:'SUMMARY TABLE OF LESSON OBSERVATIONS OF SUBJECT TEACHERS IN ONE SCHOOL',
+  orgName:'Name of the school:', goalLbl:'Purpose of observation:', termLbl:'Observation period:',
+  goal:'To determine the quality of subject teachers’ instruction and the level of use of new teaching methods and digital resources',
+  scale:'Rating scale: 3 – high level; 2 – sufficient level; 1 – low level; 0 – not observed.',
+  hTeacher:'Teacher’s name', hSubj:'Subject / Class', hCat:'Category / Experience', hTotal:'Total score (max 18)', hLevel:'Level',
+  edit:'Edit', del:'Delete', confirm:'Confirm?', schoolAvg:'School average:',
+  distTitle:'Distribution by level of teaching quality', dLevel:'Level', dRange:'Score range', dShare:'Quality share (%)', dCount:'Observations', dPct:'Share (%)',
+  r1:'15 – 18 points', r2:'11 – 14 points', r3:'10 points or below', dTotal:'Total lessons / teachers evaluated:', dTotalX:'Total lessons evaluated:',
+  change:'Change', pSubject:'Subject', pCount:'Observations', pList:'Observations (date – quality)', first:'First', last:'Latest', dynamics:'Trend', lastLevel:'Latest level', same:'no change',
+  cityTitle:'SUMMARY OF LESSON OBSERVATION RESULTS ACROSS CITY SCHOOLS', citySheet:'City-wide',
+  fileOne:'Summary table', fileAll:'Lesson observation_city',
+  eName:'Enter your name.', eToken:'Enter the access key.', eTeacher:'Enter the teacher’s name.', eSubject:'Enter the subject.', eDate:'Choose the observation date.',
+  eFuture:'The observation date cannot be in the future.', eScores:'Score all 6 criteria (use 0 if not observed).',
+  tRefreshed:'Data refreshed', tSaved:'Evaluation saved', tEdited:'Changes saved', tDeleted:'Record deleted', tReport:'Report downloaded', tBackup:'Backup downloaded', eGeneric:'Error.',
+  eNet:'No internet connection or GitHub is unavailable.', eCorrupt:'The data file is damaged. Tell the administrator.', eKey:'The key is wrong or has expired.',
+  eNoAccess:'The key has no access to the data store (or the store has not been created yet).', eReadOnly:'This key is view-only; it has no permission to save.',
+  eConflict:'A simultaneous save got in the way. Press “Save” again.', e403:'No access, or the request limit was exceeded. Try again shortly.', e404:'Data store not found.',
+  eHttp:s=>`GitHub error (${s}). Try again shortly.`, eExcel:'The Excel module did not load. Check your internet and try again.'
+}};
 
 /* ============ КӨМЕКШІЛЕР ============ */
 const $ = id => document.getElementById(id);
@@ -237,24 +392,29 @@ const ls = {
   set(k,v){ try { localStorage.setItem(k,v); } catch(e){} },
   del(k){ try { localStorage.removeItem(k); } catch(e){} }
 };
+let lang = I18N[ls.get('sb_lang')] ? ls.get('sb_lang') : 'kk';
+const t = (k, ...a) => { const v = I18N[lang][k] ?? I18N.kk[k]; if(v===undefined){ console.warn('i18n missing: '+k); return k; } return typeof v==='function' ? v(...a) : v; };
+const crit = () => CRIT_L[lang];
+const sName = kkName => { const i=SCHOOLS.indexOf(kkName); return i<0 ? kkName : SCHOOLS_L[lang][i]; };
 let toastT;
-function toast(msg, bad){ const t=$('toast'); t.textContent=msg; t.className=bad?'bad':''; clearTimeout(toastT); toastT=setTimeout(()=>t.className='hidden', bad?6000:2800); }
+function toast(msg, bad){ const el=$('toast'); el.textContent=msg; el.className=bad?'bad':''; clearTimeout(toastT); toastT=setTimeout(()=>el.className='hidden', bad?6000:2800); }
 const today = () => { const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
 const fmtDate = s => s ? s.split('-').reverse().join('.') : '';
 const total = r => r.scores.reduce((a,b)=>a+b,0);
 const pct = r => total(r)/MAXP;
 const pc = x => (x==null||isNaN(x)) ? '–' : Math.round(x*100)+'%';
-const num = x => (x==null||isNaN(x)) ? '–' : (Math.round(x*10)/10).toLocaleString('kk-KZ');
-function level(t){ return t>=15 ? {k:'hi',t:'Жоғары деңгей'} : t>=11 ? {k:'mid',t:'Орташа деңгей'} : {k:'lo',t:'Төмен деңгей'}; }
-const lvlTag = t => { const l=level(t); return `<span class="lvl ${l.k}">${l.t}</span>`; };
-function period(date){ const [y,m]=date.split('-').map(Number); const s = m>=9 ? y : y-1; const h = m>=9 ? 1 : 2;
-  return { key: s+'-'+h, label: `${s}-${s+1} оқу жылы, ${h===1?'I':'II'} жартыжылдық` }; }
+const num = x => (x==null||isNaN(x)) ? '–' : (Math.round(x*10)/10).toLocaleString(t('locale'));
+const lvKey = n => n>=15 ? 'hi' : n>=11 ? 'mid' : 'lo';
+const lvName = k => t(k==='hi'?'lvHi':k==='mid'?'lvMid':'lvLo');
+const lvlTag = n => { const k=lvKey(n); return `<span class="lvl ${k}">${lvName(k)}</span>`; };
+const periodKey = date => { const [y,m]=date.split('-').map(Number); return (m>=9?y:y-1)+'-'+(m>=9?1:2); };
+const periodLabel = key => { if(key==='all') return t('allPeriods'); const [s,h]=key.split('-').map(Number); return t('yearHalf',s,h); };
 const tKey = r => r.school+'|'+r.teacher.trim().toLowerCase().replace(/\s+/g,' ');
 const subjKlass = r => [r.subject, r.klass].filter(Boolean).join(', ');
-const catExp = r => [r.category, (r.exp!=='' && r.exp!=null) ? r.exp+' ж.' : ''].filter(Boolean).join(', ');
+const catExp = r => [r.category, (r.exp!=='' && r.exp!=null) ? r.exp+' '+t('yrs') : ''].filter(Boolean).join(', ');
 function agg(recs){
-  const n=recs.length, lv={hi:0,mid:0,lo:0}; let sum=0; const cs=CRIT.map(()=>0);
-  recs.forEach(r=>{ const t=total(r); sum+=t; lv[level(t).k]++; r.scores.forEach((s,i)=>cs[i]+=s); });
+  const n=recs.length, lv={hi:0,mid:0,lo:0}; let sum=0; const cs=Array(NCRIT).fill(0);
+  recs.forEach(r=>{ const x=total(r); sum+=x; lv[lvKey(x)]++; r.scores.forEach((s,i)=>cs[i]+=s); });
   return { n, teachers:new Set(recs.map(tKey)).size, avgTotal:n?sum/n:NaN, avgPct:n?sum/n/MAXP:NaN, crit:cs.map(c=>n?c/n:NaN), lv };
 }
 const byDate = (a,b) => a.date.localeCompare(b.date) || (a.createdAt||'').localeCompare(b.createdAt||'');
@@ -264,14 +424,13 @@ const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,8);
 const b64enc = s => { const b=new TextEncoder().encode(s); let o=''; for(let i=0;i<b.length;i+=0x8000) o+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000)); return btoa(o); };
 const b64dec = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g,'')), c=>c.charCodeAt(0)));
 class ApiError extends Error{ constructor(status,msg){ super(msg); this.status=status; } }
+const httpMsg = s => s===401 ? t('eKey') : s===403 ? t('e403') : s===404 ? t('e404') : t('eHttp',s);
 
 const GitHubStore = token => {
   const base = `https://api.github.com/repos/${CFG.owner}/${CFG.dataRepo}`;
   const call = async (path, opt={}) => {
-    let res;
-    try { res = await fetch(base+path, { cache:'no-store', ...opt, headers:{ 'Authorization':'Bearer '+token, 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28', ...(opt.headers||{}) } }); }
-    catch(e){ throw new ApiError(0,'Интернет байланысы жоқ немесе GitHub қолжетімсіз.'); }
-    return res;
+    try { return await fetch(base+path, { cache:'no-store', ...opt, headers:{ 'Authorization':'Bearer '+token, 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28', ...(opt.headers||{}) } }); }
+    catch(e){ throw new ApiError(0, t('eNet')); }
   };
   const filePath = '/contents/'+CFG.path.split('/').map(encodeURIComponent).join('/');
   async function read(){
@@ -281,18 +440,16 @@ const GitHubStore = token => {
     const j = await res.json(); let text;
     if(j.content) text = b64dec(j.content);
     else { const b = await call('/git/blobs/'+j.sha); if(!b.ok) throw new ApiError(b.status, httpMsg(b.status)); text = b64dec((await b.json()).content); }
-    let data; try { data = JSON.parse(text); } catch(e){ throw new ApiError(0,'Дерек файлы бүлінген. Әкімшіге хабарлаңыз.'); }
+    let data; try { data = JSON.parse(text); } catch(e){ throw new ApiError(0, t('eCorrupt')); }
     return {records: Array.isArray(data.records)?data.records:[], sha:j.sha};
   }
   return {
     demo:false,
     async check(){
       const res = await call('');
-      if(res.status===401) throw new ApiError(401,'Кілт қате немесе мерзімі өтіп кеткен.');
-      if(res.status===404) throw new ApiError(404,'Кілттің дерек қоймасына рұқсаты жоқ (немесе қойма әлі ашылмаған).');
+      if(res.status===401) throw new ApiError(401, t('eKey'));
+      if(res.status===404) throw new ApiError(404, t('eNoAccess'));
       if(!res.ok) throw new ApiError(res.status, httpMsg(res.status));
-      const j = await res.json();
-      if(j.permissions && j.permissions.push===false) throw new ApiError(403,'Бұл кілт тек оқуға арналған, жазуға рұқсаты жоқ.');
     },
     async load(){ return (await read()).records; },
     // Соңғы нұсқаны алып, өзгерісті қолданып, жазады. Қатар сақтау болса, қайталайды.
@@ -305,13 +462,13 @@ const GitHubStore = token => {
         const res = await call(filePath, {method:'PUT', body:JSON.stringify(body)});
         if(res.ok) return next;
         if(res.status===409 || res.status===422){ await new Promise(r=>setTimeout(r,400*(i+1))); continue; }
+        if(res.status===403) throw new ApiError(403, t('eReadOnly'));
         throw new ApiError(res.status, httpMsg(res.status));
       }
-      throw new ApiError(409,'Қатар сақтау кедергі болды. Қайта «Сақтау» басыңыз.');
+      throw new ApiError(409, t('eConflict'));
     }
   };
 };
-function httpMsg(s){ return s===401?'Кілт қате немесе мерзімі өтіп кеткен. Қайта кіріңіз.' : s===403?'Рұқсат жоқ немесе сұраныс шегі асып кетті. Сәлден соң қайталаңыз.' : s===404?'Дерек қоймасы табылмады.' : 'GitHub қатесі ('+s+'). Сәлден соң қайталаңыз.'; }
 
 const DemoStore = () => {
   const K='sb_demo_records';
@@ -321,7 +478,7 @@ const DemoStore = () => {
     async commit(mutate){ mem = mutate(mem.slice()); ls.set(K, JSON.stringify(mem)); return mem; } };
 };
 function seed(){
-  const mk=(s,d,t,sub,kl,cat,exp,sc,note)=>({id:uid(),school:SCHOOLS[s],date:d,teacher:t,subject:sub,klass:kl,category:cat,exp,scores:sc,note,observer:'Демо әдіскер',createdAt:d+'T09:00:00Z'});
+  const mk=(s,d,tn,sub,kl,cat,exp,sc,note)=>({id:uid(),school:SCHOOLS[s],date:d,teacher:tn,subject:sub,klass:kl,category:cat,exp,scores:sc,note,observer:'Демо әдіскер',createdAt:d+'T09:00:00Z'});
   const y=new Date().getFullYear(), m=new Date().getMonth()+1, s=m>=9?y:y-1;
   return [
     mk(0,`${s}-09-18`,'Асанов Б.Қ. (үлгі)','Математика','9 «А»','Педагог-зерттеуші',12,[3,2,2,2,2,2],'Цифрлық ресурстарды кеңірек қолдану ұсынылады.'),
@@ -333,63 +490,68 @@ function seed(){
 }
 
 /* ============ КҮЙ ============ */
-let store=null, records=[], me='', editId=null, formScores=CRIT.map(()=>null);
+let store=null, records=[], me='', editId=null, formScores=Array(NCRIT).fill(null);
 const live = () => records.filter(r=>!r.deleted);
-const periodsAll = () => { const m=new Map(); live().forEach(r=>{const p=period(r.date); m.set(p.key,p.label);}); return [...m].sort((a,b)=>b[0].localeCompare(a[0])); };
-const inPeriod = (recs,key) => key==='all' ? recs : recs.filter(r=>period(r.date).key===key);
+const periodsAll = () => [...new Set(live().map(r=>periodKey(r.date)))].sort().reverse();
+const inPeriod = (recs,key) => key==='all' ? recs : recs.filter(r=>periodKey(r.date)===key);
+
+/* ============ ТІЛДІ ҚОЛДАНУ ============ */
+function applyLang(){
+  document.documentElement.lang = lang; document.title = t('docTitle');
+  document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
+  document.querySelectorAll('[data-ph]').forEach(el=>el.placeholder=t(el.dataset.ph));
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on', b.dataset.lang===lang));
+  $('dlCats').innerHTML = t('cats').map(c=>`<option>${esc(c)}</option>`).join('');
+  $('formTitle').textContent = t(editId?'editTitle':'newTitle'); $('fSave').textContent = t(editId?'saveEdit':'save');
+  if(store){ $('whoName').textContent = me + (store.demo?' · '+t('demo'):''); initSelects(); renderCrit(); render(); }
+}
+document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{ lang=b.dataset.lang; ls.set('sb_lang',lang); $('lgErr').textContent=''; $('fErr').textContent=''; applyLang(); });
 
 /* ============ КІРУ / ШЫҒУ ============ */
 async function enter(st, name){
-  store=st; me=name;
   $('lgErr').textContent=''; $('lgBtn').disabled=true;
-  try { await store.check(); records = await store.load(); }
-  catch(e){ $('lgErr').textContent=e.message||'Қате.'; $('lgBtn').disabled=false; return false; }
-  $('lgBtn').disabled=false;
+  try { await st.check(); records = await st.load(); }
+  catch(e){ $('lgErr').textContent=e.message||t('eGeneric'); $('lgBtn').disabled=false; return false; }
+  store=st; me=name; $('lgBtn').disabled=false;
   $('login').classList.add('hidden'); $('app').classList.remove('hidden');
   $('demoBanner').classList.toggle('hidden', !store.demo);
-  $('whoName').textContent = me + (store.demo?' · демо':'');
-  initSelects(); resetForm(); show('home');
+  applyLang(); resetForm(); show('home');
   return true;
 }
 $('lgBtn').onclick = async () => {
   const name=$('lgName').value.trim(), token=$('lgToken').value.trim();
-  if(!name){ $('lgErr').textContent='Аты-жөніңізді жазыңыз.'; return; }
-  if(!token){ $('lgErr').textContent='Кіру кілтін енгізіңіз.'; return; }
+  if(!name){ $('lgErr').textContent=t('eName'); return; }
+  if(!token){ $('lgErr').textContent=t('eToken'); return; }
   if(await enter(GitHubStore(token), name)){ ls.set('sb_token',token); ls.set('sb_name',name); ls.del('sb_mode'); }
 };
-$('lgDemo').onclick = async () => { const name=$('lgName').value.trim()||'Демо әдіскер'; ls.set('sb_mode','demo'); ls.set('sb_name',name); await enter(DemoStore(), name); };
+$('lgDemo').onclick = async () => { const name=$('lgName').value.trim()||t('demoUser'); ls.set('sb_mode','demo'); ls.set('sb_name',name); await enter(DemoStore(), name); };
 $('btnOut').onclick = () => { ls.del('sb_token'); ls.del('sb_mode'); location.reload(); };
 $('btnRefresh').onclick = () => reload(true);
-async function reload(say){ try { records = await store.load(); render(); if(say) toast('Дерек жаңартылды'); } catch(e){ toast(e.message,true); } }
-(async function boot(){
-  const name=ls.get('sb_name')||''; $('lgName').value=name;
-  if(ls.get('sb_mode')==='demo') return enter(DemoStore(), name||'Демо әдіскер');
-  const token=ls.get('sb_token'); if(token && name){ $('lgToken').value=token; await enter(GitHubStore(token), name); }
-})();
+async function reload(say){ try { records = await store.load(); render(); if(say) toast(t('tRefreshed')); } catch(e){ toast(e.message,true); } }
 
 /* ============ НАВИГАЦИЯ ============ */
 let curTab='home';
 function show(tab){ curTab=tab;
   document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('on', b.dataset.tab===tab));
-  ['home','form','table','prog'].forEach(t=>$('tab-'+t).classList.toggle('hidden', t!==tab));
+  ['home','form','table','prog'].forEach(x=>$('tab-'+x).classList.toggle('hidden', x!==tab));
   render(); window.scrollTo(0,0);
 }
 document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>{ if(b.dataset.tab==='form' && editId) resetForm(); show(b.dataset.tab); });
 function initSelects(){
-  const opts = SCHOOLS.map((s,i)=>`<option value="${i}">${i+1}. ${esc(s)}</option>`).join('');
+  const opts = SCHOOLS_L[lang].map((s,i)=>`<option value="${i}">${i+1}. ${esc(s)}</option>`).join('');
   ['fSchool','tSchool','pSchool'].forEach(id=>{ const v=$(id).value; $(id).innerHTML=opts; if(v) $(id).value=v; });
   ['tSchool','pSchool','tPeriod','homePeriod'].forEach(id=>$(id).onchange=render);
   $('fSchool').onchange = fillLists;
 }
-function fillPeriods(id, withAll){
-  const el=$(id), v=el.value, ps=periodsAll(), cur=period(today());
-  if(!ps.some(p=>p[0]===cur.key)) ps.unshift([cur.key,cur.label]);
-  el.innerHTML = (withAll?'<option value="all">Барлық кезең</option>':'') + ps.map(p=>`<option value="${p[0]}">${esc(p[1])}</option>`).join('');
-  el.value = [...el.options].some(o=>o.value===v) ? v : (withAll?'all':cur.key);
+function fillPeriods(id){
+  const el=$(id), v=el.value, ps=periodsAll(), cur=periodKey(today());
+  if(!ps.includes(cur)) ps.unshift(cur);
+  el.innerHTML = `<option value="all">${esc(t('allPeriods'))}</option>` + ps.map(k=>`<option value="${k}">${esc(periodLabel(k))}</option>`).join('');
+  el.value = [...el.options].some(o=>o.value===v) ? v : 'all';
 }
 function render(){
   if(!store) return;
-  fillPeriods('homePeriod',true); fillPeriods('tPeriod',true);
+  fillPeriods('homePeriod'); fillPeriods('tPeriod');
   if(curTab==='home') renderHome(); if(curTab==='table') renderTable(); if(curTab==='prog') renderProg(); if(curTab==='form') fillLists();
 }
 
@@ -397,27 +559,27 @@ function render(){
 function renderHome(){
   const recs = inPeriod(live(), $('homePeriod').value), a=agg(recs);
   $('homeKpis').innerHTML = [
-    [a.n,'Бақыланған сабақ'],[a.teachers,'Бағаланған мұғалім'],[pc(a.avgPct),'Орташа сапа'],[num(a.avgTotal),'Орташа ұпай (макс. '+MAXP+')'],
-    [a.lv.hi,'Жоғары деңгей'],[a.lv.mid,'Орташа деңгей'],[a.lv.lo,'Төмен деңгей']
-  ].map(k=>`<div class="kpi"><b>${k[0]}</b><span>${k[1]}</span></div>`).join('');
-  let h='<table><tr><th class="n">№</th><th>Білім беру ұйымы</th><th class="n">Сабақ саны</th><th class="n">Мұғалім</th><th class="n">Орташа ұпай</th><th>Сапа %-ы</th><th class="n">Жоғары</th><th class="n">Орташа</th><th class="n">Төмен</th></tr>';
+    [a.n,t('kLessons')],[a.teachers,t('kTeachers')],[pc(a.avgPct),t('kQuality')],[num(a.avgTotal),t('kAvg')],
+    [a.lv.hi,t('lvHi')],[a.lv.mid,t('lvMid')],[a.lv.lo,t('lvLo')]
+  ].map(k=>`<div class="kpi"><b>${k[0]}</b><span>${esc(k[1])}</span></div>`).join('');
+  let h=`<table><tr><th class="n">${t('no')}</th><th>${t('school')}</th><th class="n">${t('lessons')}</th><th class="n">${t('teachers')}</th><th class="n">${t('avgScore')}</th><th>${t('qualityPct')}</th><th class="n">${t('hi')}</th><th class="n">${t('mid')}</th><th class="n">${t('lo')}</th></tr>`;
   SCHOOLS.forEach((s,i)=>{ const x=agg(recs.filter(r=>r.school===s));
-    h+=`<tr class="click" data-s="${i}"><td class="n">${i+1}</td><td>${esc(s)}</td><td class="n">${x.n}</td><td class="n">${x.teachers}</td><td class="n">${num(x.avgTotal)}</td>
-      <td>${x.n?`<div style="display:flex;gap:8px;align-items:center"><div class="bar" style="flex:1"><i style="width:${Math.round(x.avgPct*100)}%"></i></div><b>${pc(x.avgPct)}</b></div>`:'<span class="small">бақылау жоқ</span>'}</td>
+    h+=`<tr class="click" data-s="${i}"><td class="n">${i+1}</td><td>${esc(SCHOOLS_L[lang][i])}</td><td class="n">${x.n}</td><td class="n">${x.teachers}</td><td class="n">${num(x.avgTotal)}</td>
+      <td>${x.n?`<div style="display:flex;gap:8px;align-items:center"><div class="bar" style="flex:1"><i style="width:${Math.round(x.avgPct*100)}%"></i></div><b>${pc(x.avgPct)}</b></div>`:`<span class="small">${t('noObs')}</span>`}</td>
       <td class="n">${x.lv.hi}</td><td class="n">${x.lv.mid}</td><td class="n">${x.lv.lo}</td></tr>`; });
-  h+=`<tr class="avg"><td></td><td>Қала бойынша</td><td class="n">${a.n}</td><td class="n">${a.teachers}</td><td class="n">${num(a.avgTotal)}</td><td>${pc(a.avgPct)}</td><td class="n">${a.lv.hi}</td><td class="n">${a.lv.mid}</td><td class="n">${a.lv.lo}</td></tr></table>`;
+  h+=`<tr class="avg"><td></td><td>${t('city')}</td><td class="n">${a.n}</td><td class="n">${a.teachers}</td><td class="n">${num(a.avgTotal)}</td><td>${pc(a.avgPct)}</td><td class="n">${a.lv.hi}</td><td class="n">${a.lv.mid}</td><td class="n">${a.lv.lo}</td></tr></table>`;
   $('homeSchools').innerHTML=h;
   $('homeSchools').querySelectorAll('tr.click').forEach(tr=>tr.onclick=()=>{ $('tSchool').value=tr.dataset.s; $('tPeriod').value=$('homePeriod').value; show('table'); });
-  $('homeCrit').innerHTML = a.n ? CRIT.map((c,i)=>`<div style="display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap"><div style="flex:1 1 240px">${esc(c)}</div><div class="bar" style="flex:2 1 200px"><i style="width:${a.crit[i]/3*100}%"></i></div><b style="width:60px;text-align:right">${num(a.crit[i])} / 3</b></div>`).join('')
-    : '<p class="note">Бұл кезеңде әзірге бақылау жоқ.</p>';
+  $('homeCrit').innerHTML = a.n ? crit().map((c,i)=>`<div style="display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap"><div style="flex:1 1 240px">${esc(c)}</div><div class="bar" style="flex:2 1 200px"><i style="width:${a.crit[i]/3*100}%"></i></div><b style="width:60px;text-align:right">${num(a.crit[i])} / 3</b></div>`).join('')
+    : `<p class="note">${t('noObsPeriod')}</p>`;
 }
 
 /* ============ ФОРМА ============ */
 function renderCrit(){
-  $('fCrit').innerHTML = CRIT.map((c,i)=>`<div class="crit"><div class="t">${esc(c)}</div><div class="seg" role="group" aria-label="${esc(c)}">${[0,1,2,3].map(v=>`<button type="button" data-i="${i}" data-v="${v}" class="${formScores[i]===v?'on':''}" aria-pressed="${formScores[i]===v}">${v}</button>`).join('')}</div></div>`).join('');
+  $('fCrit').innerHTML = crit().map((c,i)=>`<div class="crit"><div class="t">${esc(c)}</div><div class="seg" role="group" aria-label="${esc(c)}">${[0,1,2,3].map(v=>`<button type="button" data-i="${i}" data-v="${v}" class="${formScores[i]===v?'on':''}" aria-pressed="${formScores[i]===v}">${v}</button>`).join('')}</div></div>`).join('');
   $('fCrit').querySelectorAll('button').forEach(b=>b.onclick=()=>{ formScores[+b.dataset.i]=+b.dataset.v; renderCrit(); });
-  const done = formScores.every(v=>v!==null), t=formScores.reduce((a,b)=>a+(b||0),0);
-  $('fTotal').textContent = done? t : '–'; $('fPct').textContent = done? pc(t/MAXP) : '–'; $('fLevel').innerHTML = done? lvlTag(t) : '';
+  const done = formScores.every(v=>v!==null), n=formScores.reduce((a,b)=>a+(b||0),0);
+  $('fTotal').textContent = done? n : '–'; $('fPct').textContent = done? pc(n/MAXP) : '–'; $('fLevel').innerHTML = done? lvlTag(n) : '';
 }
 function fillLists(){
   const s=SCHOOLS[+$('fSchool').value], seen=new Map();
@@ -432,8 +594,8 @@ $('fTeacher').addEventListener('change', ()=>{ // бұрын бағаланға�
   if(!$('fCat').value) $('fCat').value=prev.category||''; if($('fExp').value==='') $('fExp').value=prev.exp??'';
 });
 function resetForm(keepSchool){
-  editId=null; formScores=CRIT.map(()=>null);
-  $('formTitle').textContent='Жаңа бағалау'; $('fSave').textContent='Сақтау';
+  editId=null; formScores=Array(NCRIT).fill(null);
+  $('formTitle').textContent=t('newTitle'); $('fSave').textContent=t('save');
   if(!keepSchool) $('fSchool').value = ls.get('sb_school') || '0';
   $('fDate').value=today(); ['fTeacher','fSubject','fKlass','fCat','fExp','fNote'].forEach(id=>$(id).value='');
   $('fObserver').value=me; $('fErr').textContent=''; renderCrit(); fillLists();
@@ -442,18 +604,18 @@ $('fClear').onclick=()=>resetForm(true);
 function editRec(id){
   const r=records.find(x=>x.id===id); if(!r) return;
   resetForm(); editId=id; formScores=r.scores.slice();
-  $('formTitle').textContent='Бағалауды өңдеу'; $('fSave').textContent='Өзгерісті сақтау';
+  $('formTitle').textContent=t('editTitle'); $('fSave').textContent=t('saveEdit');
   $('fSchool').value=Math.max(0,SCHOOLS.indexOf(r.school)); $('fDate').value=r.date; $('fTeacher').value=r.teacher; $('fSubject').value=r.subject||'';
   $('fKlass').value=r.klass||''; $('fCat').value=r.category||''; $('fExp').value=r.exp??''; $('fNote').value=r.note||''; $('fObserver').value=r.observer||me;
   show('form');
 }
 $('fSave').onclick = async () => {
   const g=id=>$(id).value.trim(), err=m=>{ $('fErr').textContent=m; };
-  if(!g('fTeacher')) return err('Мұғалімнің аты-жөнін жазыңыз.');
-  if(!g('fSubject')) return err('Пәнді жазыңыз.');
-  if(!$('fDate').value) return err('Бақылау күнін таңдаңыз.');
-  if($('fDate').value>today()) return err('Бақылау күні болашақта болмауы керек.');
-  if(formScores.some(v=>v===null)) return err('Барлық 6 критерийді бағалаңыз (байқалмаса – 0).');
+  if(!g('fTeacher')) return err(t('eTeacher'));
+  if(!g('fSubject')) return err(t('eSubject'));
+  if(!$('fDate').value) return err(t('eDate'));
+  if($('fDate').value>today()) return err(t('eFuture'));
+  if(formScores.some(v=>v===null)) return err(t('eScores'));
   err('');
   const now=new Date().toISOString(), old=editId && records.find(x=>x.id===editId);
   const rec={ id: editId||uid(), school:SCHOOLS[+$('fSchool').value], date:$('fDate').value, teacher:g('fTeacher'), subject:g('fSubject'), klass:g('fKlass'),
@@ -464,48 +626,46 @@ $('fSave').onclick = async () => {
     records = await store.commit(list=>{ const i=list.findIndex(x=>x.id===rec.id); if(i>=0) list[i]=rec; else list.push(rec); return list; },
       (old?'Өңдеу: ':'Бағалау: ')+rec.school+', '+fmtDate(rec.date));
     ls.set('sb_school',$('fSchool').value);
-    toast(old?'Өзгеріс сақталды':'Бағалау сақталды');
+    toast(t(old?'tEdited':'tSaved'));
     const sIdx=$('fSchool').value; resetForm(true);
     if(old){ $('tSchool').value=sIdx; show('table'); } else window.scrollTo(0,0);
   } catch(e){ err(e.message); toast(e.message,true); }
   $('fSave').disabled=false;
 };
 async function delRec(id){
-  try { records = await store.commit(list=>list.filter(x=>x.id!==id), 'Өшіру'); toast('Жазба өшірілді'); render(); }
+  try { records = await store.commit(list=>list.filter(x=>x.id!==id), 'Өшіру'); toast(t('tDeleted')); render(); }
   catch(e){ toast(e.message,true); }
 }
 
 /* ============ ЖИЫНТЫҚ КЕСТЕ ============ */
 function tableData(){
-  const school=SCHOOLS[+$('tSchool').value], key=$('tPeriod').value;
-  const recs=inPeriod(live().filter(r=>r.school===school),key).sort(byDate);
-  const label = key==='all' ? 'Барлық кезең' : [...$('tPeriod').options].find(o=>o.value===key).textContent;
-  return {school, recs, label};
+  const idx=+$('tSchool').value, key=$('tPeriod').value;
+  return {idx, school:SCHOOLS_L[lang][idx], recs:inPeriod(live().filter(r=>r.school===SCHOOLS[idx]),key).sort(byDate), label:periodLabel(key)};
 }
 function renderTable(){
   const {school,recs,label}=tableData(), a=agg(recs);
-  let h=`<div class="maket-head"><h3>${TITLE}</h3>
-    <div><b>Білім беру ұйымының атауы:</b> ${esc(school)}</div><div><b>Бақылау мақсаты:</b> ${GOAL}</div>
-    <div><b>Бақылау мерзімі:</b> ${esc(label)}</div><div class="small">${SCALE}</div></div>`;
-  if(!recs.length){ $('tOut').innerHTML=h+'<p class="note">Бұл мектеп бойынша таңдалған кезеңде әзірге бақылау жоқ.</p>'; return; }
-  h+='<div class="scroll"><table><tr><th class="n">№</th><th>Мұғалімнің аты-жөні</th><th>Пәні / Сыныбы</th><th>Санаты / Өтілі</th>'+CRIT.map(c=>`<th class="n">${esc(c)}</th>`).join('')
-    +`<th class="n">Барлық ұпай (макс. ${MAXP})</th><th class="n">Сапа %-ы</th><th>Деңгейі</th><th>Әдіскердің қысқаша қорытындысы / ұсынысы</th><th class="noprint"></th></tr>`;
-  recs.forEach((r,i)=>{ const t=total(r);
+  let h=`<div class="maket-head"><h3>${t('title')}</h3>
+    <div><b>${t('orgName')}</b> ${esc(school)}</div><div><b>${t('goalLbl')}</b> ${esc(t('goal'))}</div>
+    <div><b>${t('termLbl')}</b> ${esc(label)}</div><div class="small">${esc(t('scale'))}</div></div>`;
+  if(!recs.length){ $('tOut').innerHTML=h+`<p class="note">${t('noObsSchoolPeriod')}</p>`; return; }
+  h+=`<div class="scroll"><table><tr><th class="n">${t('no')}</th><th>${t('hTeacher')}</th><th>${t('hSubj')}</th><th>${t('hCat')}</th>`+crit().map(c=>`<th class="n">${esc(c)}</th>`).join('')
+    +`<th class="n">${t('hTotal')}</th><th class="n">${t('qualityPct')}</th><th>${t('hLevel')}</th><th>${t('noteLbl')}</th><th class="noprint"></th></tr>`;
+  recs.forEach((r,i)=>{ const n=total(r);
     h+=`<tr><td class="n">${i+1}</td><td>${esc(r.teacher)}<div class="small">${fmtDate(r.date)} · ${esc(r.observer||'')}</div></td><td>${esc(subjKlass(r))}</td><td>${esc(catExp(r))}</td>`
-      +r.scores.map(s=>`<td class="n">${s}</td>`).join('')+`<td class="n"><b>${t}</b></td><td class="n">${pc(t/MAXP)}</td><td>${lvlTag(t)}</td><td>${esc(r.note)}</td>
-      <td class="noprint"><div class="btns"><button class="btn ghost sm" data-e="${r.id}">Өңдеу</button><button class="btn danger sm" data-d="${r.id}">Өшіру</button></div></td></tr>`; });
-  h+=`<tr class="avg"><td></td><td colspan="3">Мектеп бойынша орташа көрсеткіш:</td>`+a.crit.map(c=>`<td class="n">${num(c)}</td>`).join('')+`<td class="n">${num(a.avgTotal)}</td><td class="n">${pc(a.avgPct)}</td><td></td><td></td><td class="noprint"></td></tr></table></div>`;
-  h+=`<h3 style="font-size:15px;margin:18px 0 8px">Сабақ беру сапасының деңгейлері бойынша бөлініс</h3><div class="scroll"><table style="max-width:720px">
-    <tr><th>Деңгей</th><th>Балл аралығы</th><th>Сапа үлесі (%)</th><th class="n">Бақылау саны</th><th class="n">Үлесі (%)</th></tr>
-    <tr><td>Жоғары деңгей</td><td>15 – 18 ұпай</td><td>83% – 100%</td><td class="n">${a.lv.hi}</td><td class="n">${pc(a.lv.hi/a.n)}</td></tr>
-    <tr><td>Орташа деңгей</td><td>11 – 14 ұпай</td><td>61% – 82%</td><td class="n">${a.lv.mid}</td><td class="n">${pc(a.lv.mid/a.n)}</td></tr>
-    <tr><td>Төмен деңгей</td><td>10 ұпай және төмен</td><td>≤ 60%</td><td class="n">${a.lv.lo}</td><td class="n">${pc(a.lv.lo/a.n)}</td></tr>
-    <tr class="avg"><td colspan="3">Барлығы бағаланған сабақ / мұғалім саны:</td><td class="n">${a.n} / ${a.teachers}</td><td class="n">100%</td></tr></table></div>`;
+      +r.scores.map(s=>`<td class="n">${s}</td>`).join('')+`<td class="n"><b>${n}</b></td><td class="n">${pc(n/MAXP)}</td><td>${lvlTag(n)}</td><td>${esc(r.note)}</td>
+      <td class="noprint"><div class="btns"><button class="btn ghost sm" data-e="${r.id}">${t('edit')}</button><button class="btn danger sm" data-d="${r.id}">${t('del')}</button></div></td></tr>`; });
+  h+=`<tr class="avg"><td></td><td colspan="3">${t('schoolAvg')}</td>`+a.crit.map(c=>`<td class="n">${num(c)}</td>`).join('')+`<td class="n">${num(a.avgTotal)}</td><td class="n">${pc(a.avgPct)}</td><td></td><td></td><td class="noprint"></td></tr></table></div>`;
+  h+=`<h3 style="font-size:15px;margin:18px 0 8px">${t('distTitle')}</h3><div class="scroll"><table style="max-width:720px">
+    <tr><th>${t('dLevel')}</th><th>${t('dRange')}</th><th>${t('dShare')}</th><th class="n">${t('dCount')}</th><th class="n">${t('dPct')}</th></tr>
+    <tr><td>${t('lvHi')}</td><td>${t('r1')}</td><td>83% – 100%</td><td class="n">${a.lv.hi}</td><td class="n">${pc(a.lv.hi/a.n)}</td></tr>
+    <tr><td>${t('lvMid')}</td><td>${t('r2')}</td><td>61% – 82%</td><td class="n">${a.lv.mid}</td><td class="n">${pc(a.lv.mid/a.n)}</td></tr>
+    <tr><td>${t('lvLo')}</td><td>${t('r3')}</td><td>≤ 60%</td><td class="n">${a.lv.lo}</td><td class="n">${pc(a.lv.lo/a.n)}</td></tr>
+    <tr class="avg"><td colspan="3">${t('dTotal')}</td><td class="n">${a.n} / ${a.teachers}</td><td class="n">100%</td></tr></table></div>`;
   $('tOut').innerHTML=h;
   $('tOut').querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>editRec(b.dataset.e));
   $('tOut').querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{ // екі рет басу арқылы растау
     if(b.classList.contains('arm')) { b.disabled=true; delRec(b.dataset.d); }
-    else { b.classList.add('arm'); b.textContent='Растау?'; setTimeout(()=>{ b.classList.remove('arm'); b.textContent='Өшіру'; },4000); } });
+    else { b.classList.add('arm'); b.textContent=t('confirm'); setTimeout(()=>{ b.classList.remove('arm'); b.textContent=t('del'); },4000); } });
 }
 $('printOne').onclick=()=>window.print();
 
@@ -516,90 +676,97 @@ function spark(vals){
   return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><polyline fill="none" stroke="#1746a2" stroke-width="2" points="${pts.map(q=>q.map(n=>n.toFixed(1)).join(',')).join(' ')}"/>${pts.map(q=>`<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="2.6" fill="#1746a2"/>`).join('')}</svg>`;
 }
 function renderProg(){
-  const school=SCHOOLS[+$('pSchool').value], recs=live().filter(r=>r.school===school).sort(byDate);
-  if(!recs.length){ $('pPeriods').innerHTML=$('pTeachers').innerHTML='<p class="note">Бұл мектеп бойынша әзірге бақылау жоқ.</p>'; return; }
-  const pm=new Map(); recs.forEach(r=>{ const p=period(r.date); if(!pm.has(p.key)) pm.set(p.key,{label:p.label,recs:[]}); pm.get(p.key).recs.push(r); });
-  let h='<table><tr><th>Кезең</th><th class="n">Сабақ саны</th><th class="n">Мұғалім</th><th class="n">Орташа ұпай</th><th class="n">Сапа %-ы</th><th class="n">Жоғары</th><th class="n">Орташа</th><th class="n">Төмен</th><th class="n">Өзгеріс</th></tr>', prev=null;
-  [...pm].sort((a,b)=>a[0].localeCompare(b[0])).forEach(([k,v])=>{ const x=agg(v.recs);
-    h+=`<tr><td>${esc(v.label)}</td><td class="n">${x.n}</td><td class="n">${x.teachers}</td><td class="n">${num(x.avgTotal)}</td><td class="n"><b>${pc(x.avgPct)}</b></td><td class="n">${x.lv.hi}</td><td class="n">${x.lv.mid}</td><td class="n">${x.lv.lo}</td><td class="n">${delta(prev,x.avgPct)}</td></tr>`; prev=x.avgPct; });
+  const recs=live().filter(r=>r.school===SCHOOLS[+$('pSchool').value]).sort(byDate);
+  if(!recs.length){ $('pPeriods').innerHTML=$('pTeachers').innerHTML=`<p class="note">${t('noObsSchool')}</p>`; return; }
+  const pm=new Map(); recs.forEach(r=>{ const k=periodKey(r.date); if(!pm.has(k)) pm.set(k,[]); pm.get(k).push(r); });
+  let h=`<table><tr><th>${t('period')}</th><th class="n">${t('lessons')}</th><th class="n">${t('teachers')}</th><th class="n">${t('avgScore')}</th><th class="n">${t('qualityPct')}</th><th class="n">${t('hi')}</th><th class="n">${t('mid')}</th><th class="n">${t('lo')}</th><th class="n">${t('change')}</th></tr>`, prev=null;
+  [...pm].sort((a,b)=>a[0].localeCompare(b[0])).forEach(([k,v])=>{ const x=agg(v);
+    h+=`<tr><td>${esc(periodLabel(k))}</td><td class="n">${x.n}</td><td class="n">${x.teachers}</td><td class="n">${num(x.avgTotal)}</td><td class="n"><b>${pc(x.avgPct)}</b></td><td class="n">${x.lv.hi}</td><td class="n">${x.lv.mid}</td><td class="n">${x.lv.lo}</td><td class="n">${delta(prev,x.avgPct)}</td></tr>`; prev=x.avgPct; });
   $('pPeriods').innerHTML=h+'</table>';
   const tm=new Map(); recs.forEach(r=>{ const k=tKey(r); if(!tm.has(k)) tm.set(k,[]); tm.get(k).push(r); });
-  h='<table><tr><th class="n">№</th><th>Мұғалімнің аты-жөні</th><th>Пәні</th><th class="n">Бақылау саны</th><th>Бақылаулар (күні – сапа)</th><th class="n">Алғашқы</th><th class="n">Соңғы</th><th class="n">Өзгеріс</th><th>Динамика</th><th>Соңғы деңгейі</th></tr>';
+  h=`<table><tr><th class="n">${t('no')}</th><th>${t('hTeacher')}</th><th>${t('pSubject')}</th><th class="n">${t('pCount')}</th><th>${t('pList')}</th><th class="n">${t('first')}</th><th class="n">${t('last')}</th><th class="n">${t('change')}</th><th>${t('dynamics')}</th><th>${t('lastLevel')}</th></tr>`;
   [...tm.values()].sort((a,b)=>a[a.length-1].teacher.localeCompare(b[b.length-1].teacher,'kk')).forEach((list,i)=>{ const f=list[0], l=list[list.length-1];
     h+=`<tr><td class="n">${i+1}</td><td>${esc(l.teacher)}</td><td>${esc(l.subject)}</td><td class="n">${list.length}</td><td class="small">${list.map(r=>fmtDate(r.date)+' – '+pc(pct(r))).join('<br>')}</td>
       <td class="n">${pc(pct(f))}</td><td class="n"><b>${pc(pct(l))}</b></td><td class="n">${list.length>1?delta(pct(f),pct(l)):'–'}</td><td>${spark(list.map(pct))}</td><td>${lvlTag(total(l))}</td></tr>`; });
   $('pTeachers').innerHTML=h+'</table>';
 }
 function delta(a,b){ if(a==null||isNaN(a)) return '–'; const d=Math.round(b*100)-Math.round(a*100);
-  return d>0?`<b style="color:var(--hi)">▲ +${d}%</b>` : d<0?`<b style="color:var(--lo)">▼ ${d}%</b>` : '<span class="small">өзгеріссіз</span>'; }
+  return d>0?`<b style="color:var(--hi)">▲ +${d}%</b>` : d<0?`<b style="color:var(--lo)">▼ ${d}%</b>` : `<span class="small">${t('same')}</span>`; }
 
 /* ============ ЕСЕП ЖҮКТЕУ ============ */
 function download(blob, name){ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000); }
-function loadExcel(){ return window.ExcelJS ? Promise.resolve() : new Promise((ok,no)=>{ const s=document.createElement('script'); s.src=EXCELJS; s.onload=ok; s.onerror=()=>no(new Error('Excel модулі жүктелмеді. Интернетті тексеріп, қайталаңыз.')); document.head.appendChild(s); }); }
+function loadExcel(){ return window.ExcelJS ? Promise.resolve() : new Promise((ok,no)=>{ const s=document.createElement('script'); s.src=EXCELJS; s.onload=ok; s.onerror=()=>no(new Error(t('eExcel'))); document.head.appendChild(s); }); }
 const F={name:'Times New Roman',size:12};
 const thin={style:'thin',color:{argb:'FF000000'}}, box={top:thin,left:thin,bottom:thin,right:thin};
-function styleRange(ws, r1,c1,r2,c2, st){ for(let r=r1;r<=r2;r++) for(let c=c1;c<=c2;c++){ const cell=ws.getCell(r,c); Object.assign(cell, st); if(!st.font) cell.font=F; } }
+const headFill={type:'pattern',pattern:'solid',fgColor:{argb:'FFDCE6F7'}};
 function addSchoolSheet(wb, name, school, recs, label){
   const ws=wb.addWorksheet(name,{pageSetup:{orientation:'landscape',paperSize:9,fitToPage:true,fitToWidth:1,fitToHeight:0,margins:{left:.4,right:.4,top:.5,bottom:.5,header:.2,footer:.2}}});
   [5,28,20,22,12,12,12,12,12,12,12,10,17,42].forEach((w,i)=>ws.getColumn(i+1).width=w);
   const wrap={wrapText:true,vertical:'middle'}, ctr={...wrap,horizontal:'center'}, bold={...F,bold:true};
-  ws.mergeCells('A1:N1'); ws.getCell('A1').value=TITLE; ws.getCell('A1').font={...F,bold:true,size:13}; ws.getCell('A1').alignment=ctr; ws.getRow(1).height=30;
-  [['Білім беру ұйымының атауы:',school],['Бақылау мақсаты:',GOAL],['Бақылау мерзімі:',label]].forEach((p,i)=>{ const r=i+2;
+  ws.mergeCells('A1:N1'); ws.getCell('A1').value=t('title'); ws.getCell('A1').font={...F,bold:true,size:13}; ws.getCell('A1').alignment=ctr; ws.getRow(1).height=30;
+  [[t('orgName'),school],[t('goalLbl'),t('goal')],[t('termLbl'),label]].forEach((p,i)=>{ const r=i+2;
     ws.mergeCells(r,1,r,3); ws.mergeCells(r,4,r,14); ws.getCell(r,1).value=p[0]; ws.getCell(r,1).font=bold; ws.getCell(r,4).value=p[1]; ws.getCell(r,4).font=F; ws.getCell(r,4).alignment=wrap; });
-  ws.mergeCells('A5:N5'); ws.getCell('A5').value=SCALE; ws.getCell('A5').font={...F,italic:true};
-  const head=['№','Мұғалімнің Аты-жөні','Пәні / Сыныбы','Санаты / Өтілі',...CRIT,`Барлық ұпай (макс. ${MAXP})`,'Сапа %-ы','Деңгейі','Әдіскердің қысқаша қорытындысы / ұсынысы'];
-  head.forEach((t,i)=>{ const c=ws.getCell(7,i+1); c.value=t; c.font=bold; c.alignment=ctr; c.border=box; c.fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFDCE6F7'}}; });
+  ws.mergeCells('A5:N5'); ws.getCell('A5').value=t('scale'); ws.getCell('A5').font={...F,italic:true};
+  const head=[t('no'),t('hTeacher'),t('hSubj'),t('hCat'),...crit(),t('hTotal'),t('qualityPct'),t('hLevel'),t('noteLbl')];
+  head.forEach((x,i)=>{ const c=ws.getCell(7,i+1); c.value=x; c.font=bold; c.alignment=ctr; c.border=box; c.fill=headFill; });
   ws.getRow(7).height=62;
-  const r0=8, n=Math.max(recs.length,1), rN=r0+n-1;
+  const r0=8, n=Math.max(recs.length,1), rN=r0+n-1, HI=t('lvHi'), MID=t('lvMid'), LO=t('lvLo');
   for(let i=0;i<n;i++){ const r=r0+i, x=recs[i], row=ws.getRow(r);
     row.getCell(1).value=i+1;
-    if(x){ const t=total(x);
+    if(x){ const s=total(x);
       row.getCell(2).value=x.teacher; row.getCell(3).value=subjKlass(x)+'\n'+fmtDate(x.date); row.getCell(4).value=catExp(x);
-      x.scores.forEach((s,j)=>row.getCell(5+j).value=s);
-      row.getCell(11).value={formula:`IF(COUNT(E${r}:J${r})>0,SUM(E${r}:J${r}),"")`,result:t};
-      row.getCell(12).value={formula:`IF(K${r}<>"",K${r}/${MAXP},"")`,result:t/MAXP};
-      row.getCell(13).value={formula:`IF(K${r}="","",IF(K${r}>=15,"Жоғары деңгей",IF(K${r}>=11,"Орташа деңгей","Төмен деңгей")))`,result:level(t).t};
+      x.scores.forEach((v,j)=>row.getCell(5+j).value=v);
+      row.getCell(11).value={formula:`IF(COUNT(E${r}:J${r})>0,SUM(E${r}:J${r}),"")`,result:s};
+      row.getCell(12).value={formula:`IF(K${r}<>"",K${r}/${MAXP},"")`,result:s/MAXP};
+      row.getCell(13).value={formula:`IF(K${r}="","",IF(K${r}>=15,"${HI}",IF(K${r}>=11,"${MID}","${LO}")))`,result:lvName(lvKey(s))};
       row.getCell(14).value=x.note||''; }
     for(let c=1;c<=14;c++){ const cell=row.getCell(c); cell.font=F; cell.border=box; cell.alignment=(c===2||c===14)?wrap:ctr; }
     row.getCell(12).numFmt='0%';
   }
-  const a=agg(recs), rA=rN+1; ws.mergeCells(rA,2,rA,4); ws.getCell(rA,2).value='Мектеп бойынша орташа көрсеткіш:';
+  const a=agg(recs), rA=rN+1; ws.mergeCells(rA,2,rA,4); ws.getCell(rA,2).value=t('schoolAvg');
   'EFGHIJKL'.split('').forEach((L,j)=>{ const c=ws.getCell(L+rA); const res = j<6 ? a.crit[j] : j===6 ? a.avgTotal : a.avgPct;
     c.value={formula:`IFERROR(AVERAGE(${L}${r0}:${L}${rN}),"")`,result:isNaN(res)?'':res}; c.numFmt = L==='L'?'0%':'0.0'; });
   for(let c=1;c<=14;c++){ const cell=ws.getCell(rA,c); cell.font=bold; cell.border=box; cell.alignment=c===2?wrap:ctr; cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFF2F2F2'}}; }
-  const d=rA+2; ws.mergeCells(d,2,d,6); ws.getCell(d,2).value='Сабақ беру сапасының деңгейлері бойынша бөлініс'; ws.getCell(d,2).font=bold;
-  ['Деңгей','Балл аралығы','Сапа үлесі (%)','Бақылау саны','Үлесі (%)'].forEach((t,i)=>{ const c=ws.getCell(d+1,2+i); c.value=t; c.font=bold; c.border=box; c.alignment=ctr; c.fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFDCE6F7'}}; });
+  const d=rA+2; ws.mergeCells(d,2,d,6); ws.getCell(d,2).value=t('distTitle'); ws.getCell(d,2).font=bold;
+  [t('dLevel'),t('dRange'),t('dShare'),t('dCount'),t('dPct')].forEach((x,i)=>{ const c=ws.getCell(d+1,2+i); c.value=x; c.font=bold; c.border=box; c.alignment=ctr; c.fill=headFill; });
   const rng=`M${r0}:M${rN}`, cnt=`COUNT(K${r0}:K${rN})`;
-  [['Жоғары деңгей','15 – 18 ұпай','83% – 100%',a.lv.hi],['Орташа деңгей','11 – 14 ұпай','61% – 82%',a.lv.mid],['Төмен деңгей','10 ұпай және төмен','≤ 60%',a.lv.lo]].forEach((p,i)=>{ const r=d+2+i;
+  [[HI,t('r1'),'83% – 100%',a.lv.hi],[MID,t('r2'),'61% – 82%',a.lv.mid],[LO,t('r3'),'≤ 60%',a.lv.lo]].forEach((p,i)=>{ const r=d+2+i;
     ws.getCell(r,2).value=p[0]; ws.getCell(r,3).value=p[1]; ws.getCell(r,4).value=p[2];
     ws.getCell(r,5).value={formula:`COUNTIF(${rng},"${p[0]}")`,result:p[3]};
     ws.getCell(r,6).value={formula:`IF(${cnt}>0,E${r}/${cnt},0)`,result:a.n?p[3]/a.n:0}; ws.getCell(r,6).numFmt='0%';
     for(let c=2;c<=6;c++){ const cell=ws.getCell(r,c); cell.font=F; cell.border=box; cell.alignment=c===2?wrap:ctr; } });
-  const rT=d+5; ws.mergeCells(rT,2,rT,4); ws.getCell(rT,2).value='Барлығы бағаланған сабақ саны:';
+  const rT=d+5; ws.mergeCells(rT,2,rT,4); ws.getCell(rT,2).value=t('dTotalX');
   ws.getCell(rT,5).value={formula:cnt,result:a.n}; ws.getCell(rT,6).value={formula:`IF(${cnt}>0,SUM(F${d+2}:F${d+4}),0)`,result:a.n?1:0}; ws.getCell(rT,6).numFmt='0%';
   for(let c=2;c<=6;c++){ const cell=ws.getCell(rT,c); cell.font=bold; cell.border=box; cell.alignment=c===2?wrap:ctr; }
 }
-const sheetName = (i,s) => ((i+1)+'. '+s.replace(/[\\\/\?\*\[\]:]/g,'').replace(/ КММ$/,'')).slice(0,31);
+const sheetName = i => ((i+1)+'. '+SCHOOLS_L[lang][i].replace(/[\\\/\?\*\[\]:]/g,'').replace(/ КММ$/,'')).slice(0,31);
 async function saveWb(wb, name){ const buf=await wb.xlsx.writeBuffer(); download(new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), name); }
-async function withBtn(btn, fn){ btn.disabled=true; try { await loadExcel(); await fn(); toast('Есеп жүктелді'); } catch(e){ toast(e.message||'Қате',true); } btn.disabled=false; }
-$('xlsOne').onclick=function(){ withBtn(this, async()=>{ const {school,recs,label}=tableData(), i=SCHOOLS.indexOf(school);
-  const wb=new ExcelJS.Workbook(); addSchoolSheet(wb, sheetName(i,school), school, recs, label);
-  await saveWb(wb, `Жиынтық кесте_${i+1}_${today()}.xlsx`); }); };
-$('xlsAll').onclick=function(){ withBtn(this, async()=>{ const key=$('homePeriod').value, recs=inPeriod(live(),key);
-  const label = key==='all' ? 'Барлық кезең' : [...$('homePeriod').options].find(o=>o.value===key).textContent;
-  const wb=new ExcelJS.Workbook(), ws=wb.addWorksheet('Қала бойынша',{pageSetup:{orientation:'landscape',paperSize:9,fitToPage:true,fitToWidth:1,fitToHeight:0}});
+async function withBtn(btn, fn){ btn.disabled=true; try { await loadExcel(); await fn(); toast(t('tReport')); } catch(e){ toast(e.message||t('eGeneric'),true); } btn.disabled=false; }
+$('xlsOne').onclick=function(){ withBtn(this, async()=>{ const {idx,school,recs,label}=tableData();
+  const wb=new ExcelJS.Workbook(); addSchoolSheet(wb, sheetName(idx), school, recs, label);
+  await saveWb(wb, `${t('fileOne')}_${idx+1}_${today()}.xlsx`); }); };
+$('xlsAll').onclick=function(){ withBtn(this, async()=>{ const key=$('homePeriod').value, recs=inPeriod(live(),key), label=periodLabel(key);
+  const wb=new ExcelJS.Workbook(), ws=wb.addWorksheet(t('citySheet'),{pageSetup:{orientation:'landscape',paperSize:9,fitToPage:true,fitToWidth:1,fitToHeight:0}});
   [5,46,13,13,13,12,12,12,12].forEach((w,i)=>ws.getColumn(i+1).width=w);
   const ctr={wrapText:true,vertical:'middle',horizontal:'center'};
-  ws.mergeCells('A1:I1'); ws.getCell('A1').value='ҚАЛА МЕКТЕПТЕРІ БОЙЫНША САБАҚ БЕРУ ПРОЦЕСІН БАҚЫЛАУДЫҢ ЖИЫНТЫҚ КӨРСЕТКІШІ'; ws.getCell('A1').font={...F,bold:true,size:13}; ws.getCell('A1').alignment=ctr; ws.getRow(1).height=30;
-  ws.mergeCells('A2:I2'); ws.getCell('A2').value='Бақылау мерзімі: '+label; ws.getCell('A2').font=F;
-  ['№','Білім беру ұйымы','Сабақ саны','Мұғалімдер саны','Орташа ұпай (макс. '+MAXP+')','Сапа %-ы','Жоғары деңгей','Орташа деңгей','Төмен деңгей'].forEach((t,i)=>{ const c=ws.getCell(4,i+1); c.value=t; c.font={...F,bold:true}; c.alignment=ctr; c.border=box; c.fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFDCE6F7'}}; });
+  ws.mergeCells('A1:I1'); ws.getCell('A1').value=t('cityTitle'); ws.getCell('A1').font={...F,bold:true,size:13}; ws.getCell('A1').alignment=ctr; ws.getRow(1).height=30;
+  ws.mergeCells('A2:I2'); ws.getCell('A2').value=t('termLbl')+' '+label; ws.getCell('A2').font=F;
+  [t('no'),t('school'),t('lessons'),t('teachersN'),t('kAvg'),t('qualityPct'),t('lvHi'),t('lvMid'),t('lvLo')].forEach((x,i)=>{ const c=ws.getCell(4,i+1); c.value=x; c.font={...F,bold:true}; c.alignment=ctr; c.border=box; c.fill=headFill; });
   ws.getRow(4).height=48;
   const line=(r,no,nm,x,b)=>{ [no,nm,x.n,x.teachers,isNaN(x.avgTotal)?'':x.avgTotal,isNaN(x.avgPct)?'':x.avgPct,x.lv.hi,x.lv.mid,x.lv.lo].forEach((v,i)=>{ const c=ws.getCell(r,i+1); c.value=v; c.font=b?{...F,bold:true}:F; c.border=box; c.alignment=i===1?{wrapText:true,vertical:'middle'}:ctr; }); ws.getCell(r,5).numFmt='0.0'; ws.getCell(r,6).numFmt='0%'; };
-  SCHOOLS.forEach((s,i)=>line(5+i,i+1,s,agg(recs.filter(r=>r.school===s))));
-  line(5+SCHOOLS.length,'','Қала бойынша',agg(recs),true);
-  SCHOOLS.forEach((s,i)=>{ const rs=recs.filter(r=>r.school===s).sort(byDate); if(rs.length) addSchoolSheet(wb, sheetName(i,s), s, rs, label); });
-  await saveWb(wb, `Сабақты бақылау_қала бойынша_${today()}.xlsx`); }); };
-$('jsonAll').onclick=()=>{ download(new Blob([JSON.stringify({exportedAt:new Date().toISOString(),records},null,1)],{type:'application/json'}), `sabaq-baqylau_${today()}.json`); toast('Сақтық көшірме жүктелді'); };
+  SCHOOLS.forEach((s,i)=>line(5+i,i+1,SCHOOLS_L[lang][i],agg(recs.filter(r=>r.school===s))));
+  line(5+SCHOOLS.length,'',t('city'),agg(recs),true);
+  SCHOOLS.forEach((s,i)=>{ const rs=recs.filter(r=>r.school===s).sort(byDate); if(rs.length) addSchoolSheet(wb, sheetName(i), SCHOOLS_L[lang][i], rs, label); });
+  await saveWb(wb, `${t('fileAll')}_${today()}.xlsx`); }); };
+$('jsonAll').onclick=()=>{ download(new Blob([JSON.stringify({exportedAt:new Date().toISOString(),records},null,1)],{type:'application/json'}), `sabaq-baqylau_${today()}.json`); toast(t('tBackup')); };
+
+/* ============ ІСКЕ ҚОСУ ============ */
+applyLang();
+(async function boot(){
+  const name=ls.get('sb_name')||''; $('lgName').value=name;
+  if(ls.get('sb_mode')==='demo') return enter(DemoStore(), name||t('demoUser'));
+  const token=ls.get('sb_token'); if(token && name){ $('lgToken').value=token; await enter(GitHubStore(token), name); }
+})();
 </script>
 </body>
 </html>
