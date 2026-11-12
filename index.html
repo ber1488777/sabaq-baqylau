@@ -526,10 +526,10 @@ $('lgBtn').onclick = async () => {
   const name=$('lgName').value.trim(), token=$('lgToken').value.trim();
   if(!name){ $('lgErr').textContent=t('eName'); return; }
   if(!token){ $('lgErr').textContent=t('eToken'); return; }
-  if(await enter(GitHubStore(token), name)){ ls.set('sb_token',token); ls.set('sb_name',name); ls.del('sb_mode'); }
+  if(await enter(GitHubStore(token), name)){ ls.set('sb_token',token); ls.set('sb_name',name); }
 };
-$('lgDemo').onclick = async () => { const name=$('lgName').value.trim()||t('demoUser'); ls.set('sb_mode','demo'); ls.set('sb_name',name); await enter(DemoStore(), name); };
-$('btnOut').onclick = () => { ls.del('sb_token'); ls.del('sb_mode'); location.reload(); };
+$('lgDemo').onclick = async () => { await enter(DemoStore(), $('lgName').value.trim()||t('demoUser')); };
+$('btnOut').onclick = () => { if(!store.demo) ls.del('sb_token'); location.reload(); };
 $('btnRefresh').onclick = () => reload(true);
 async function reload(say){ try { records = await store.load(); render(); if(say) toast(t('tRefreshed')); } catch(e){ toast(e.message,true); } }
 
@@ -768,7 +768,7 @@ $('jsonAll').onclick=()=>{ download(new Blob([JSON.stringify({exportedAt:new Dat
 applyLang();
 (async function boot(){
   const name=ls.get('sb_name')||''; $('lgName').value=name;
-  if(ls.get('sb_mode')==='demo') return enter(DemoStore(), name||t('demoUser'));
+  ls.del('sb_mode'); // демо режим есте сақталмайды: сайт әрқашан кіру бетінен ашылады
   const token=ls.get('sb_token'); if(token && name){ $('lgToken').value=token; await enter(GitHubStore(token), name); }
 })();
 </script>
