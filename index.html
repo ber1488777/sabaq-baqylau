@@ -10,6 +10,7 @@
 :root{
   --bg:#f3f6fb; --card:#fff; --ink:#14213d; --muted:#5b6780; --line:#d9e0ec;
   --brand:#1746a2; --brand-d:#0f2f73; --brand-l:#e6edfb;
+  --page:max(1180px, 90vw);
   --hi:#12805c; --hi-bg:#e3f5ee; --mid:#a76400; --mid-bg:#fdf1dc; --lo:#b3261e; --lo-bg:#fde8e6;
 }
 *{box-sizing:border-box}
@@ -18,7 +19,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 h1,h2,h3{margin:0;line-height:1.25}
 .hidden{display:none!important}
 header.top{background:linear-gradient(120deg,var(--brand-d),var(--brand));color:#fff}
-.top-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:14px}
+.top-in{max-width:var(--page);margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:14px}
 .top img{height:52px;width:auto;background:#fff;border-radius:10px;padding:4px}
 .top h1{font-size:18px}
 .top .sub{font-size:13px;opacity:.85}
@@ -33,10 +34,16 @@ header.top{background:linear-gradient(120deg,var(--brand-d),var(--brand));color:
 .top .who .lang button{background:transparent;color:#fff;border:0;border-radius:0;margin:0}
 .top .who .lang button.on{background:#fff;color:var(--brand)}
 nav.tabs{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
-.tabs-in{max-width:1180px;margin:0 auto;padding:0 8px;display:flex;gap:2px;overflow-x:auto}
+.tabs-in{max-width:var(--page);margin:0 auto;padding:0 8px;display:flex;gap:2px;overflow-x:auto}
 .tabs button{border:0;background:none;padding:13px 14px;cursor:pointer;white-space:nowrap;color:var(--muted);border-bottom:3px solid transparent;font-weight:600}
 .tabs button.on{color:var(--brand);border-bottom-color:var(--brand)}
-main{max-width:1180px;margin:0 auto;padding:18px 16px 60px}
+main{max-width:var(--page);margin:0 auto;padding:18px 16px 60px}
+#tab-form{max-width:1180px;margin:0 auto}
+/* жиынтық кестенің бағандары */
+#tOut .ct{min-width:170px}
+#tOut .cn{min-width:300px}
+#tOut td.cn{white-space:pre-wrap}
+@media (max-width:1600px){:root{--page:max(1180px, 96vw)} #tOut .cn{min-width:240px} #tOut .lvl{white-space:normal;text-align:center}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
 .card h2{font-size:17px;margin-bottom:12px}
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
@@ -653,10 +660,10 @@ function renderTable(){
     <div><b>${t('termLbl')}</b> ${esc(label)}</div><div class="small">${esc(t('scale'))}</div></div>`;
   if(!recs.length){ $('tOut').innerHTML=h+`<p class="note">${t('noObsSchoolPeriod')}</p>`; return; }
   h+=`<div class="scroll"><table><tr><th class="n">${t('no')}</th><th>${t('hTeacher')}</th><th>${t('hSubj')}</th><th>${t('hCat')}</th>`+crit().map(c=>`<th class="n">${esc(c)}</th>`).join('')
-    +`<th class="n">${t('hTotal')}</th><th class="n">${t('qualityPct')}</th><th>${t('hLevel')}</th><th>${t('noteLbl')}</th><th class="noprint"></th></tr>`;
+    +`<th class="n">${t('hTotal')}</th><th class="n">${t('qualityPct')}</th><th>${t('hLevel')}</th><th class="cn">${t('noteLbl')}</th><th class="noprint"></th></tr>`;
   recs.forEach((r,i)=>{ const n=total(r);
-    h+=`<tr><td class="n">${i+1}</td><td>${esc(r.teacher)}<div class="small">${fmtDate(r.date)} · ${esc(r.observer||'')}</div></td><td>${esc(subjKlass(r))}</td><td>${esc(catExp(r))}</td>`
-      +r.scores.map(s=>`<td class="n">${s}</td>`).join('')+`<td class="n"><b>${n}</b></td><td class="n">${pc(n/MAXP)}</td><td>${lvlTag(n)}</td><td>${esc(r.note)}</td>
+    h+=`<tr><td class="n">${i+1}</td><td class="ct">${esc(r.teacher)}<div class="small">${fmtDate(r.date)} · ${esc(r.observer||'')}</div></td><td>${esc(subjKlass(r))}</td><td>${esc(catExp(r))}</td>`
+      +r.scores.map(s=>`<td class="n">${s}</td>`).join('')+`<td class="n"><b>${n}</b></td><td class="n">${pc(n/MAXP)}</td><td>${lvlTag(n)}</td><td class="cn">${esc(r.note)}</td>
       <td class="noprint"><div class="btns"><button class="btn ghost sm" data-e="${r.id}">${t('edit')}</button><button class="btn danger sm" data-d="${r.id}">${t('del')}</button></div></td></tr>`; });
   h+=`<tr class="avg"><td></td><td colspan="3">${t('schoolAvg')}</td>`+a.crit.map(c=>`<td class="n">${num(c)}</td>`).join('')+`<td class="n">${num(a.avgTotal)}</td><td class="n">${pc(a.avgPct)}</td><td></td><td></td><td class="noprint"></td></tr></table></div>`;
   h+=`<h3 style="font-size:15px;margin:18px 0 8px">${t('distTitle')}</h3><div class="scroll"><table style="max-width:720px">
