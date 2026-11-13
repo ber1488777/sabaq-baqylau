@@ -243,6 +243,26 @@ button.kpi:focus-visible{outline:2px solid var(--kc)}
 .mcard .mn{font-weight:600;font-size:13.5px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .mcard .mv{font-size:18px}
 .nochart{display:grid;place-items:center;height:96px;color:var(--muted);font-size:13px;background:repeating-linear-gradient(135deg,#f6f8fc 0 8px,#fff 8px 16px);border-radius:8px;margin:6px 0}
+td.sc{color:var(--sc);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px}
+.chip{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--sc);background:#fff;color:var(--ink);border-radius:999px;padding:5px 12px 5px 6px;cursor:pointer;font-weight:600;font-size:13.5px}
+.chip .snum{min-width:22px;height:22px;font-size:12px;border-radius:50%}
+.chip.on{background:color-mix(in srgb,var(--sc) 14%,#fff);box-shadow:inset 0 0 0 1px var(--sc)}
+.chip:not(.on){opacity:.75}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--ink);margin:2px 0 8px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:18px;height:3px;border-radius:2px;background:var(--sc)}
+.legend i.dash{background:repeating-linear-gradient(90deg,#5b6780 0 5px,transparent 5px 9px)}
+.legend i.sq{width:11px;height:11px;border-radius:3px}
+.cmpsec{margin-top:18px} .cmpsec h3{font-size:15px;margin:0 0 4px;display:flex;align-items:center;gap:8px;color:var(--acc-d)}
+.cmpsec h3 .ic{color:var(--acc)}
+.hbar{display:grid;grid-template-columns:minmax(150px,1.2fr) 3fr 56px 90px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+.hbar .bar{height:14px} .hbar .bar i{background:var(--sc)}
+.donuts{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.donut{text-align:center;border:1px solid var(--line);border-radius:12px;padding:10px;border-top:4px solid var(--sc)}
+.donut svg{width:120px;height:120px}
+.donut .dn{font-weight:600;font-size:13px;margin-top:4px}
+@media (max-width:640px){.hbar{grid-template-columns:1fr 56px;}.hbar .bar{grid-column:1/-1;order:3}.hbar .small{display:none}}
 #tip{position:fixed;z-index:40;pointer-events:none;background:#14213d;color:#fff;font-size:12.5px;padding:6px 9px;border-radius:8px;box-shadow:0 8px 20px -8px rgba(0,0,0,.5);white-space:nowrap}
 #toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#14213d;color:#fff;padding:10px 16px;border-radius:10px;z-index:20;max-width:92vw;box-shadow:0 6px 24px rgba(0,0,0,.25)}
 #toast.bad{background:var(--lo)}
@@ -376,6 +396,8 @@ button.kpi:focus-visible{outline:2px solid var(--kc)}
     <label class="f" style="flex:0 1 280px"><span data-i18n="year"></span><select id="pYear"></select></label>
   </div></div>
   <div class="card"><h2 data-i18n="genOrg"></h2><p class="note" style="margin-top:-6px" data-i18n="genOrgSub"></p><div id="pAll"></div></div>
+  <div class="card" id="pCmpCard"><h2 data-i18n="cmpTitle"></h2><p class="note" style="margin-top:-6px" data-i18n="cmpSub"></p>
+    <div class="chips noprint" id="pChips"></div><div id="pCmp"></div></div>
   <div class="card"><h2 data-i18n="schoolsDyn"></h2><div class="mgrid" id="pSchools"></div><p class="note" data-i18n="mgridHint"></p></div>
   <div class="card" id="pDetail"><h2 data-i18n="schoolDetail"></h2><div class="row noprint">
     <div class="f" style="flex:2 1 280px"><span data-i18n="school"></span><select id="pSchool"></select></div>
@@ -532,7 +554,7 @@ kk: {
   change:'Өзгеріс', pSubject:'Пәні', pCount:'Бақылау саны', pList:'Бақылаулар (күні – сапа)', first:'Алғашқы', last:'Соңғы', dynamics:'Динамика', lastLevel:'Соңғы деңгейі', same:'өзгеріссіз',
   back:'Артқа', strengths:'Күшті жақтары', weaknesses:'Дамыту қажет жақтары', noStrong:'Әзірге 2,5 ұпайдан жоғары критерий жоқ.', noWeak:'Барлық критерий 2 ұпай және одан жоғары.',
   swHint:'Күшті жақ — критерий бойынша орташа 2,5 ұпай және жоғары; дамыту қажет — 2 ұпайдан төмен. Барлық бақылаулар бойынша есептеледі.',
-  critProfile:'Критерийлер бойынша орташа ұпай', overallAvg:'Мұғалімнің жалпы орташа ұпайы', kpiHint:'Көрсеткішті бассаңыз, толық ақпарат ашылады.', close:'Жабу', mQuality:'Мектептердің сапа бойынша рейтингі', mAvg:'Мектептер бойынша критерийлердің орташа ұпайы', genOrg:'Жалпы білім беретін мекемелер', genOrgSub:'Барлық мектептердің орташа сапа %-ы, айлар бойынша', schoolsDyn:'Әр мектептің динамикасы', mgridHint:'Мектептің карточкасын бассаңыз, төменде оның толық көрсеткіштері ашылады.', schoolDetail:'Мектеп бойынша толық', rankHint:'Мектептің жолын бассаңыз, оның жиынтық кестесі ашылады.', trend:'Сапа динамикасы', trendNeed:'Динамиканы көру үшін кемінде екі бақылау керек.', history:'Бақылаулар тарихы',
+  critProfile:'Критерийлер бойынша орташа ұпай', overallAvg:'Мұғалімнің жалпы орташа ұпайы', kpiHint:'Көрсеткішті бассаңыз, толық ақпарат ашылады.', close:'Жабу', mQuality:'Мектептердің сапа бойынша рейтингі', mAvg:'Мектептер бойынша критерийлердің орташа ұпайы', genOrg:'Жалпы білім беретін мекемелер', genOrgSub:'Барлық мектептердің орташа сапа %-ы, айлар бойынша', schoolsDyn:'Әр мектептің динамикасы', mgridHint:'Мектептің карточкасын бассаңыз, төменде оның толық көрсеткіштері ашылады.', schoolDetail:'Мектеп бойынша толық', cmpTitle:'Мектептерді салыстыру', cmpSub:'Салыстыратын мектептерді таңдаңыз (ең көбі 6). Таңдалған оқу жылы бойынша есептеледі.', cmpDyn:'Динамика: айлар бойынша сапа %-ы', cmpBar:'Салыстыру: сапа %-ы', cmpCrit:'Салыстыру: критерийлер бойынша орташа ұпай', cmpShare:'Үлес: деңгейлер бойынша бөлініс', cityLine:'Қала орташасы', cmpNeed:'Салыстыру үшін кемінде 2 мектепті таңдаңыз.', cmpMax:'Ең көбі 6 мектеп таңдауға болады.', rankHint:'Мектептің жолын бассаңыз, оның жиынтық кестесі ашылады.', trend:'Сапа динамикасы', trendNeed:'Динамиканы көру үшін кемінде екі бақылау керек.', history:'Бақылаулар тарихы',
   spellings:'Басқаша жазылуы:', kObs:'Бақылау саны', kLastQ:'Соңғы сапа', kChange:'Өзгеріс (алғашқымен)',
   lockedBy:'Тек авторы өзгерте алады', eNotOwner:'Бұл жазбаны тек оны енгізген әдіскер өзгерте немесе өшіре алады.',
   cityTitle:'ҚАЛА МЕКТЕПТЕРІ БОЙЫНША САБАҚ БЕРУ ПРОЦЕСІН БАҚЫЛАУДЫҢ ЖИЫНТЫҚ КӨРСЕТКІШІ', citySheet:'Қала бойынша',
@@ -590,7 +612,7 @@ ru: {
   change:'Изменение', pSubject:'Предмет', pCount:'Наблюдений', pList:'Наблюдения (дата – качество)', first:'Первое', last:'Последнее', dynamics:'Динамика', lastLevel:'Последний уровень', same:'без изменений',
   back:'Назад', strengths:'Сильные стороны', weaknesses:'Зоны роста', noStrong:'Пока нет критериев со средним 2,5 балла и выше.', noWeak:'Все критерии — 2 балла и выше.',
   swHint:'Сильная сторона — средний балл по критерию 2,5 и выше; зона роста — ниже 2. Считается по всем наблюдениям.',
-  critProfile:'Средний балл по критериям', overallAvg:'Общий средний балл учителя', kpiHint:'Нажмите на показатель, чтобы открыть подробности.', close:'Закрыть', mQuality:'Рейтинг школ по качеству', mAvg:'Средний балл по критериям в разрезе школ', genOrg:'Общеобразовательные организации', genOrgSub:'Средний % качества по всем школам, по месяцам', schoolsDyn:'Динамика по каждой школе', mgridHint:'Нажмите на карточку школы, чтобы ниже открыть её подробные показатели.', schoolDetail:'Подробно по школе', rankHint:'Нажмите на строку школы, чтобы открыть её сводную таблицу.', trend:'Динамика качества', trendNeed:'Для динамики нужно минимум два наблюдения.', history:'История наблюдений',
+  critProfile:'Средний балл по критериям', overallAvg:'Общий средний балл учителя', kpiHint:'Нажмите на показатель, чтобы открыть подробности.', close:'Закрыть', mQuality:'Рейтинг школ по качеству', mAvg:'Средний балл по критериям в разрезе школ', genOrg:'Общеобразовательные организации', genOrgSub:'Средний % качества по всем школам, по месяцам', schoolsDyn:'Динамика по каждой школе', mgridHint:'Нажмите на карточку школы, чтобы ниже открыть её подробные показатели.', schoolDetail:'Подробно по школе', cmpTitle:'Сравнение школ', cmpSub:'Выберите школы для сравнения (не более 6). Расчёт за выбранный учебный год.', cmpDyn:'Динамика: % качества по месяцам', cmpBar:'Сравнение: % качества', cmpCrit:'Сравнение: средний балл по критериям', cmpShare:'Доля: распределение по уровням', cityLine:'Среднее по городу', cmpNeed:'Для сравнения выберите не менее 2 школ.', cmpMax:'Можно выбрать не более 6 школ.', rankHint:'Нажмите на строку школы, чтобы открыть её сводную таблицу.', trend:'Динамика качества', trendNeed:'Для динамики нужно минимум два наблюдения.', history:'История наблюдений',
   spellings:'Другие написания:', kObs:'Наблюдений', kLastQ:'Последнее качество', kChange:'Изменение (к первому)',
   lockedBy:'Изменить может только автор', eNotOwner:'Эту запись может изменить или удалить только методист, который её внёс.',
   cityTitle:'СВОДНЫЕ ПОКАЗАТЕЛИ НАБЛЮДЕНИЯ ЗА ПРОЦЕССОМ ПРЕПОДАВАНИЯ ПО ШКОЛАМ ГОРОДА', citySheet:'По городу',
@@ -648,7 +670,7 @@ en: {
   change:'Change', pSubject:'Subject', pCount:'Observations', pList:'Observations (date – quality)', first:'First', last:'Latest', dynamics:'Trend', lastLevel:'Latest level', same:'no change',
   back:'Back', strengths:'Strengths', weaknesses:'Areas for growth', noStrong:'No criterion averages 2.5 or higher yet.', noWeak:'All criteria average 2 or higher.',
   swHint:'Strength: criterion average of 2.5 or higher; area for growth: below 2. Calculated across all observations.',
-  critProfile:'Average score by criterion', overallAvg:'Teacher\u2019s overall average', kpiHint:'Click a figure to see the details.', close:'Close', mQuality:'Schools ranked by quality', mAvg:'Average criterion scores by school', genOrg:'General education schools (all)', genOrgSub:'Average quality % across all schools, by month', schoolsDyn:'Trend for each school', mgridHint:'Click a school card to open its detailed figures below.', schoolDetail:'School details', rankHint:'Click a school row to open its summary table.', trend:'Quality trend', trendNeed:'At least two observations are needed to show a trend.', history:'Observation history',
+  critProfile:'Average score by criterion', overallAvg:'Teacher\u2019s overall average', kpiHint:'Click a figure to see the details.', close:'Close', mQuality:'Schools ranked by quality', mAvg:'Average criterion scores by school', genOrg:'General education schools (all)', genOrgSub:'Average quality % across all schools, by month', schoolsDyn:'Trend for each school', mgridHint:'Click a school card to open its detailed figures below.', schoolDetail:'School details', cmpTitle:'Compare schools', cmpSub:'Choose schools to compare (up to 6). Calculated for the selected school year.', cmpDyn:'Trend: quality % by month', cmpBar:'Comparison: quality %', cmpCrit:'Comparison: average score by criterion', cmpShare:'Share: distribution by level', cityLine:'City average', cmpNeed:'Choose at least 2 schools to compare.', cmpMax:'You can choose up to 6 schools.', rankHint:'Click a school row to open its summary table.', trend:'Quality trend', trendNeed:'At least two observations are needed to show a trend.', history:'Observation history',
   spellings:'Also written as:', kObs:'Observations', kLastQ:'Latest quality', kChange:'Change (vs first)',
   lockedBy:'Only the author can change it', eNotOwner:'Only the methodologist who entered this record can edit or delete it.',
   cityTitle:'SUMMARY OF LESSON OBSERVATION RESULTS ACROSS CITY SCHOOLS', citySheet:'City-wide',
@@ -946,7 +968,7 @@ function renderHome(){
   $('homeKpis').querySelectorAll('button.kpi').forEach(b=>b.onclick=()=>openKpi(b.dataset.k));
   let h=`<table><tr><th class="n">${t('no')}</th><th>${t('school')}</th><th class="n">${t('lessons')}</th><th class="n">${t('teachers')}</th><th class="n">${t('avgScore')}</th><th>${t('qualityPct')}</th><th class="n">${t('hi')}</th><th class="n">${t('mid')}</th><th class="n">${t('lo')}</th></tr>`;
   SCHOOLS.forEach((s,i)=>{ const x=agg(recs.filter(r=>r.school===s));
-    h+=`<tr class="click" data-s="${i}"><td class="n">${i+1}</td><td><span class="sdot" style="${scVar(i)}"></span>${esc(SCHOOLS_L[lang][i])}</td><td class="n">${x.n}</td><td class="n">${x.teachers}</td><td class="n">${num(x.avgTotal)}</td>
+    h+=`<tr class="click" data-s="${i}"><td class="n">${i+1}</td><td><span class="sdot" style="${scVar(i)}"></span>${esc(SCHOOLS_L[lang][i])}</td><td class="n sc" style="${scVar(i)}">${x.n}</td><td class="n sc" style="${scVar(i)}">${x.teachers}</td><td class="n sc" style="${scVar(i)}">${num(x.avgTotal)}</td>
       <td>${x.n?`<div style="display:flex;gap:8px;align-items:center"><div class="bar" style="flex:1"><i style="width:${Math.round(x.avgPct*100)}%;background:var(--${lvKey(x.avgTotal)==='hi'?'hi':lvKey(x.avgTotal)==='mid'?'mid':'lo'})"></i></div><b>${pc(x.avgPct)}</b></div>`:`<span class="small">${t('noObs')}</span>`}</td>
       <td class="n">${x.lv.hi}</td><td class="n">${x.lv.mid}</td><td class="n">${x.lv.lo}</td></tr>`; });
   h+=`<tr class="avg"><td></td><td>${t('city')}</td><td class="n">${a.n}</td><td class="n">${a.teachers}</td><td class="n">${num(a.avgTotal)}</td><td>${pc(a.avgPct)}</td><td class="n">${a.lv.hi}</td><td class="n">${a.lv.mid}</td><td class="n">${a.lv.lo}</td></tr></table>`;
@@ -1114,6 +1136,7 @@ function renderProg(){
   $('pAll').innerHTML = lineChart(all, '#1746a2', {big:true, w:900, h:240})
     + `<div class="csum"><span>${t('lessons')}: <b>${ay.n}</b></span><span>${t('kQuality')}: <b>${pc(ay.avgPct)}</b></span>${wd.length>1?`<span>${t('change')}: <b>${delta(wd[0].v, wd[wd.length-1].v)}</b></span>`:''}</div>`;
   // әр мектеп бөлек
+  renderCompare(sy, yr);
   const sel=+$('pSchool').value;
   $('pSchools').innerHTML = SCHOOLS.map((s,i)=>{ const sr=yr.filter(r=>r.school===s), ser=monthSeries(sr, sy), w=ser.filter(p=>p.v!=null), x=agg(sr);
     return `<button type="button" class="mcard${i===sel?' on':''}" data-s="${i}" style="${scVar(i)}"><div class="mh"><span class="snum">${i+1}</span><span class="mn">${esc(SCHOOLS_L[lang][i])}</span><b class="mv">${pc(x.avgPct)}</b></div>
@@ -1204,6 +1227,74 @@ function monthSeries(recs, sy){
   const ms=monthsList(sy).filter(m=>m<=cur || have.has(m));
   return ms.map(k=>{ const l=recs.filter(r=>ymOf(r.date)===k), x=agg(l); return {k, v:l.length?x.avgPct:null, n:l.length}; });
 }
+/* ============ МЕКТЕПТЕРДІ САЛЫСТЫРУ ============ */
+let cmpSel = (()=>{ try { const v=JSON.parse(ls.get('sb_cmp')); if(Array.isArray(v)) return v.filter(i=>i>=0&&i<SCHOOLS.length).slice(0,6); } catch(e){} return null; })();
+function multiLine(series, months, city){
+  const W=900, H=290, L=44, R=150, T=20, B=30, N=months.length;
+  const x=i=>L+(N>1 ? i*(W-L-R)/(N-1) : (W-L-R)/2), y=v=>T+(1-v)*(H-T-B);
+  let g='';
+  [0,.25,.5,.75,1].forEach(v=>{ g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#e6ebf3"/><text class="ax" x="${L-8}" y="${y(v)+4}" text-anchor="end">${v*100}%</text>`; });
+  months.forEach((k,i)=>{ g+=`<text class="ax" x="${x(i)}" y="${H-8}" text-anchor="middle">${esc(monShort(k))}</text>`; });
+  const ends=[];
+  const draw=(pts,color,dash,name,w)=>{ const have=pts.map((p,i)=>({...p,i})).filter(p=>p.v!=null); if(!have.length) return '';
+    let o=`<polyline points="${have.map(p=>`${x(p.i).toFixed(1)},${y(p.v).toFixed(1)}`).join(' ')}" fill="none" stroke="${color}" stroke-width="${w}" ${dash?'stroke-dasharray="6 5"':''} stroke-linejoin="round" stroke-linecap="round"/>`;
+    if(!dash) o+=have.map(p=>`<circle cx="${x(p.i).toFixed(1)}" cy="${y(p.v).toFixed(1)}" r="4.5" fill="${color}" stroke="#fff" stroke-width="2"/>
+      <circle cx="${x(p.i).toFixed(1)}" cy="${y(p.v).toFixed(1)}" r="13" fill="transparent" data-tip="${esc(name+' · '+t('monthYear',monName(p.k),p.k.slice(0,4))+': '+pc(p.v)+' · '+t('obsN',p.n))}"/>`).join('');
+    const l=have[have.length-1]; ends.push({y:y(l.v), x:x(l.i), name, v:l.v, color, dash}); return o; };
+  let lines=draw(city,'#5b6780',true,t('cityLine'),2);
+  series.forEach(s=>{ lines+=draw(s.pts, s.color, false, s.name, 2.5); });
+  ends.sort((a,b)=>a.y-b.y); for(let i=1;i<ends.length;i++) if(ends[i].y-ends[i-1].y<15) ends[i].y=ends[i-1].y+15;   // жазулар қабаттаспасын
+  const labels=ends.map(e=>`<line x1="${W-R+6}" x2="${W-R+16}" y1="${e.y}" y2="${e.y}" stroke="${e.color}" stroke-width="3" ${e.dash?'stroke-dasharray="3 2"':''}/><text class="val" x="${W-R+20}" y="${e.y+4}">${pc(e.v)} ${esc(e.name.length>14?e.name.slice(0,13)+'…':e.name)}</text>`).join('');
+  return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(t('cmpDyn'))}">${g}${lines}${labels}</svg></div>`;
+}
+function groupedCrit(sel, aggs){
+  const W=900, H=250, L=34, R=10, T=16, B=30, G=NCRIT, gw=(W-L-R)/G, n=sel.length, bw=Math.min(26,(gw-18)/n);
+  const y=v=>T+(1-v/3)*(H-T-B);
+  let g='';
+  [0,1,2,3].forEach(v=>{ g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#e6ebf3"/><text class="ax" x="${L-8}" y="${y(v)+4}" text-anchor="end">${v}</text>`; });
+  for(let c=0;c<G;c++){
+    const x0=L+c*gw+(gw-n*(bw+2))/2;
+    g+=`<text class="ax" x="${L+c*gw+gw/2}" y="${H-10}" text-anchor="middle"><title>${esc(crit()[c])}</title>${esc(crit()[c].split(' ').slice(0,2).join(' '))}</text>`;
+    sel.forEach((si,k)=>{ const v=aggs[k].crit[c]; if(isNaN(v)) return; const xx=x0+k*(bw+2), yy=y(v), hh=y(0)-yy;
+      g+=`<path d="M${xx} ${y(0)} V${yy+3} q0 -3 3 -3 h${bw-6} q3 0 3 3 V${y(0)} Z" fill="${SC_COL[si]}" data-tip="${esc(SCHOOLS_L[lang][si]+' · '+crit()[c]+': '+num(v)+' / 3')}"/>`; });
+  }
+  return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(t('cmpCrit'))}">${g}</svg></div>`;
+}
+function donut(x, color){
+  const R=50, r=33, C=60, parts=[['hi','#12805c'],['mid','#d08a00'],['lo','#b3261e']], tot=x.n;
+  if(!tot) return `<svg viewBox="0 0 120 120"><circle cx="${C}" cy="${C}" r="${(R+r)/2}" fill="none" stroke="#e6ebf3" stroke-width="${R-r}"/><text x="${C}" y="${C+4}" text-anchor="middle" class="ax">–</text></svg>`;
+  let a0=-Math.PI/2, segs='';
+  const pt=(rad,a)=>`${(C+rad*Math.cos(a)).toFixed(2)} ${(C+rad*Math.sin(a)).toFixed(2)}`;
+  parts.forEach(([k,col])=>{ const v=x.lv[k]; if(!v) return; let a1=a0+v/tot*2*Math.PI; const gap=tot>v?0.03:0;
+    const s=a0+gap, e=a1-gap, big=(e-s)>Math.PI?1:0;
+    segs += (v===tot) ? `<circle cx="${C}" cy="${C}" r="${(R+r)/2}" fill="none" stroke="${col}" stroke-width="${R-r}" data-tip="${esc(lvName(k)+': '+v+' ('+pc(v/tot)+')')}"/>`
+      : `<path d="M${pt(R,s)} A${R} ${R} 0 ${big} 1 ${pt(R,e)} L${pt(r,e)} A${r} ${r} 0 ${big} 0 ${pt(r,s)} Z" fill="${col}" data-tip="${esc(lvName(k)+': '+v+' ('+pc(v/tot)+')')}"/>`;
+    a0=a1; });
+  return `<svg viewBox="0 0 120 120" role="img" aria-label="${esc(parts.map(([k])=>lvName(k)+' '+x.lv[k]).join(', '))}">${segs}<text x="${C}" y="${C+6}" text-anchor="middle" style="font-size:18px;font-weight:700;fill:#14213d">${pc(x.avgPct)}</text></svg>`;
+}
+function renderCompare(sy, yr){
+  if(!cmpSel){ const cnt=SCHOOLS.map((s,i)=>({i,n:yr.filter(r=>r.school===s).length})).sort((a,b)=>b.n-a.n); cmpSel=cnt.slice(0,2).map(o=>o.i).sort((a,b)=>a-b); }
+  $('pChips').innerHTML = SCHOOLS.map((s,i)=>`<button type="button" class="chip${cmpSel.includes(i)?' on':''}" data-s="${i}" style="${scVar(i)}" aria-pressed="${cmpSel.includes(i)}"><span class="snum" style="background:var(--sc)">${i+1}</span>${esc(SCHOOLS_L[lang][i])}</button>`).join('');
+  $('pChips').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ const i=+b.dataset.s;
+    if(cmpSel.includes(i)) cmpSel=cmpSel.filter(v=>v!==i); else { if(cmpSel.length>=6){ toast(t('cmpMax'),true); return; } cmpSel=[...cmpSel,i].sort((a,b)=>a-b); }
+    ls.set('sb_cmp', JSON.stringify(cmpSel)); renderCompare(sy, yr); });
+  if(cmpSel.length<2){ $('pCmp').innerHTML=`<p class="note">${t('cmpNeed')}</p>`; return; }
+  const months=monthSeries(yr, sy).map(p=>p.k), city=monthSeries(yr, sy);
+  const aggs=cmpSel.map(i=>agg(yr.filter(r=>r.school===SCHOOLS[i])));
+  const series=cmpSel.map(i=>({name:SCHOOLS_L[lang][i], color:SC_COL[i], pts:months.map(k=>{ const l=yr.filter(r=>r.school===SCHOOLS[i] && ymOf(r.date)===k); return {k, v:l.length?agg(l).avgPct:null, n:l.length}; })}));
+  const legend = `<div class="legend">${cmpSel.map(i=>`<span><i style="${scVar(i)}"></i>${esc(SCHOOLS_L[lang][i])}</span>`).join('')}<span><i class="dash"></i>${esc(t('cityLine'))}</span></div>`;
+  const legendSq = `<div class="legend">${cmpSel.map(i=>`<span><i class="sq" style="${scVar(i)}"></i>${esc(SCHOOLS_L[lang][i])}</span>`).join('')}</div>`;
+  const maxQ=Math.max(...aggs.map(a=>isNaN(a.avgPct)?0:a.avgPct), .01);
+  $('pCmp').innerHTML = `
+    <div class="cmpsec"><h3>${ic('prog')}${t('cmpDyn')}</h3>${legend}${multiLine(series, months, city)}</div>
+    <div class="cmpsec"><h3>${ic('table')}${t('cmpBar')}</h3>
+      ${cmpSel.map((i,k)=>{ const a=aggs[k]; return `<div class="hbar" style="${scVar(i)}"><span><span class="sdot"></span>${esc(SCHOOLS_L[lang][i])}</span><div class="bar"><i style="width:${isNaN(a.avgPct)?0:Math.round(a.avgPct*100)}%"></i></div><b style="text-align:right">${pc(a.avgPct)}</b><span class="small">${esc(t('obsN',a.n))}</span></div>`; }).join('')}</div>
+    <div class="cmpsec"><h3>${ic('award')}${t('cmpCrit')}</h3>${legendSq}${groupedCrit(cmpSel, aggs)}<p class="small">${crit().map(esc).join(' · ')}</p></div>
+    <div class="cmpsec"><h3>${ic('target')}${t('cmpShare')}</h3>
+      <div class="legend"><span><i class="sq" style="--sc:#12805c"></i>${esc(t('lvHi'))}</span><span><i class="sq" style="--sc:#d08a00"></i>${esc(t('lvMid'))}</span><span><i class="sq" style="--sc:#b3261e"></i>${esc(t('lvLo'))}</span></div>
+      <div class="donuts">${cmpSel.map((i,k)=>`<div class="donut" style="${scVar(i)}">${donut(aggs[k], SC_COL[i])}<div class="dn"><span class="sdot"></span>${esc(SCHOOLS_L[lang][i])}</div><div class="small">${esc(t('obsN',aggs[k].n))}</div></div>`).join('')}</div></div>`;
+}
+
 /* Тінтуір апарғанда шығатын түсініктеме */
 document.addEventListener('mouseover', e=>{ const el=e.target.closest && e.target.closest('[data-tip]'); const tip=$('tip');
   if(!el){ tip.classList.add('hidden'); return; }
