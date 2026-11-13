@@ -29,11 +29,20 @@ h1,h2,h3{margin:0;line-height:1.25}
 .ic{width:18px;height:18px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px}
 i[data-ic]{display:inline-flex;font-style:normal}
 /* header */
-header.top{background:linear-gradient(120deg,#0b2560,#1746a2 55%,#2c63cc);color:#fff;position:relative;overflow:hidden}
-header.top::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
-.top-in{max-width:var(--page);margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:14px;position:relative;z-index:1}
-.top img{height:52px;width:auto;background:#fff;border-radius:10px;padding:4px}
-.top h1{font-size:18px}
+header.top{background:linear-gradient(115deg,#0b3d7c 0%,#0b63a3 50%,#0a9cc4 100%);color:#fff;position:relative;overflow:hidden}
+/* ҚР туының элементтері: ою-өрнек, күн шуағы, қыран (өзіміз салған стилизация) */
+.hart{position:absolute;inset:0;pointer-events:none;z-index:0}
+.orn{position:absolute;left:0;top:0;bottom:0;width:30px;opacity:.55}
+.hart .se{position:absolute;top:50%;transform:translateY(-50%);right:22%;height:94%;opacity:.9}
+.se svg{height:100%;width:auto;display:block}
+.logo-m{width:74px;height:74px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:0 0 auto;
+  box-shadow:0 0 0 3px #f2c230,0 0 0 8px rgba(242,194,48,.22),0 10px 22px -8px rgba(0,0,0,.5)}
+.logo-m img{height:56px;width:auto;display:block}
+@media (max-width:900px){.hart .se{right:-30px;opacity:.25}}
+@media (max-width:640px){.orn{display:none}.logo-m{width:46px;height:46px}.logo-m img{height:34px}
+  .top-in{padding:16px 12px;gap:10px}.top-in>div:nth-child(2){min-width:0}.top .who{font-size:11.5px;flex:0 0 auto}.top .who .hb{padding:4px 7px;margin-left:3px}.top .lang button{padding:4px 7px}.top .yr{font-size:10.5px;padding:1px 6px;white-space:normal}}
+.top-in{max-width:var(--page);margin:0 auto;padding:28px 16px;display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+.top h1{font-size:20px}
 .top .sub{font-size:13px;opacity:.85}
 .yr{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:2px 10px;white-space:nowrap;background:var(--brand-l);color:var(--brand);vertical-align:middle}
 .top .yr{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.4)}
@@ -57,6 +66,10 @@ nav.tabs{background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-botto
 .tabs button:hover{background:#f1f4fa;color:var(--ink)}
 .tabs button.on{background:var(--tc);color:#fff;box-shadow:0 6px 14px -6px var(--tc)}
 .tabs button.on .ic{color:#fff}
+.tabs .navback{color:var(--ink);border-color:var(--line);background:#fff}
+.tabs .navback .ic{color:var(--ink)}
+.tabs .navback:disabled{opacity:.4;cursor:default;background:#fff}
+.nsep{width:1px;background:var(--line);margin:4px 2px;flex:0 0 auto}
 main{max-width:var(--page);margin:0 auto;padding:18px 16px 60px}
 #tab-form{max-width:1180px;margin:0 auto}
 /* hero */
@@ -99,9 +112,16 @@ input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid v
 .banner{background:var(--mid-bg);color:#6b4300;border:1px solid #f0d49c;border-radius:10px;padding:9px 12px;margin-bottom:14px;font-size:14px}
 /* login */
 .login{max-width:480px;margin:6vh auto;padding:0 16px}
-.login .card{padding:24px;border-top:5px solid var(--brand)}
-.login .langrow{text-align:right;margin-bottom:6px}
-.login img{height:84px;display:block;margin:0 auto 10px}
+.login .card{padding:24px;position:relative;overflow:hidden}
+.lband{position:relative;margin:-24px -24px 0;height:118px;background:linear-gradient(115deg,#0b3d7c 0%,#0b63a3 50%,#0a9cc4 100%)}
+.lband .se{position:absolute;left:50%;top:6px;transform:translateX(-50%);height:96px;opacity:.95}
+.lband .orn{width:26px}
+.login .langrow{position:absolute;top:10px;right:12px;z-index:2}
+.login .langrow .lang{border-color:rgba(255,255,255,.5)}
+.login .langrow .lang button{background:transparent;color:#fff}
+.login .langrow .lang button.on{background:#fff;color:var(--brand)}
+.logo-m.lg{width:86px;height:86px;margin:-43px auto 10px;position:relative;z-index:1}
+.logo-m.lg img{height:64px}
 .login h1{font-size:20px;text-align:center;margin-bottom:4px}
 .login p.c{text-align:center;color:var(--muted);margin:0 0 16px}
 .login .f{margin-bottom:12px}
@@ -137,6 +157,20 @@ tr.click{cursor:pointer} tr.click:hover td{background:#f6f9ff}
 .lock{display:inline-flex;gap:4px;align-items:flex-start;font-size:12px;line-height:1.3;color:var(--muted);max-width:110px}
 .acts{display:flex;flex-direction:column;gap:6px;align-items:stretch}
 .lock .ic{width:14px;height:14px}
+/* мектеп таңдау */
+.sp{position:relative;margin-top:4px}
+.sp-btn{width:100%;display:flex;align-items:center;gap:10px;padding:6px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;cursor:pointer;text-align:left;font-weight:600;color:var(--ink)}
+.sp-btn:hover{border-color:var(--acc)}
+.sp-btn>span:nth-child(2){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sp-btn::after{content:"";margin-left:auto;border:5px solid transparent;border-top-color:var(--muted);transform:translateY(3px);flex:0 0 auto}
+.snum{display:inline-grid;place-items:center;min-width:26px;height:26px;padding:0 4px;border-radius:8px;background:var(--sc);color:#fff;font-size:13px;font-weight:700;flex:0 0 auto}
+.sp-panel{position:absolute;top:100%;left:0;z-index:12;margin-top:6px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 40px -12px rgba(20,33,61,.4);padding:10px;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;width:min(780px,calc(100vw - 48px))}
+.sp-opt{display:flex;gap:10px;align-items:center;text-align:left;border:1px solid var(--line);border-left:5px solid var(--sc);background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer;font-weight:500;color:var(--ink)}
+.sp-opt:hover{background:color-mix(in srgb,var(--sc) 10%,#fff)}
+.sp-opt.on{background:color-mix(in srgb,var(--sc) 16%,#fff);border-color:var(--sc);font-weight:700}
+.sdot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--sc);margin-right:8px}
+.cavg{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--acc-l);font-weight:700}
+.cavg b{font-size:22px}
 /* search */
 .search{position:relative}
 .search .sin{position:relative}
@@ -196,8 +230,9 @@ tr.click{cursor:pointer} tr.click:hover td{background:#f6f9ff}
 <!-- ================= КІРУ ================= -->
 <div id="login" class="login">
   <div class="card">
+    <div class="lband" id="lArt"></div>
     <div class="langrow"><span class="lang"><button data-lang="kk">ҚАЗ</button><button data-lang="ru">РУС</button><button data-lang="en">ENG</button></span></div>
-    <img src="logo.png" alt="" onerror="this.remove()">
+    <div class="logo-m lg"><img src="logo.png" alt="" onerror="this.remove()"></div>
     <h1 data-i18n="appName"></h1>
     <p class="c" data-i18n="loginSub"></p>
     <p class="c"><span class="yr"></span></p>
@@ -222,13 +257,14 @@ tr.click{cursor:pointer} tr.click:hover td{background:#f6f9ff}
 
 <!-- ================= ҚОЛДАНБА ================= -->
 <div id="app" class="hidden">
-<header class="top"><div class="top-in">
-  <img src="logo.png" alt="" onerror="this.remove()">
+<header class="top"><div class="hart" id="hArt"></div><div class="top-in">
+  <div class="logo-m"><img src="logo.png" alt="" onerror="this.remove()"></div>
   <div><h1><span data-i18n="appName"></span> <span class="yr"></span></h1><div class="sub" data-i18n="appSub"></div></div>
   <div class="who"><span class="lang"><button data-lang="kk">ҚАЗ</button><button data-lang="ru">РУС</button><button data-lang="en">ENG</button></span><br>
     <span id="whoName"></span><br><button class="hb" id="btnRefresh"><i data-ic="refresh"></i><span data-i18n="refresh"></span></button><button class="hb" id="btnOut"><i data-ic="logout"></i><span data-i18n="logout"></span></button></div>
 </div></header>
 <nav class="tabs noprint"><div class="tabs-in">
+  <button type="button" id="navBack" class="navback" disabled><i data-ic="back"></i><span data-i18n="back"></span></button><span class="nsep"></span>
   <button data-tab="home" class="on"><i data-ic="home"></i><span data-i18n="tabHome"></span></button>
   <button data-tab="form"><i data-ic="form"></i><span data-i18n="tabForm"></span></button>
   <button data-tab="table"><i data-ic="table"></i><span data-i18n="tabTable"></span></button>
@@ -257,7 +293,7 @@ tr.click{cursor:pointer} tr.click:hover td{background:#f6f9ff}
   <div class="card">
     <h2 data-i18n="lessonInfo"></h2>
     <div class="row">
-      <label class="f" style="flex:2 1 280px"><span data-i18n="school"></span><select id="fSchool"></select></label>
+      <div class="f" style="flex:2 1 280px"><span data-i18n="school"></span><select id="fSchool"></select></div>
       <label class="f"><span data-i18n="obsDate"></span><input type="date" id="fDate"></label>
     </div>
     <div class="row" style="margin-top:12px">
@@ -289,7 +325,7 @@ tr.click{cursor:pointer} tr.click:hover td{background:#f6f9ff}
 <section id="tab-table" class="hidden">
   <div class="hero"><div class="hero-ic"><i data-ic="table"></i></div><div><h2 data-i18n="tabTable"></h2><p data-i18n="hTable"></p></div></div>
   <div class="card noprint"><div class="row">
-    <label class="f" style="flex:2 1 260px"><span data-i18n="school"></span><select id="tSchool"></select></label>
+    <div class="f" style="flex:2 1 260px"><span data-i18n="school"></span><select id="tSchool"></select></div>
     <label class="f"><span data-i18n="year"></span><select id="tYear"></select></label>
     <label class="f" style="flex:1 1 150px"><span data-i18n="month"></span><select id="tMonth"></select></label>
     <div class="f search" style="flex:2 1 240px"><label for="tSearch" data-i18n="searchLbl"></label>
@@ -305,7 +341,7 @@ tr.click{cursor:pointer} tr.click:hover td{background:#f6f9ff}
 <section id="tab-prog" class="hidden">
   <div class="hero"><div class="hero-ic"><i data-ic="prog"></i></div><div><h2 data-i18n="tabProg"></h2><p data-i18n="hProg"></p></div></div>
   <div class="card noprint"><div class="row">
-    <label class="f" style="flex:2 1 280px"><span data-i18n="school"></span><select id="pSchool"></select></label>
+    <div class="f" style="flex:2 1 280px"><span data-i18n="school"></span><select id="pSchool"></select></div>
   </div></div>
   <div class="card"><h2 data-i18n="schoolByMonth"></h2><div class="scroll" id="pPeriods"></div></div>
   <div class="card"><h2 data-i18n="teacherProg"></h2><div class="scroll" id="pTeachers"></div>
@@ -381,6 +417,26 @@ const ICONS = {
   alert:'<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17v.5"/>'
 };
 const ic = n => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||''}</svg>`;
+/* Мектептердің түстері (13 мектеп, ретімен) */
+const SC_COL = ['#1746a2','#0d8a6a','#6a3fc8','#c2650a','#0e7490','#b3261e','#8a6d00','#2f7d32','#a3166f','#3949ab','#00796b','#8d4e1f','#4a5568'];
+const scVar = i => `--sc:${SC_COL[i]||'#5b6780'}`;
+const sdot = kk => { const i=SCHOOLS.indexOf(kk); return `<span class="sdot" style="${scVar(i)}"></span>`; };
+/* Шапкадағы безендіру: ҚР туындағы күн шуағы, қалықтаған қыран және ою-өрнек мотиві */
+function sunEagle(){
+  let rays=''; const P=(r,a)=>`${(150+r*Math.cos(a)).toFixed(1)},${(58+r*Math.sin(a)).toFixed(1)}`;
+  for(let i=0;i<32;i++){ const a=i*Math.PI/16, w=Math.PI/64*.62; rays+=`<polygon points="${P(29,a-w)} ${P(45,a)} ${P(29,a+w)}"/>`; }
+  const wing='M150 112 C134 100 108 93 66 96 C56 97 48 100 41 105 L57 106 L48 111 L64 111 L57 117 L74 114 L69 120 L88 115 C108 114 128 118 145 124 Z';
+  return `<svg viewBox="0 0 300 150" aria-hidden="true"><defs><radialGradient id="sgl"><stop offset="0" stop-color="#ffe27a" stop-opacity=".5"/><stop offset="1" stop-color="#ffe27a" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="150" cy="58" r="72" fill="url(#sgl)"/><g fill="#f2c230">${rays}<circle cx="150" cy="58" r="24"/>
+    <path d="${wing}"/><path d="${wing}" transform="translate(300 0) scale(-1 1)"/>
+    <path d="M144 124 C147 110 153 105 160 107 L169 109 L161 113 C159 120 155 127 150 133 C146 131 143 128 144 124 Z"/>
+    <path d="M145 128 L136 141 L149 136 L158 143 L155 130 Z"/></g></svg>`;
+}
+function ornament(id){
+  return `<svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="${id}" width="30" height="40" patternUnits="userSpaceOnUse"><g fill="none" stroke="#f2c230" stroke-width="1.8" stroke-linecap="round">
+    <path d="M15 0V40"/><path d="M15 14C9 14 5 9 7 5C9 1 13 3 11.5 7"/><path d="M15 14C21 14 25 9 23 5C21 1 17 3 18.5 7"/>
+    <path d="M15 34C9 34 5 29 7 25C9 21 13 23 11.5 27"/><path d="M15 34C21 34 25 29 23 25C21 21 17 23 18.5 27"/></g></pattern></defs><rect width="100%" height="100%" fill="url(#${id})"/></svg>`;
+}
 
 /* ============ ТІЛДЕР ============ */
 const I18N = {
@@ -429,7 +485,7 @@ kk: {
   change:'Өзгеріс', pSubject:'Пәні', pCount:'Бақылау саны', pList:'Бақылаулар (күні – сапа)', first:'Алғашқы', last:'Соңғы', dynamics:'Динамика', lastLevel:'Соңғы деңгейі', same:'өзгеріссіз',
   back:'Артқа', strengths:'Күшті жақтары', weaknesses:'Дамыту қажет жақтары', noStrong:'Әзірге 2,5 ұпайдан жоғары критерий жоқ.', noWeak:'Барлық критерий 2 ұпай және одан жоғары.',
   swHint:'Күшті жақ — критерий бойынша орташа 2,5 ұпай және жоғары; дамыту қажет — 2 ұпайдан төмен. Барлық бақылаулар бойынша есептеледі.',
-  critProfile:'Критерийлер бойынша орташа ұпай', trend:'Сапа динамикасы', trendNeed:'Динамиканы көру үшін кемінде екі бақылау керек.', history:'Бақылаулар тарихы',
+  critProfile:'Критерийлер бойынша орташа ұпай', overallAvg:'Мұғалімнің жалпы орташа ұпайы', trend:'Сапа динамикасы', trendNeed:'Динамиканы көру үшін кемінде екі бақылау керек.', history:'Бақылаулар тарихы',
   spellings:'Басқаша жазылуы:', kObs:'Бақылау саны', kLastQ:'Соңғы сапа', kChange:'Өзгеріс (алғашқымен)',
   lockedBy:'Тек авторы өзгерте алады', eNotOwner:'Бұл жазбаны тек оны енгізген әдіскер өзгерте немесе өшіре алады.',
   cityTitle:'ҚАЛА МЕКТЕПТЕРІ БОЙЫНША САБАҚ БЕРУ ПРОЦЕСІН БАҚЫЛАУДЫҢ ЖИЫНТЫҚ КӨРСЕТКІШІ', citySheet:'Қала бойынша',
@@ -487,7 +543,7 @@ ru: {
   change:'Изменение', pSubject:'Предмет', pCount:'Наблюдений', pList:'Наблюдения (дата – качество)', first:'Первое', last:'Последнее', dynamics:'Динамика', lastLevel:'Последний уровень', same:'без изменений',
   back:'Назад', strengths:'Сильные стороны', weaknesses:'Зоны роста', noStrong:'Пока нет критериев со средним 2,5 балла и выше.', noWeak:'Все критерии — 2 балла и выше.',
   swHint:'Сильная сторона — средний балл по критерию 2,5 и выше; зона роста — ниже 2. Считается по всем наблюдениям.',
-  critProfile:'Средний балл по критериям', trend:'Динамика качества', trendNeed:'Для динамики нужно минимум два наблюдения.', history:'История наблюдений',
+  critProfile:'Средний балл по критериям', overallAvg:'Общий средний балл учителя', trend:'Динамика качества', trendNeed:'Для динамики нужно минимум два наблюдения.', history:'История наблюдений',
   spellings:'Другие написания:', kObs:'Наблюдений', kLastQ:'Последнее качество', kChange:'Изменение (к первому)',
   lockedBy:'Изменить может только автор', eNotOwner:'Эту запись может изменить или удалить только методист, который её внёс.',
   cityTitle:'СВОДНЫЕ ПОКАЗАТЕЛИ НАБЛЮДЕНИЯ ЗА ПРОЦЕССОМ ПРЕПОДАВАНИЯ ПО ШКОЛАМ ГОРОДА', citySheet:'По городу',
@@ -545,7 +601,7 @@ en: {
   change:'Change', pSubject:'Subject', pCount:'Observations', pList:'Observations (date – quality)', first:'First', last:'Latest', dynamics:'Trend', lastLevel:'Latest level', same:'no change',
   back:'Back', strengths:'Strengths', weaknesses:'Areas for growth', noStrong:'No criterion averages 2.5 or higher yet.', noWeak:'All criteria average 2 or higher.',
   swHint:'Strength: criterion average of 2.5 or higher; area for growth: below 2. Calculated across all observations.',
-  critProfile:'Average score by criterion', trend:'Quality trend', trendNeed:'At least two observations are needed to show a trend.', history:'Observation history',
+  critProfile:'Average score by criterion', overallAvg:'Teacher\u2019s overall average', trend:'Quality trend', trendNeed:'At least two observations are needed to show a trend.', history:'Observation history',
   spellings:'Also written as:', kObs:'Observations', kLastQ:'Latest quality', kChange:'Change (vs first)',
   lockedBy:'Only the author can change it', eNotOwner:'Only the methodologist who entered this record can edit or delete it.',
   cityTitle:'SUMMARY OF LESSON OBSERVATION RESULTS ACROSS CITY SCHOOLS', citySheet:'City-wide',
@@ -718,6 +774,8 @@ function applyLang(){
 }
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{ lang=b.dataset.lang; ls.set('sb_lang',lang); $('lgErr').textContent=''; $('fErr').textContent=''; applyLang(); });
 document.querySelectorAll('i[data-ic]').forEach(el=>el.innerHTML=ic(el.dataset.ic));
+$('hArt').innerHTML = `<div class="orn">${ornament('ornH')}</div><div class="se">${sunEagle()}</div>`;
+$('lArt').innerHTML = `<div class="orn">${ornament('ornL')}</div><div class="se">${sunEagle()}</div>`;
 
 /* ============ КІРУ / ШЫҒУ ============ */
 async function enter(st, name){
@@ -728,7 +786,7 @@ async function enter(st, name){
   store=st; me=name; setRecords(recs); $('lgBtn').disabled=false;
   $('login').classList.add('hidden'); $('app').classList.remove('hidden');
   $('demoBanner').classList.toggle('hidden', !store.demo);
-  applyLang(); resetForm(); show('home');
+  applyLang(); resetForm(); show('home','replace');
   return true;
 }
 $('lgBtn').onclick = async () => {
@@ -743,22 +801,64 @@ $('btnRefresh').onclick = () => reload(true);
 async function reload(say){ try { setRecords(await store.load()); render(); if(say) toast(t('tRefreshed')); } catch(e){ toast(e.message,true); } }
 
 /* ============ НАВИГАЦИЯ ============ */
-function show(tab){ curTab=tab; document.body.dataset.tab=tab;
-  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('on', b.dataset.tab===tab));
+/* Браузер тарихы: «Артқа» батырмасы мен тінтуірдің артқа батырмасы жұмыс істеуі үшін */
+let navD=0;
+const navState = () => ({app:1, tab:curTab, g:cardGid, ts:$('tSchool').value, ps:$('pSchool').value, hy:$('hYear').value, hm:$('hMonth').value, ty:$('tYear').value, tm:$('tMonth').value, d:navD});
+const saveNav = () => { try { if(history.state && history.state.app) history.replaceState(navState(), ''); } catch(e){} };
+const updBack = () => { $('navBack').disabled = navD<=0; };
+function show(tab, mode){
+  const same = tab===curTab && tab!=='card';
+  curTab=tab; document.body.dataset.tab=tab; closePickers();
+  document.querySelectorAll('nav.tabs button[data-tab]').forEach(b=>b.classList.toggle('on', b.dataset.tab===tab));
   ['home','form','table','prog','card'].forEach(x=>$('tab-'+x).classList.toggle('hidden', x!==tab));
   render(); window.scrollTo(0,0);
+  try {
+    if(mode==='replace'){ navD=0; history.replaceState(navState(), '', '#'+tab); }
+    else if(mode!=='pop' && !same){ navD++; history.pushState(navState(), '', '#'+tab); }
+  } catch(e){}
+  updBack();
 }
 function openCard(g){ if(curTab!=='card') prevTab=curTab; cardGid=g; show('card'); }
-document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>{ if(b.dataset.tab==='form' && editId) resetForm(); show(b.dataset.tab); });
+const goBack = () => { if(navD>0) history.back(); else show(prevTab); };
+$('navBack').onclick = () => { if(navD>0) history.back(); };
+window.addEventListener('popstate', e=>{
+  const s=e.state; if(!store || !s || !s.app) return;
+  navD=s.d||0; closePickers();
+  if(s.ts!=null) $('tSchool').value=s.ts; if(s.ps!=null) $('pSchool').value=s.ps;
+  [['hYear','hMonth',s.hy,s.hm],['tYear','tMonth',s.ty,s.tm]].forEach(([y,m,yv,mv])=>{ fillYM(y,m); if(yv) $(y).value=yv; fillYM(y,m); if(mv) $(m).value=mv; });
+  cardGid=s.g; show(s.tab||'home', 'pop');
+});
+document.querySelectorAll('nav.tabs button[data-tab]').forEach(b=>b.onclick=()=>{ if(b.dataset.tab==='form' && editId) resetForm(); show(b.dataset.tab); });
 document.addEventListener('click', e=>{ const b=e.target.closest('.tlink[data-g]'); if(b){ e.preventDefault(); openCard(b.dataset.g); } });
 function initSelects(){
   const opts = SCHOOLS_L[lang].map((s,i)=>`<option value="${i}">${i+1}. ${esc(s)}</option>`).join('');
   ['fSchool','tSchool','pSchool'].forEach(id=>{ const v=$(id).value; $(id).innerHTML=opts; if(v) $(id).value=v; });
-  ['tSchool','pSchool','tMonth','hMonth'].forEach(id=>$(id).onchange=render);
-  $('hYear').onchange=()=>{ $('hMonth').value='all'; render(); };
-  $('tYear').onchange=()=>{ $('tMonth').value='all'; render(); };
+  ['tSchool','pSchool','tMonth','hMonth'].forEach(id=>$(id).onchange=()=>{ render(); saveNav(); });
+  $('hYear').onchange=()=>{ $('hMonth').value='all'; render(); saveNav(); };
+  $('tYear').onchange=()=>{ $('tMonth').value='all'; render(); saveNav(); };
   $('fSchool').onchange = ()=>{ fillLists(); teacherHint(); };
+  drawPickers();
 }
+/* Мектепті түсті тізімнен таңдау (ішінде жасырын select қалады, мәні сол арқылы оқылады) */
+const pickers=[];
+function makePicker(id){
+  const sel=$(id); sel.classList.add('hidden');
+  const w=document.createElement('div'); w.className='sp';
+  w.innerHTML='<button type="button" class="sp-btn" aria-haspopup="listbox"></button><div class="sp-panel hidden" role="listbox"></div>';
+  sel.after(w);
+  const btn=w.firstChild, panel=w.lastChild;
+  const draw=()=>{ const i=Math.max(0, +sel.value||0);
+    btn.innerHTML=`<span class="snum" style="${scVar(i)}">${i+1}</span><span>${esc(SCHOOLS_L[lang][i])}</span>`;
+    panel.innerHTML=SCHOOLS_L[lang].map((s,k)=>`<button type="button" class="sp-opt${k===i?' on':''}" data-v="${k}" role="option" style="${scVar(k)}"><span class="snum">${k+1}</span><span>${esc(s)}</span></button>`).join(''); };
+  btn.onclick=()=>{ const open=panel.classList.contains('hidden'); closePickers(); if(open){ draw(); panel.classList.remove('hidden'); } };
+  panel.onclick=e=>{ const o=e.target.closest('.sp-opt'); if(!o) return; sel.value=o.dataset.v; panel.classList.add('hidden'); draw(); sel.dispatchEvent(new Event('change')); };
+  pickers.push({draw, panel});
+}
+function closePickers(){ pickers.forEach(p=>p.panel.classList.add('hidden')); }
+const drawPickers = () => pickers.forEach(p=>p.draw());
+['fSchool','tSchool','pSchool'].forEach(makePicker);
+document.addEventListener('click', e=>{ if(!e.composedPath().some(n=>n.classList && n.classList.contains('sp'))) closePickers(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePickers(); });
 function yearsList(){ const s=new Set(live().map(r=>syOf(r.date))); s.add(curSY()); return [...s].sort((a,b)=>b-a); }
 function monthsList(sy){
   const base=[]; for(let i=0;i<10;i++){ const m=(8+i)%12+1, y=m>=9?sy:sy+1; base.push(y+'-'+String(m).padStart(2,'0')); }   // қыркүйек–маусым
@@ -776,7 +876,7 @@ const filterYM = (recs,yId,mId) => { const sy=+$(yId).value, m=$(mId).value; ret
 const labelYM = (yId,mId) => { const sy=+$(yId).value, m=$(mId).value; return m==='all' ? t('schoolYear',sy) : t('periodM',sy,monName(m)); };
 function render(){
   if(!store) return;
-  fillYM('hYear','hMonth'); fillYM('tYear','tMonth');
+  fillYM('hYear','hMonth'); fillYM('tYear','tMonth'); drawPickers();
   if(curTab==='home') renderHome(); if(curTab==='table') renderTable(); if(curTab==='prog') renderProg(); if(curTab==='form') fillLists(); if(curTab==='card') renderCard();
 }
 function agg(recs){
@@ -796,7 +896,7 @@ function renderHome(){
   ].join('');
   let h=`<table><tr><th class="n">${t('no')}</th><th>${t('school')}</th><th class="n">${t('lessons')}</th><th class="n">${t('teachers')}</th><th class="n">${t('avgScore')}</th><th>${t('qualityPct')}</th><th class="n">${t('hi')}</th><th class="n">${t('mid')}</th><th class="n">${t('lo')}</th></tr>`;
   SCHOOLS.forEach((s,i)=>{ const x=agg(recs.filter(r=>r.school===s));
-    h+=`<tr class="click" data-s="${i}"><td class="n">${i+1}</td><td>${esc(SCHOOLS_L[lang][i])}</td><td class="n">${x.n}</td><td class="n">${x.teachers}</td><td class="n">${num(x.avgTotal)}</td>
+    h+=`<tr class="click" data-s="${i}"><td class="n">${i+1}</td><td><span class="sdot" style="${scVar(i)}"></span>${esc(SCHOOLS_L[lang][i])}</td><td class="n">${x.n}</td><td class="n">${x.teachers}</td><td class="n">${num(x.avgTotal)}</td>
       <td>${x.n?`<div style="display:flex;gap:8px;align-items:center"><div class="bar" style="flex:1"><i style="width:${Math.round(x.avgPct*100)}%;background:var(--${lvKey(x.avgTotal)==='hi'?'hi':lvKey(x.avgTotal)==='mid'?'mid':'lo'})"></i></div><b>${pc(x.avgPct)}</b></div>`:`<span class="small">${t('noObs')}</span>`}</td>
       <td class="n">${x.lv.hi}</td><td class="n">${x.lv.mid}</td><td class="n">${x.lv.lo}</td></tr>`; });
   h+=`<tr class="avg"><td></td><td>${t('city')}</td><td class="n">${a.n}</td><td class="n">${a.teachers}</td><td class="n">${num(a.avgTotal)}</td><td>${pc(a.avgPct)}</td><td class="n">${a.lv.hi}</td><td class="n">${a.lv.mid}</td><td class="n">${a.lv.lo}</td></tr></table>`;
@@ -845,7 +945,7 @@ function resetForm(keepSchool){
   $('formTitle').textContent=t('newTitle'); $('fSaveTxt').textContent=t('save');
   if(!keepSchool) $('fSchool').value = ls.get('sb_school') || '0';
   $('fDate').value=today(); ['fTeacher','fSubject','fKlass','fCat','fExp','fNote'].forEach(id=>$(id).value='');
-  $('fObserver').value=me; $('fErr').textContent=''; $('fHint').classList.add('hidden'); renderCrit(); fillLists();
+  $('fObserver').value=me; $('fErr').textContent=''; $('fHint').classList.add('hidden'); renderCrit(); fillLists(); drawPickers();
 }
 $('fClear').onclick=()=>resetForm(true);
 function editRec(id){
@@ -897,7 +997,7 @@ function tableData(){
 function renderTable(){
   const {school,recs,label}=tableData(), a=agg(recs);
   let h=`<div class="maket-head"><h3>${t('title')}</h3>
-    <div><b>${t('orgName')}</b> ${esc(school)}</div><div><b>${t('goalLbl')}</b> ${esc(t('goal'))}</div>
+    <div><b>${t('orgName')}</b> ${sdot(SCHOOLS[$('tSchool').value])}${esc(school)}</div><div><b>${t('goalLbl')}</b> ${esc(t('goal'))}</div>
     <div><b>${t('termLbl')}</b> ${esc(label)}</div><div class="small">${esc(t('scale'))}</div></div>`;
   if(!recs.length){ $('tOut').innerHTML=h+`<p class="note">${t('noObsSchoolPeriod')}</p>`; return; }
   h+=`<div class="scroll"><table><tr><th class="n">${t('no')}</th><th class="ct">${t('hTeacher')}</th><th>${t('hSubj')}</th><th>${t('hCat')}</th>`+crit().map(c=>`<th class="n">${esc(c)}</th>`).join('')
@@ -931,7 +1031,7 @@ function doSearch(){
   if(q.length<2){ box.classList.add('hidden'); return; }
   const res=[...G.groups.values()].filter(g=>[...g.variants].some(v=>norm(v).includes(q))).sort((a,b)=>a.name.localeCompare(b.name,'kk')).slice(0,8);
   box.innerHTML = res.length ? res.map((g,i)=>{ const l=g.recs[g.recs.length-1];
-    return `<button type="button" class="sr${i===0?' act':''}" data-g="${esc(g.gid)}"><b>${esc(g.name)}</b><span>${esc(sName(g.school))} · ${esc(l.subject||'')} · ${esc(t('obsN',g.recs.length))}</span></button>`; }).join('')
+    return `<button type="button" class="sr${i===0?' act':''}" data-g="${esc(g.gid)}"><b>${esc(g.name)}</b><span>${sdot(g.school)}${esc(sName(g.school))} · ${esc(l.subject||'')} · ${esc(t('obsN',g.recs.length))}</span></button>`; }).join('')
     : `<div class="sr empty">${esc(t('notFound'))}</div>`;
   box.classList.remove('hidden');
 }
@@ -987,7 +1087,7 @@ function trendChart(recs){
 }
 function renderCard(){
   const g=G.groups.get(cardGid);
-  if(!g){ $('cardOut').innerHTML=`<div class="btns noprint" style="margin-bottom:12px"><button class="btn soft" id="cBack">${ic('back')}${t('back')}</button></div><p class="note">${t('notFound')}</p>`; $('cBack').onclick=()=>show(prevTab); return; }
+  if(!g){ $('cardOut').innerHTML=`<div class="btns noprint" style="margin-bottom:12px"><button class="btn soft" id="cBack">${ic('back')}${t('back')}</button></div><p class="note">${t('notFound')}</p>`; $('cBack').onclick=goBack; return; }
   const recs=g.recs, a=agg(recs), f=recs[0], l=recs[recs.length-1], ce=catExpOf(recs);
   const subjects=[...new Set(recs.map(r=>r.subject).filter(Boolean))].join(', ');
   const ini=norm(g.name).split(' ').slice(0,2).map(w=>w.charAt(0)).join('').toUpperCase() || '?';
@@ -1000,7 +1100,7 @@ function renderCard(){
     <div class="card prof">
       <div class="avatar">${esc(ini)}</div>
       <div class="pinfo"><h2 class="pname plain">${esc(g.name)}</h2>
-        <div class="pmeta">${esc(sName(g.school))}${subjects?' · '+esc(subjects):''}${ce?' · '+esc(ce):''}</div>
+        <div class="pmeta">${sdot(g.school)}${esc(sName(g.school))}${subjects?' · '+esc(subjects):''}${ce?' · '+esc(ce):''}</div>
         ${others.length?`<div class="small" style="margin-top:4px">${esc(t('spellings'))} ${esc(others.join('; '))}</div>`:''}</div>
       <div>${lvlTag(total(l))}</div>
     </div>
@@ -1016,14 +1116,15 @@ function renderCard(){
     </div>
     <p class="small" style="margin:-6px 0 16px">${t('swHint')}</p>
     <div class="grid2">
-      <div class="card"><h2>${t('critProfile')}</h2>${crit().map((c,i)=>critBar(c,a.crit[i])).join('')}</div>
+      <div class="card"><h2>${t('critProfile')}</h2>${crit().map((c,i)=>critBar(c,a.crit[i])).join('')}
+        <div class="cavg"><span>${t('overallAvg')}</span><b style="color:${cColor(a.avgTotal/NCRIT)}">${num(a.avgTotal/NCRIT)} / 3</b></div></div>
       <div class="card"><h2>${t('trend')}</h2>${trendChart(recs)}</div>
     </div>
     <div class="card"><h2>${t('history')}</h2><div class="scroll"><table>
       <tr><th class="n">${t('no')}</th><th>${t('hDate')}</th><th>${t('observer')}</th><th>${t('hSubj')}</th>${crit().map((c,i)=>`<th class="n" title="${esc(c)}">${i+1}</th>`).join('')}<th class="n">${t('hTotal')}</th><th class="n">${t('qualityPct')}</th><th>${t('hLevel')}</th><th style="min-width:260px">${t('noteLbl')}</th></tr>
       ${recs.map((r,i)=>`<tr><td class="n">${i+1}</td><td>${fmtDate(r.date)}</td><td>${esc(r.observer||'')}</td><td>${esc(subjKlass(r))}</td>${r.scores.map(s=>`<td class="n">${s}</td>`).join('')}<td class="n"><b>${total(r)}</b></td><td class="n">${pc(pct(r))}</td><td>${lvlTag(total(r))}</td><td style="white-space:pre-wrap">${esc(r.note)}</td></tr>`).join('')}
     </table></div><p class="small">${crit().map(esc).join(' · ')}</p></div>`;
-  $('cBack').onclick=()=>show(prevTab);
+  $('cBack').onclick=goBack;
   $('cPrint').onclick=()=>window.print();
 }
 
