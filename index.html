@@ -421,163 +421,62 @@ const ic = n => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[
 const SC_COL = ['#1746a2','#0d8a6a','#6a3fc8','#c2650a','#0e7490','#b3261e','#8a6d00','#2f7d32','#a3166f','#3949ab','#00796b','#8d4e1f','#4a5568'];
 const scVar = i => `--sc:${SC_COL[i]||'#5b6780'}`;
 const sdot = kk => { const i=SCHOOLS.indexOf(kk); return `<span class="sdot" style="${scVar(i)}"></span>`; };
-/* ===== Алтын Қыран: мүшелері бөлек салынған вектор қыран ===== */
-const Q = {
-  hip:[0,14], neck:[34,-16], headC:[50,-30],
-  shF:[10,-14], shB:[16,-18],          // алдыңғы / артқы иық
-  wrist:[8,-70], tailBase:[-44,10],
-  legF:[4,14], legB:[-5,13]
-};
-function qFeather(len, w){
-  return `M0 ${-w} C${len*.35} ${-w*1.35} ${len*.78} ${-w*.9} ${len} 0 C${len*.78} ${w*.9} ${len*.35} ${w*1.35} 0 ${w} Z`;
-}
-function qWing(side, u){
-  const g = side==='f' ? `url(#qw${u})` : `url(#qwb${u})`, st = side==='f' ? '#8a5a08' : '#5e3d06';
-  let sec='', pri='', cov='';
-  for(let i=0;i<9;i++){ const t=i/8, bx=-6+12*t, by=-2-64*t, a=168+26*t, L=36+12*t;
-    sec += `<path d="${qFeather(L,5.6)}" transform="translate(${bx} ${by}) rotate(${a})" fill="${g}" stroke="${st}" stroke-width=".7"/>`; }
-  for(let j=0;j<9;j++){ const a=-84-10*j, L=78-2.6*j;
-    pri += `<path d="${qFeather(L,4.6)}" transform="rotate(${a})" fill="${g}" stroke="${st}" stroke-width=".7"/><path d="M2 0 H${L-6}" transform="rotate(${a})" stroke="${st}" stroke-width=".6" opacity=".7"/>`; }
-  for(let k=0;k<8;k++){ const t=k/7; cov += `<path d="${qFeather(20,4.5)}" transform="translate(${-2+9*t} ${-8-56*t}) rotate(${150+24*t})" fill="${g}" stroke="${st}" stroke-width=".6"/>`; }
-  return `<g class="q-w${side}">${sec}
-    <g class="q-h${side}"><g transform="translate(${Q.wrist[0]} ${Q.wrist[1]})">${pri}</g></g>
-    <path d="M-8 8 C4 -6 18 -40 15 -70 C10 -74 4 -73 0 -70 C-14 -54 -24 -28 -28 6 Z" fill="${g}" stroke="${st}" stroke-width=".8"/>${cov}</g>`;
-}
-function qLeg(side, u){
-  const dark = side==='b';
-  const th = dark ? '#a8730f' : `url(#qb${u})`, sk = dark ? '#c99a1c' : '#f6cf45';
-  const claw = '#2b1a05';
-  const toe=(x,y,cx,cy)=>`<path d="M0 34 Q${cx} ${cy} ${x} ${y}" fill="none" stroke="${sk}" stroke-width="3.2" stroke-linecap="round"/>
-    <path d="M${x} ${y} q3 1 3 5" fill="none" stroke="${claw}" stroke-width="2" stroke-linecap="round"/>`;
-  return `<g class="q-l${side}">
-    <path d="M-11 -4 C-16 8 -12 20 -6 24 L-8 28 L-3 25 L-1 29 L2 25 L5 28 L6 23 C11 18 13 8 9 -4 Z" fill="${th}" stroke="#7a4f0c" stroke-width=".7"/>
-    <path d="M-7 4 q2 3 0 6 M-2 6 q2 3 0 6 M3 4 q2 3 0 6 M-4 14 q2 3 0 6 M2 14 q2 3 0 6" fill="none" stroke="#9a6a10" stroke-width=".7" opacity=".8"/>
-    <rect x="-2.6" y="24" width="5.2" height="11" rx="2" fill="${sk}"/>
-    ${toe(14,37,8,33)}${toe(12,41,7,39)}${toe(-9,38,-5,35)}</g>`;
-}
-function qHead(u){
-  return `<g class="q-head">
-    <path d="M24 -6 C22 -22 30 -40 48 -44 C60 -46 70 -40 74 -32 L70 -16 C60 -12 44 -4 32 2 Z" fill="url(#qb${u})" stroke="#7a4f0c" stroke-width=".8"/>
-    <path d="M30 -10 l-6 4 M34 -16 l-7 3 M38 -22 l-6 1 M44 -10 l-5 5" stroke="#9a6a10" stroke-width=".8" opacity=".8"/>
-    <path d="M70 -34 C76 -36 84 -34 88 -28 C91 -24 90 -19 86 -16 C86 -20 83 -23 78 -23 L70 -22 Z" fill="url(#qk${u})" stroke="#8a5a08" stroke-width=".7"/>
-    <path d="M86 -16 C88 -18 89.5 -21 89 -24" fill="none" stroke="#2b1a05" stroke-width="2" stroke-linecap="round"/>
-    <path d="M70 -27 C74 -27 78 -26 82 -24" fill="none" stroke="#8a5a08" stroke-width=".8"/>
-    <circle cx="62" cy="-33" r="3.4" fill="#3a2300"/><circle cx="63" cy="-34" r="1.1" fill="#fff"/>
-    <path d="M55 -37 C59 -40 66 -40 70 -36" fill="none" stroke="#6b4300" stroke-width="2" stroke-linecap="round"/></g>`;
-}
-function qyranMarkup(u){
-  let tail=''; [-16,-8,0,8,16].forEach((a,i)=>{ tail += `<path d="${qFeather(50-Math.abs(a)*.5,6)}" transform="rotate(${180+a})" fill="url(#qw${u})" stroke="#8a5a08" stroke-width=".7"/>`; });
-  const defs = `
-    <linearGradient id="qb${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0b0"/><stop offset=".4" stop-color="#f2c232"/><stop offset=".8" stop-color="#c08a1e"/><stop offset="1" stop-color="#8a5a0c"/></linearGradient>
-    <linearGradient id="qw${u}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff2bf"/><stop offset=".45" stop-color="#ebb52a"/><stop offset="1" stop-color="#a8730f"/></linearGradient>
-    <linearGradient id="qwb${u}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e2b23a"/><stop offset=".5" stop-color="#b07c14"/><stop offset="1" stop-color="#6e4808"/></linearGradient>
-    <linearGradient id="qk${u}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6c2"/><stop offset="1" stop-color="#e3a91a"/></linearGradient>
-    <pattern id="qs${u}" width="9" height="7" patternUnits="userSpaceOnUse"><path d="M0 7 Q4.5 0 9 7" fill="none" stroke="#9a6a10" stroke-width=".8" opacity=".55"/></pattern>`;
-  const body = `<path d="M44 -6 C40 -24 6 -30 -22 -20 C-42 -13 -52 2 -48 14 C-34 24 -6 28 18 22 C36 16 46 8 44 -6 Z" fill="url(#qb${u})" stroke="#7a4f0c" stroke-width=".8"/>
-    <path d="M44 -6 C40 -24 6 -30 -22 -20 C-42 -13 -52 2 -48 14 C-34 24 -6 28 18 22 C36 16 46 8 44 -6 Z" fill="url(#qs${u})"/>`;
-  return { defs, g: `<g class="q-root">
-      ${qLeg('b',u)}
-      <g class="q-body">
-        <g class="q-wbW" transform="translate(${Q.shB[0]} ${Q.shB[1]})">${qWing('b',u)}</g>
-        <g class="q-tail" transform="translate(${Q.tailBase[0]} ${Q.tailBase[1]})"><g class="q-tf">${tail}</g></g>
-        ${body}
-        <g class="q-neck">${qHead(u)}</g>
-        <g class="q-wfW" transform="translate(${Q.shF[0]} ${Q.shF[1]})">${qWing('f',u)}</g>
-      </g>
-      ${qLeg('f',u)}
-    </g>` };
-}
-/* Қалыпты қолдану: p = {flap: -1..1 (1 — қанат жоғары), fold: 0..1, legs: градус, tilt: градус, look: -1..1 (басын бұру), tailFan} */
-function qPose(root, p){
-  const $ = c => root.querySelector(c);
-  const lerp=(a,b,t)=>a+(b-a)*t;
-  const tilt=p.tilt||0, fold=p.fold||0, flap=p.flap==null?0:p.flap;
-  $('.q-body').setAttribute('transform', `rotate(${tilt.toFixed(1)} ${Q.hip[0]} ${Q.hip[1]})`);
-  // қанат: жоғары-төмен = вертикаль бойынша сығу (қырынан көрініс), жинағанда артқа бұрылады
-  const sY = lerp(flap>=0 ? lerp(.16,1,flap) : lerp(.16,-.75,-flap), .5, fold);
-  const ang = lerp(flap>=0 ? -10*flap : 4, -118, fold);
-  const wrist = lerp(0, 60, fold) + (p.bend||0), hs = lerp(1, .78, fold);
-  for(const s of ['f','b']){
-    const k = s==='b' ? 1 : 1;
-    $('.q-w'+s).setAttribute('transform', `rotate(${(ang*k).toFixed(1)}) scale(1 ${(s==='b'? sY*.92 : sY).toFixed(3)})`);
-    $('.q-h'+s).setAttribute('transform', `translate(${Q.wrist[0]} ${Q.wrist[1]}) rotate(${wrist.toFixed(1)}) scale(${hs.toFixed(3)}) translate(${-Q.wrist[0]} ${-Q.wrist[1]})`);
-  }
-  // аяқ: ұшқанда артқа жиналады, қонарда алға созылады
-  const lg=p.legs||0;
-  $('.q-lf').setAttribute('transform', `translate(${Q.legF[0]} ${Q.legF[1]}) rotate(${lg.toFixed(1)})`);
-  $('.q-lb').setAttribute('transform', `translate(${Q.legB[0]} ${Q.legB[1]}) rotate(${(lg*0.92+4).toFixed(1)})`);
-  // мойын мен бас: дене қисайғанда бас көлденең қалады; look: басын артқа/алға бұру (қырынан айналу)
-  const look=p.look||0, sx = Math.cos(look*Math.PI); // 1 → алға, -1 → артқа
-  const hc=Q.headC;
-  $('.q-neck').setAttribute('transform', `rotate(${(-tilt*0.85 + (p.nod||0)).toFixed(1)} ${Q.neck[0]} ${Q.neck[1]})`);
-  $('.q-head').setAttribute('transform', `translate(${hc[0]-12} ${hc[1]}) scale(${sx.toFixed(3)} 1) translate(${-(hc[0]-12)} ${-hc[1]})`);
-  // құйрық: ұшқанда жайылады, отырғанда жиналып төмен түседі
-  const tf=p.tailFan==null?1:p.tailFan;
-  $('.q-tf').setAttribute('transform', `rotate(${(lerp(0,16,fold)).toFixed(1)}) scale(${lerp(.82,1,tf).toFixed(2)} ${lerp(.55,1.15,tf).toFixed(2)})`);
-}
-
-/* Шапкадағы безендіру: ҚР туындағы күн шуағы, Алтын Қыран және ою-өрнек мотиві */
-const ART = {CX:150, CY:44, R0:25, R1:28, R2:44, RX:116, RY:50, S:.5, BR:142};
-ART.HX = ART.CX; ART.HY = ART.BR - 58*ART.S;            // қыран отыратын жер: күннің астындағы бұтақта
+/* ===== Алтын Қыран: суреті бес қабатқа бөлінген (img/qyran-*.webp, координаталары 800×436 өлшемінде) =====
+   сол қанат, оң қанат, дене мен құйрық, аяқтар, бас пен мойын. Қанаттар иықтан, бас мойыннан, аяқтар жамбастан қозғалады. */
+const QY = {W:800, H:436, OX:440, OY:220, shL:[392,198], shR:[486,192], neck:[436,214], headX:430, hip:[446,292]};
+const ART = {CX:150, CY:40, R0:24, R1:27, R2:42, RX:116, RY:46, S:.21};
+ART.HX = ART.CX; ART.HY = 158 - (QY.H-QY.OY)*ART.S - 2;          // қыран қалықтайтын жер: күннің астында
 function sunEagle(uid){
-  const {CX,CY,R0,R1,R2,HX,HY,S,BR}=ART;
+  const {CX,CY,R0,R1,R2,HX,HY,S}=ART;
   let rays=''; const P=(r,a)=>`${(CX+r*Math.cos(a)).toFixed(1)},${(CY+r*Math.sin(a)).toFixed(1)}`;
   for(let i=0;i<32;i++){ const a=i*Math.PI/16-Math.PI/2, w=Math.PI/32*.42; rays+=`<polygon points="${P(R1,a-w)} ${P(R2,a)} ${P(R1,a+w)}"/>`; }
-  const q=qyranMarkup(uid);
-  const branch=`<g class="q-branch"><path d="M96 ${BR+5} C120 ${BR-1} 150 ${BR+1} 176 ${BR-2} C188 ${BR-3} 198 ${BR-7} 206 ${BR-12} C202 ${BR-5} 196 ${BR} 184 ${BR+3} C160 ${BR+8} 128 ${BR+6} 96 ${BR+9} Z" fill="url(#br${uid})" stroke="#6b4300" stroke-width=".7"/>
-    <path d="M170 ${BR-1} C176 ${BR-10} 182 ${BR-14} 190 ${BR-17}" fill="none" stroke="#a8730f" stroke-width="2.4" stroke-linecap="round"/>
-    <path d="M118 ${BR+4} C112 ${BR-4} 106 ${BR-8} 98 ${BR-10}" fill="none" stroke="#a8730f" stroke-width="2" stroke-linecap="round"/>
-    <path d="M190 ${BR-17} c4 -4 9 -4 12 -2 c-3 4 -8 5 -12 2 Z M98 ${BR-10} c-3 -4 -8 -5 -12 -3 c3 4 8 5 12 3 Z M206 ${BR-12} c5 -2 9 0 11 3 c-4 2 -9 1 -11 -3 Z" fill="#f5c518" opacity=".9"/></g>`;
-  return `<svg viewBox="0 -14 300 172" overflow="visible" aria-hidden="true"><defs>${q.defs}
+  const img=k=>`<image href="img/qyran-${k}.webp" width="${QY.W}" height="${QY.H}"/>`;
+  return `<svg viewBox="0 -14 300 172" overflow="visible" aria-hidden="true"><defs>
     <radialGradient id="sg${uid}"><stop offset="0" stop-color="#ffe27a" stop-opacity=".55"/><stop offset="1" stop-color="#ffe27a" stop-opacity="0"/></radialGradient>
-    <linearGradient id="br${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9b630"/><stop offset="1" stop-color="#8a5a0c"/></linearGradient>
-    <filter id="es${uid}" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="2.5" stdDeviation="2.5" flood-color="#04243f" flood-opacity=".45"/></filter></defs>
-    <circle cx="${CX}" cy="${CY}" r="74" fill="url(#sg${uid})"/>
+    <filter id="es${uid}" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#04243f" flood-opacity=".5"/></filter></defs>
+    <circle cx="${CX}" cy="${CY}" r="72" fill="url(#sg${uid})"/>
     <g fill="#f5c518">${rays}<circle cx="${CX}" cy="${CY}" r="${R0}"/></g>
-    ${branch}
-    <g class="q-anchor" filter="url(#es${uid})" transform="translate(${HX} ${HY}) scale(${S})">${q.g}</g></svg>`;
+    <g class="qy" transform="translate(${HX} ${HY})"><g filter="url(#es${uid})" transform="scale(${S}) translate(${-QY.OX} ${-QY.OY})">
+      <g class="qy-wl">${img('wl')}</g><g class="qy-wr">${img('wr')}</g>${img('body')}<g class="qy-lg">${img('legs')}</g><g class="qy-hd">${img('head')}</g>
+    </g></g></svg>`;
 }
-/* Қимыл: бұтақтан ұшады → қанатын қағып күнді айналады → аяғын созып қонады, қанатын жинайды → басын оңға-солға бұрады */
+/* Қимыл: күнді айналып қанатын қағып ұшады → күннің астына келіп қалықтайды → басын оңға-солға бұрады → 5 с кейін қайталайды */
 function animateEagles(){
-  const items=[...document.querySelectorAll('.q-anchor')].map(a=>({a, r:a.querySelector('.q-root')}));
-  if(!items.length) return;
-  const {CX,HX,HY,RX,RY,S}=ART, CYL=HY-RY;
-  const TO=.55, FLY=4.6, LAND=.9, PERCH=5.2, T=TO+FLY+LAND+PERCH, F=2.6;
+  if(!document.querySelector('.qy')) return;
+  const {CX,HX,HY,RX,RY}=ART, CYL=HY-RY, Q=QY;
+  const FLY=4.6, SETTLE=.6, HOVER=5.0, T=FLY+SETTLE+HOVER, F=2.4;
   const sm=x=>x<=0?0:x>=1?1:x*x*(3-2*x), lerp=(a,b,t)=>a+(b-a)*t, ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
-  const PERCHED={fold:1, tilt:-52, legs:0, flap:0, tailFan:0, look:0};
-  const apply=(x,y,rot,sx,k,pose)=>items.forEach(({a,r})=>{
-    a.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot.toFixed(1)}) scale(${(sx*k*S).toFixed(3)} ${(k*S).toFixed(3)})`);
-    qPose(r, pose); });
+  const set=(sel,tr)=>document.querySelectorAll(sel).forEach(el=>el.setAttribute('transform',tr));
+  function pose(x,y,rot,k,wing,ws,leg,legS,look,headRot){
+    set('.qy', `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot.toFixed(1)}) scale(${k.toFixed(3)})`);
+    // қанат: wing>0 — жоғары, wing<0 — төмен (сол қанат сағат тілімен көтеріледі, оң қанат — керісінше)
+    set('.qy-wl', `rotate(${(wing).toFixed(1)} ${Q.shL[0]} ${Q.shL[1]}) translate(${Q.shL[0]} ${Q.shL[1]}) scale(1 ${ws.toFixed(3)}) translate(${-Q.shL[0]} ${-Q.shL[1]})`);
+    set('.qy-wr', `rotate(${(-wing).toFixed(1)} ${Q.shR[0]} ${Q.shR[1]}) translate(${Q.shR[0]} ${Q.shR[1]}) scale(1 ${ws.toFixed(3)}) translate(${-Q.shR[0]} ${-Q.shR[1]})`);
+    set('.qy-lg', `rotate(${leg.toFixed(1)} ${Q.hip[0]} ${Q.hip[1]}) translate(${Q.hip[0]} ${Q.hip[1]}) scale(1 ${legS.toFixed(3)}) translate(${-Q.hip[0]} ${-Q.hip[1]})`);
+    const hx=Math.cos(look*Math.PI);                                 // 1 — солға қарайды (суреттегідей), -1 — оңға
+    set('.qy-hd', `rotate(${headRot.toFixed(1)} ${Q.neck[0]} ${Q.neck[1]}) translate(${Q.headX} 0) scale(${hx.toFixed(3)} 1) translate(${-Q.headX} 0)`);
+  }
   let reduce=false; try { reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches); } catch(e){}
-  if(reduce){ apply(HX,HY,0,1,1,PERCHED); return; }
+  if(reduce){ pose(HX,HY,0,1,0,1,0,1,0,0); return; }
   const t0=performance.now();
   function frame(now){
     if(!document.hidden){
-      const sec=(now-t0)/1000, t=sec%T, flapW=Math.cos(2*Math.PI*F*sec);
-      let x=HX, y=HY, rot=0, sx=1, k=1, pose;
-      if(t<TO){                                                   // ұшып шығу
-        const e=sm(t/TO);
-        pose={fold:1-e, tilt:lerp(-52,-10,e), legs:lerp(0,60,e), flap:lerp(.6,flapW,e), tailFan:e, look:0};
-        y=HY-8*e;
-      } else if(t<TO+FLY){                                        // күнді айналып ұшу
-        const u=(t-TO)/FLY, a=Math.PI/2 - ease(u)*2*Math.PI;
-        x=CX+RX*Math.cos(a); y=CYL+RY*Math.sin(a)-8*(1-sm((u-.85)/.15))*(u<.15?sm(u/.15):1);
-        const dx=RX*Math.sin(a), dy=-RY*Math.cos(a);
-        sx = dx>=0 ? 1 : -1; rot=Math.max(-24, Math.min(24, Math.atan2(dy, Math.abs(dx))*180/Math.PI)); if(sx<0) rot=-rot;
-        k = .66 + .34*((y-(CYL-RY))/(2*RY));                     // алыстаған сайын кішірейеді
-        const late=sm((u-.82)/.18);
-        pose={fold:0, tilt:lerp(-10,-24,late)*(u<.1?u/.1:1), legs:lerp(70,-28,late), flap:flapW, tailFan:1, look:0};
-      } else if(t<TO+FLY+LAND){                                   // қону: қанатпен тежеп, жинайды
-        const e=(t-TO-FLY)/LAND;
-        pose={fold:sm((e-.35)/.65), tilt:lerp(-24,-52,sm(e)), legs:lerp(-28,0,sm(e)), flap:lerp(flapW,.95,sm(e/.35)), tailFan:1-sm(e), look:0};
-      } else {                                                    // бұтақта отыру: басын бұрады
-        const p=t-TO-FLY-LAND;
-        const turn=(t0_,t1_,t2_,t3_)=>sm((p-t0_)/(t1_-t0_))*(1-sm((p-t2_)/(t3_-t2_)));
-        const look=Math.max(turn(.9,1.25,2.0,2.35), turn(3.0,3.35,4.1,4.45));
-        pose={...PERCHED, look, tilt:-52+Math.sin(p*2.2)*1.2, nod:Math.sin(p*1.3)*4};
-        y=HY+Math.sin(p*2.2)*.4;
+      const sec=(now-t0)/1000, t=sec%T, fl=Math.cos(2*Math.PI*F*sec);
+      if(t<FLY){                                                   // күнді айналып ұшу
+        const u=t/FLY, a=Math.PI/2 - ease(u)*2*Math.PI, ramp=sm(u/.12)*(1-sm((u-.9)/.1));
+        const x=CX+RX*Math.cos(a), y=CYL+RY*Math.sin(a), dx=RX*Math.sin(a);
+        const k=.62+.38*((y-(CYL-RY))/(2*RY));                     // алыстаған сайын кішірейеді
+        const amp=lerp(.35,1,ramp), f=fl*amp;
+        pose(x, y+Math.sin(2*Math.PI*F*sec)*2.5*amp, 14*dx/RX, k, -9+23*f, 1-.16*(1-f)/2, -6*amp, lerp(1,.86,amp), 0, -3*dx/RX);
+      } else if(t<FLY+SETTLE){                                     // тежеп, қалықтауға көшу
+        const e=sm((t-FLY)/SETTLE), f=lerp(fl*.35, Math.cos(2*Math.PI*.55*sec), e);
+        pose(HX, HY, 0, 1, lerp(-9+23*f, 4+5*f, e), 1, lerp(-2,0,e), lerp(.9,1,e), 0, 0);
+      } else {                                                     // күннің астында қалықтау, басын бұру
+        const p=t-FLY-SETTLE, f=Math.cos(2*Math.PI*.55*sec);
+        const turn=(a,b,c,d)=>sm((p-a)/(b-a))*(1-sm((p-c)/(d-c)));
+        const look=Math.max(turn(.8,1.15,2.0,2.35), turn(3.0,3.35,4.1,4.45));
+        pose(HX, HY+Math.sin(p*2.2)*1.6, Math.sin(p*1.1)*1.5, 1, 4+5*f, 1, Math.sin(p*1.7)*3, 1, look, Math.sin(p*1.3)*4);
       }
-      apply(x,y,rot,sx,k,pose);
     }
     requestAnimationFrame(frame);
   }
