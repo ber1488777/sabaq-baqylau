@@ -244,6 +244,8 @@ button.kpi:focus-visible{outline:2px solid var(--kc)}
 .mcard .mv{font-size:18px}
 .nochart{display:grid;place-items:center;height:96px;color:var(--muted);font-size:13px;background:repeating-linear-gradient(135deg,#f6f8fc 0 8px,#fff 8px 16px);border-radius:8px;margin:6px 0}
 td.sc{color:var(--ink);font-weight:700}
+/* орташа ұпайдың түсі деңгейіне сай: 15–18 жасыл, 11–14 сарғылт қызыл, 10 және төмен қызыл */
+td.lvc-hi{color:#12805c} td.lvc-mid{color:#d9620b} td.lvc-lo{color:#c0262d}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px}
 .chip{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--sc);background:#fff;color:var(--ink);border-radius:999px;padding:5px 12px 5px 6px;cursor:pointer;font-weight:600;font-size:13.5px}
 .chip .snum{min-width:22px;height:22px;font-size:12px;border-radius:50%}
@@ -968,7 +970,7 @@ function renderHome(){
   $('homeKpis').querySelectorAll('button.kpi').forEach(b=>b.onclick=()=>openKpi(b.dataset.k));
   let h=`<table><tr><th class="n">${t('no')}</th><th>${t('school')}</th><th class="n">${t('lessons')}</th><th class="n">${t('teachers')}</th><th class="n">${t('avgScore')}</th><th>${t('qualityPct')}</th><th class="n">${t('hi')}</th><th class="n">${t('mid')}</th><th class="n">${t('lo')}</th></tr>`;
   SCHOOLS.forEach((s,i)=>{ const x=agg(recs.filter(r=>r.school===s));
-    h+=`<tr class="click" data-s="${i}"><td class="n">${i+1}</td><td><span class="sdot" style="${scVar(i)}"></span>${esc(SCHOOLS_L[lang][i])}</td><td class="n sc" style="${scVar(i)}">${x.n}</td><td class="n sc" style="${scVar(i)}">${x.teachers}</td><td class="n sc" style="${scVar(i)}">${num(x.avgTotal)}</td>
+    h+=`<tr class="click" data-s="${i}"><td class="n">${i+1}</td><td><span class="sdot" style="${scVar(i)}"></span>${esc(SCHOOLS_L[lang][i])}</td><td class="n sc" style="${scVar(i)}">${x.n}</td><td class="n sc" style="${scVar(i)}">${x.teachers}</td><td class="n sc${x.n?' lvc-'+lvKey(x.avgTotal):''}">${num(x.avgTotal)}</td>
       <td>${x.n?`<div style="display:flex;gap:8px;align-items:center"><div class="bar" style="flex:1"><i style="width:${Math.round(x.avgPct*100)}%;background:var(--${lvKey(x.avgTotal)==='hi'?'hi':lvKey(x.avgTotal)==='mid'?'mid':'lo'})"></i></div><b>${pc(x.avgPct)}</b></div>`:`<span class="small">${t('noObs')}</span>`}</td>
       <td class="n">${x.lv.hi}</td><td class="n">${x.lv.mid}</td><td class="n">${x.lv.lo}</td></tr>`; });
   h+=`<tr class="avg"><td></td><td>${t('city')}</td><td class="n">${a.n}</td><td class="n">${a.teachers}</td><td class="n">${num(a.avgTotal)}</td><td>${pc(a.avgPct)}</td><td class="n">${a.lv.hi}</td><td class="n">${a.lv.mid}</td><td class="n">${a.lv.lo}</td></tr></table>`;
