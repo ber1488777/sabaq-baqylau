@@ -32,16 +32,16 @@ i[data-ic]{display:inline-flex;font-style:normal}
 header.top{background:linear-gradient(115deg,#0b3d7c 0%,#0b63a3 50%,#0a9cc4 100%);color:#fff;position:relative;overflow:hidden}
 /* ҚР туының элементтері: ою-өрнек, күн шуағы, қыран (өзіміз салған стилизация) */
 .hart{position:absolute;inset:0;pointer-events:none;z-index:0}
-.orn{position:absolute;left:0;top:0;bottom:0;width:30px;opacity:.55}
-.hart .se{position:absolute;top:50%;transform:translateY(-50%);right:22%;height:94%;opacity:.9}
+.orn{position:absolute;left:0;top:0;bottom:0;width:40px;opacity:.9}
+.hart .se{position:absolute;top:0;right:20%;height:100%;opacity:.95}
 .se svg{height:100%;width:auto;display:block}
 .logo-m{width:74px;height:74px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:0 0 auto;
   box-shadow:0 0 0 3px #f2c230,0 0 0 8px rgba(242,194,48,.22),0 10px 22px -8px rgba(0,0,0,.5)}
 .logo-m img{height:56px;width:auto;display:block}
 @media (max-width:900px){.hart .se{right:-30px;opacity:.25}}
 @media (max-width:640px){.orn{display:none}.logo-m{width:46px;height:46px}.logo-m img{height:34px}
-  .top-in{padding:16px 12px;gap:10px}.top-in>div:nth-child(2){min-width:0}.top .who{font-size:11.5px;flex:0 0 auto}.top .who .hb{padding:4px 7px;margin-left:3px}.top .lang button{padding:4px 7px}.top .yr{font-size:10.5px;padding:1px 6px;white-space:normal}}
-.top-in{max-width:var(--page);margin:0 auto;padding:28px 16px;display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+  .top-in{padding:18px 12px;gap:10px}.top-in>div:nth-child(2){min-width:0}.top .who{font-size:11.5px;flex:0 0 auto}.top .who .hb{padding:4px 7px;margin-left:3px}.top .lang button{padding:4px 7px}.top .yr{font-size:10.5px;padding:1px 6px;white-space:normal}}
+.top-in{max-width:var(--page);margin:0 auto;padding:33px 16px;padding-left:max(16px, calc(56px - max(0px, (100vw - var(--page)) / 2)));display:flex;align-items:center;gap:14px;position:relative;z-index:1}
 .top h1{font-size:20px}
 .top .sub{font-size:13px;opacity:.85}
 .yr{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:2px 10px;white-space:nowrap;background:var(--brand-l);color:var(--brand);vertical-align:middle}
@@ -113,9 +113,9 @@ input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid v
 /* login */
 .login{max-width:480px;margin:6vh auto;padding:0 16px}
 .login .card{padding:24px;position:relative;overflow:hidden}
-.lband{position:relative;margin:-24px -24px 0;height:118px;background:linear-gradient(115deg,#0b3d7c 0%,#0b63a3 50%,#0a9cc4 100%)}
-.lband .se{position:absolute;left:50%;top:6px;transform:translateX(-50%);height:96px;opacity:.95}
-.lband .orn{width:26px}
+.lband{position:relative;margin:-24px -24px 0;height:132px;overflow:hidden;background:linear-gradient(115deg,#0b3d7c 0%,#0b63a3 50%,#0a9cc4 100%)}
+.lband .se{position:absolute;left:50%;top:4px;transform:translateX(-50%);height:118px;opacity:.95}
+.lband .orn{width:40px}
 .login .langrow{position:absolute;top:10px;right:12px;z-index:2}
 .login .langrow .lang{border-color:rgba(255,255,255,.5)}
 .login .langrow .lang button{background:transparent;color:#fff}
@@ -421,21 +421,54 @@ const ic = n => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[
 const SC_COL = ['#1746a2','#0d8a6a','#6a3fc8','#c2650a','#0e7490','#b3261e','#8a6d00','#2f7d32','#a3166f','#3949ab','#00796b','#8d4e1f','#4a5568'];
 const scVar = i => `--sc:${SC_COL[i]||'#5b6780'}`;
 const sdot = kk => { const i=SCHOOLS.indexOf(kk); return `<span class="sdot" style="${scVar(i)}"></span>`; };
-/* Шапкадағы безендіру: ҚР туындағы күн шуағы, қалықтаған қыран және ою-өрнек мотиві */
-function sunEagle(){
-  let rays=''; const P=(r,a)=>`${(150+r*Math.cos(a)).toFixed(1)},${(58+r*Math.sin(a)).toFixed(1)}`;
-  for(let i=0;i<32;i++){ const a=i*Math.PI/16, w=Math.PI/64*.62; rays+=`<polygon points="${P(29,a-w)} ${P(45,a)} ${P(29,a+w)}"/>`; }
-  const wing='M150 112 C134 100 108 93 66 96 C56 97 48 100 41 105 L57 106 L48 111 L64 111 L57 117 L74 114 L69 120 L88 115 C108 114 128 118 145 124 Z';
-  return `<svg viewBox="0 0 300 150" aria-hidden="true"><defs><radialGradient id="sgl"><stop offset="0" stop-color="#ffe27a" stop-opacity=".5"/><stop offset="1" stop-color="#ffe27a" stop-opacity="0"/></radialGradient></defs>
-    <circle cx="150" cy="58" r="72" fill="url(#sgl)"/><g fill="#f2c230">${rays}<circle cx="150" cy="58" r="24"/>
-    <path d="${wing}"/><path d="${wing}" transform="translate(300 0) scale(-1 1)"/>
-    <path d="M144 124 C147 110 153 105 160 107 L169 109 L161 113 C159 120 155 127 150 133 C146 131 143 128 144 124 Z"/>
-    <path d="M145 128 L136 141 L149 136 L158 143 L155 130 Z"/></g></svg>`;
+/* Шапкадағы безендіру: ҚР туындағы күн шуағы, қыран және ою-өрнек мотиві (өзіміз салған стилизация) */
+const ART = {CX:150, CY:62, R0:30, R1:34, R2:54, RX:120, RY:66};
+ART.HX = ART.CX; ART.HY = ART.CY + ART.R2 + 14;          // қыран қонатын жер: күннің дәл астында
+function sunEagle(uid){
+  const {CX,CY,R0,R1,R2,HX,HY}=ART;
+  let rays=''; const P=(r,a)=>`${(CX+r*Math.cos(a)).toFixed(1)},${(CY+r*Math.sin(a)).toFixed(1)}`;
+  for(let i=0;i<32;i++){ const a=i*Math.PI/16-Math.PI/2, w=Math.PI/32*.42; rays+=`<polygon points="${P(R1,a-w)} ${P(R2,a)} ${P(R1,a+w)}"/>`; }
+  const eagle = `<path d="M-6 -3 C-18 -20 -44 -34 -80 -42 L-70 -33 L-86 -31 L-71 -25 L-85 -21 L-69 -17 L-80 -11 L-62 -9 L-70 -3 L-50 -2 C-34 2 -20 4 -8 6 Z"/>
+    <path d="M4 -6 C14 -26 40 -42 78 -50 L68 -40 L84 -39 L69 -32 L83 -28 L66 -23 L77 -17 L59 -14 L66 -8 L47 -6 C33 -3 20 0 10 3 Z"/>
+    <path d="M-30 9 C-18 1 2 -4 20 0 C27 1 32 4 35 8 L45 10 L36 13 C33 17 27 19 20 18 C4 20 -14 19 -30 15 Z"/>
+    <path d="M-28 10 L-52 15 L-44 19 L-54 24 L-40 23 L-46 29 L-26 17 Z"/><path d="M14 17 L10 25 L14 24 L13 29 L19 22 Z"/>`;
+  return `<svg viewBox="0 -14 300 172" overflow="visible" aria-hidden="true"><defs><radialGradient id="sg${uid}"><stop offset="0" stop-color="#ffe27a" stop-opacity=".55"/><stop offset="1" stop-color="#ffe27a" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="${CX}" cy="${CY}" r="80" fill="url(#sg${uid})"/>
+    <g fill="#f5c518">${rays}<circle cx="${CX}" cy="${CY}" r="${R0}"/></g>
+    <g class="eagle" fill="#f5c518" transform="translate(${HX} ${HY}) scale(.95)">${eagle}</g></svg>`;
 }
+/* Қыран күнді айналып ұшады (4,2 с), күннің астына қонады, 5 с тұрып, қайталайды */
+function animateEagles(){
+  try { if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return; } catch(e){}
+  const {CX,HX,HY,RX,RY}=ART, CYL=HY-RY, FLY=4200, REST=5000, T=FLY+REST;
+  const ease=x=>x<.5 ? 2*x*x : 1-Math.pow(-2*x+2,2)/2, t0=performance.now();
+  function frame(now){
+    if(!document.hidden){
+      const t=(now-t0)%T; let x=HX, y=HY, sx=1, rot=0;
+      if(t<FLY){ const a=Math.PI/2 - ease(t/FLY)*2*Math.PI;      // астынан бастап, сағат тіліне қарсы
+        x=CX+RX*Math.cos(a); y=CYL+RY*Math.sin(a);
+        const dx=RX*Math.sin(a), dy=-RY*Math.cos(a);
+        sx = dx>=0 ? 1 : -1; rot=Math.max(-35, Math.min(35, Math.atan2(dy, Math.abs(dx))*180/Math.PI)); if(sx<0) rot=-rot; }
+      const tr=`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot.toFixed(1)}) scale(${(sx*.95).toFixed(2)} .95)`;
+      document.querySelectorAll('.eagle').forEach(el=>el.setAttribute('transform', tr));
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+/* Ою-өрнек жолағы (қошқар мүйіз мотиві) */
 function ornament(id){
-  return `<svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="${id}" width="30" height="40" patternUnits="userSpaceOnUse"><g fill="none" stroke="#f2c230" stroke-width="1.8" stroke-linecap="round">
-    <path d="M15 0V40"/><path d="M15 14C9 14 5 9 7 5C9 1 13 3 11.5 7"/><path d="M15 14C21 14 25 9 23 5C21 1 17 3 18.5 7"/>
-    <path d="M15 34C9 34 5 29 7 25C9 21 13 23 11.5 27"/><path d="M15 34C21 34 25 29 23 25C21 21 17 23 18.5 27"/></g></pattern></defs><rect width="100%" height="100%" fill="url(#${id})"/></svg>`;
+  const W=40, H=72, c=W/2;
+  const half = `<path d="M${c} 3 C${c-6} 3 ${c-11} 6 ${c-11} 11 C${c-11} 15 ${c-6} 16 ${c-5} 12 C${c-4} 9 ${c-8} 8 ${c-8} 11"/>
+    <path d="M${c} 15 L${c-9} 26 L${c} 37"/>
+    <path d="M${c-9} 26 C${c-15} 24 ${c-18} 19 ${c-16} 16 C${c-14} 13 ${c-10} 15 ${c-12} 19"/>
+    <path d="M${c-9} 26 C${c-15} 28 ${c-18} 33 ${c-16} 36 C${c-14} 39 ${c-10} 37 ${c-12} 33"/>
+    <path d="M${c} 41 C${c-8} 43 ${c-14} 49 ${c-12} 55 C${c-10} 60 ${c-4} 58 ${c-5} 53 C${c-6} 50 ${c-9} 51 ${c-9} 54"/>
+    <path d="M${c-3} 62 C${c-8} 63 ${c-12} 66 ${c-12} 70"/>`;
+  return `<svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="${id}" width="${W}" height="${H}" patternUnits="userSpaceOnUse">
+    <g fill="none" stroke="#f5c518" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${half}<g transform="translate(${W} 0) scale(-1 1)">${half}</g>
+      <path d="M${c} 37 V41"/><path d="M${c} 20 V32 M${c-4} 26 H${c+4}"/></g>
+    <path d="M${c} 22 L${c+3} 26 L${c} 30 L${c-3} 26 Z" fill="#f5c518"/></pattern></defs><rect width="100%" height="100%" fill="url(#${id})"/></svg>`;
 }
 
 /* ============ ТІЛДЕР ============ */
@@ -774,8 +807,9 @@ function applyLang(){
 }
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{ lang=b.dataset.lang; ls.set('sb_lang',lang); $('lgErr').textContent=''; $('fErr').textContent=''; applyLang(); });
 document.querySelectorAll('i[data-ic]').forEach(el=>el.innerHTML=ic(el.dataset.ic));
-$('hArt').innerHTML = `<div class="orn">${ornament('ornH')}</div><div class="se">${sunEagle()}</div>`;
-$('lArt').innerHTML = `<div class="orn">${ornament('ornL')}</div><div class="se">${sunEagle()}</div>`;
+$('hArt').innerHTML = `<div class="orn">${ornament('ornH')}</div><div class="se">${sunEagle('H')}</div>`;
+$('lArt').innerHTML = `<div class="orn">${ornament('ornL')}</div><div class="se">${sunEagle('L')}</div>`;
+animateEagles();
 
 /* ============ КІРУ / ШЫҒУ ============ */
 async function enter(st, name){
